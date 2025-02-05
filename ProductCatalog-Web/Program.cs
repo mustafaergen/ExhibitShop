@@ -23,13 +23,11 @@ namespace ProductCatalog_Web
 
             builder.Services.AddAutoMapper(typeof(Program));
 
-            // Add distributed memory cache for session
             builder.Services.AddDistributedMemoryCache();
 
-            // Add session services
             builder.Services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
+                options.IdleTimeout = TimeSpan.FromMinutes(30); 
                 options.Cookie.HttpOnly = true;
             });
 
@@ -46,8 +44,6 @@ namespace ProductCatalog_Web
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            // Use session middleware
             app.UseSession();
 
             app.UseAuthentication();
@@ -57,6 +53,13 @@ namespace ProductCatalog_Web
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                  name: "Admin",
+                  pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
+                );
+            });
             app.Run();
         }
     }
