@@ -25,6 +25,42 @@ namespace ProductCatalog_Repositories.Contexts
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole
+                {
+                    Id = "1",
+                    Name = "Admin",
+                    NormalizedName = "ADMIN"
+                },
+                new IdentityRole
+                {
+                    Id = "2",
+                    Name = "Customer",
+                    NormalizedName = "CUSTOMER"
+                });
+
+            var hasher = new PasswordHasher<Customer>();
+
+            modelBuilder.Entity<Customer>().HasData(
+                new Customer
+                {
+                    Id = "1",
+                    UserName = "admin@mail.com",
+                    FirstName = "Admin1",
+                    LastName = "Admin1",
+                    NormalizedUserName = "ADMIN@MAIL.COM",
+                    Email = "admin@mail.com",
+                    NormalizedEmail = "ADMIN@MAIL.COM",
+                    EmailConfirmed = true,
+                    PasswordHash = hasher.HashPassword(null, "Admin+123")
+                });
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string>
+                {
+                    UserId = "1",
+                    RoleId = "1",
+                });
         }
     }
 

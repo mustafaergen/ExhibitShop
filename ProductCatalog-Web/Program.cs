@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using ProductCatalog_Repositories.Contexts;
+
 namespace ProductCatalog_Web
 {
     public class Program
@@ -8,6 +12,26 @@ namespace ProductCatalog_Web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<RepositoryContext>(options =>
+                options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("SqlConn"),
+                    b => b.MigrationsAssembly("ProductCatalog-Repositories"))
+            );
+
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<RepositoryContext>();
+
+            builder.Services.AddAutoMapper(typeof(Program));
+
+            // Add distributed memory cache for session
+            builder.Services.AddDistributedMemoryCache();
+
+            // Add session services
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
+                options.Cookie.HttpOnly = true;
+            });
 
             var app = builder.Build();
 
@@ -15,7 +39,6 @@ namespace ProductCatalog_Web
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -24,6 +47,10 @@ namespace ProductCatalog_Web
 
             app.UseRouting();
 
+            // Use session middleware
+            app.UseSession();
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

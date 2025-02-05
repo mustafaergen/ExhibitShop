@@ -1,0 +1,18 @@
+﻿using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ProductCatalog_Services.Contracts
+{
+    public interface IServiceManager 
+    {
+        IProductService ProductService { get; }
+        ICategoryService CategoryService { get; }
+        IOrderService OrderService { get; }
+        UserManager<IdentityUser> UserManager { get; }
+
+    }
+}
