@@ -52,15 +52,15 @@ namespace ProductCatalog_Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                  name: "Admin",
-                  pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
+                name: "Admin",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
 
-                app.MapControllerRoute(
+                endpoints.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-
             });
+
             app.Run();
         }
     }
