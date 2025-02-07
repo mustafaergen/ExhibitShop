@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using ProductCatalog_Services.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProductCatolog_Core.Models;
 
 namespace ProductCatalog_Services
 {
@@ -13,9 +9,9 @@ namespace ProductCatalog_Services
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
         private readonly IOrderService _orderService;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<Customer> _userManager; // Burada IdentityUser yerine Customer kullanıyoruz.
 
-        public ServiceManager(IProductService productService, ICategoryService categoryService, IOrderService orderService, UserManager<IdentityUser> userManager)
+        public ServiceManager(IProductService productService, ICategoryService categoryService, IOrderService orderService, UserManager<Customer> userManager)
         {
             _productService = productService;
             _categoryService = categoryService;
@@ -24,11 +20,8 @@ namespace ProductCatalog_Services
         }
 
         public IProductService ProductService => _productService;
-
         public ICategoryService CategoryService => _categoryService;
-
         public IOrderService OrderService => _orderService;
-
-        public UserManager<IdentityUser> UserManager => _userManager;
+        public UserManager<Customer> UserManager => _userManager; // Burada da UserManager<Customer> kullanıyoruz.
     }
 }

@@ -13,6 +13,7 @@ namespace ProductCatalog_Repositories.Contracts
         IQueryable<Product> GetAllProducts();
         IQueryable<Product> GetAllProductsByOrderPrice(bool orderByAsc = true);
         Product? GetOneProduct(int id);
+
         void CreateOneProduct(Product product);
         void UpdateOneProduct(Product product);
         void DeleteOneProduct(Product product);

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using ProductCatolog_Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace ProductCatalog_Services.Contracts
         IProductService ProductService { get; }
         ICategoryService CategoryService { get; }
         IOrderService OrderService { get; }
-        UserManager<IdentityUser> UserManager { get; }
+        UserManager<Customer> UserManager { get; }
 
     }
 }

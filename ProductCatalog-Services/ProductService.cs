@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using ProductCatalog_Repositories.UnitOfWork;
 using ProductCatalog_Services.Contracts;
 using ProductCatolog_Core.Enums;
@@ -59,6 +60,7 @@ namespace ProductCatalog_Services
         {
             return _manager.ProductRepository.GetOneProduct(id);
         }
+
 
         public void UpdateOneProduct(Product product)
         {
