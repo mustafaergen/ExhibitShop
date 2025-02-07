@@ -10,13 +10,13 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
-    public class AdminController : Controller
+    public class HomeController : Controller
     {
         private readonly UserManager<Customer> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IServiceManager _serviceManager;
 
-        public AdminController(UserManager<Customer> userManager, RoleManager<IdentityRole> roleManager, IServiceManager serviceManager)
+        public HomeController(UserManager<Customer> userManager, RoleManager<IdentityRole> roleManager, IServiceManager serviceManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;

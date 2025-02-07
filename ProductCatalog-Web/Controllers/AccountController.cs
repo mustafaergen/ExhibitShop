@@ -27,7 +27,7 @@ namespace ProductCatalog_Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new Customer() { UserName = model.Email, Email = model.Email};
+                var user = new Customer() { FirstName=model.FirstName,LastName=model.LastName, UserName = model.Email, Email = model.Email};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -74,7 +74,7 @@ namespace ProductCatalog_Web.Controllers
                         var roles = await _userManager.GetRolesAsync(user);
                         if (roles.Contains("Admin"))
                         {
-                            return RedirectToAction("Index", "Admin", new { area = "Admin" });
+                            return RedirectToAction("Index", "Home", new { area = "Admin" });
                         }
 
                         return RedirectToAction("Index", "Home");
