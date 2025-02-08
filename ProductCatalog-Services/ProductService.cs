@@ -43,7 +43,6 @@ namespace ProductCatalog_Services
         public IEnumerable<Product> GetAllProducts()
         { 
           return _manager.ProductRepository.GetAllProducts().ToList();
-
         }
 
 
