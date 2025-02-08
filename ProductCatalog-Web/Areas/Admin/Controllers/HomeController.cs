@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductCatalog_Services.Contracts;
+using ProductCatolog_Core.Enums;
 using ProductCatolog_Core.Models;
 using ProductCatolog_Core.VMs;
 
@@ -124,6 +125,12 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
             }
 
             return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Products(ProductVM model)
+        {
+            
+            return View(_serviceManager.ProductService.GetAllProducts());
         }
 
 

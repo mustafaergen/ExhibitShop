@@ -40,21 +40,12 @@ namespace ProductCatalog_Services
             throw new Exception("Product not found");
         }
 
-        public IEnumerable<Product> GetAllProducts(Status? status = null)
-        {
-            try
-            {
-                if(status is null)
-                    return _manager.ProductRepository.GetAllProducts().ToList();
-                else
-                    return _manager.ProductRepository.GetAllProducts().Where(x => x.Status == status).ToList();
-            }
-            catch (Exception)
-            {
+        public IEnumerable<Product> GetAllProducts()
+        { 
+          return _manager.ProductRepository.GetAllProducts().ToList();
 
-                throw new Exception("Products could not be listed");
-            }
         }
+
 
         public Product? GetOneProduct(int id)
         {

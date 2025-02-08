@@ -10,7 +10,7 @@ namespace ProductCatalog_Services.Contracts
 {
     public interface IProductService
     {
-        IEnumerable<Product> GetAllProducts(Status? status = null);
+        IEnumerable<Product> GetAllProducts();
         Product? GetOneProduct(int id);
         void CreateOneProduct(Product product);
         void UpdateOneProduct(Product product);
