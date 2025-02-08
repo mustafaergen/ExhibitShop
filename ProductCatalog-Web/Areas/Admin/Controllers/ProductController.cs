@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductCatalog_Services.Contracts;
+using ProductCatolog_Core.Models;
+using ProductCatolog_Core.VMs;
 
 namespace ProductCatalog_Web.Areas.Admin.Controllers
 {
@@ -8,22 +10,22 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class ProductController : Controller
     {
-        private readonly IServiceManager _serviceManager;
-        public IActionResult Index()
-        {
-            return View(_serviceManager.ProductService.GetAllProducts().ToList());
-        }
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
+        //private readonly IServiceManager _serviceManager;
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View();
+        //}
+        //[HttpGet]
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
         //[HttpPost]
-        //public IActionResult Create(ProductVM model)
+        //public IActionResult Create(Product model)
         //{
         //    if (ModelState.IsValid)
         //    {
-        //        _serviceManager.ProductService.AddProduct(model);
+        //        _serviceManager.ProductService.CreateOneProduct(model);
         //        return RedirectToAction("Index");
         //    }
         //    return View(model);

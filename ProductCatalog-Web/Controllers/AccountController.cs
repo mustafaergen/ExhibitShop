@@ -100,5 +100,49 @@ namespace ProductCatalog_Web.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public async Task<IActionResult> MyAccount(UserVM model)
+        {
+            var user = await _userManager.FindByIdAsync(model.Id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.UserName = model.UserName;
+                user.Email = model.Email;
+                if (!string.IsNullOrEmpty(model.Password))
+                {
+                    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    var result = await _userManager.ResetPasswordAsync(user, token, model.Password);
+
+                    if (!result.Succeeded)
+                    {
+                        ModelState.AddModelError("", "Şifre güncellenirken bir hata oluştu.");
+                        return View(model);
+                    }
+                }
+                var updateResult = await _userManager.UpdateAsync(user);
+
+                if (updateResult.Succeeded)
+                {
+                    return RedirectToAction("GetCustomers");
+                }
+                else
+                {
+                    foreach (var error in updateResult.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                    return View(model);
+                }
+            }
+        }
+
+
     }
 }

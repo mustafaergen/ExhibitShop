@@ -104,5 +104,29 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
             }
             return View(userRoles);
         }
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == null)
+                return NotFound(); 
+            var result = await _userManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("GetCustomers");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View();
+        }
+
+
+
     }
 }

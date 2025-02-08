@@ -1,14 +1,11 @@
 ﻿@model IEnumerable<ProductCatolog_Core.VMs.UserVM>
 
 @{
-    ViewData["Title"] = "GetCustomers";
+    ViewData["Title"] = "Customer List";
 }
 
 <h1>GetCustomers</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -49,8 +46,8 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "RoleManager", new {  id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new {    id=item.Id })
             </td>
         </tr>
 }
