@@ -41,6 +41,7 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Edit()
         {
+            
             return View();
         }
         [HttpPost]

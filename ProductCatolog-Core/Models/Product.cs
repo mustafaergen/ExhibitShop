@@ -12,7 +12,7 @@ namespace ProductCatolog_Core.Models
         public string Name { get; set; }
         public decimal Price { get; set; }
         public string? Summary { get; set; } = string.Empty;
-        public string? ImageUrl { get; set; } = "product.png";
+        public string? ImageUrl { get; set; } = "picture.png";
         public int? CategoryId { get; set; }
         public virtual Category? Category { get; set; }
     }

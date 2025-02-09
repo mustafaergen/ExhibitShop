@@ -33,29 +33,20 @@ namespace ProductCatalog_Web
 
             builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
-
-            builder.Services.AddScoped<IRepositoryManager, RepositoryManager>(); //
-            builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-            builder.Services.AddScoped<ICategoryService, CategoryService>();
-            builder.Services.AddScoped<IProductService, ProductService>();
-            builder.Services.AddScoped<IOrderService, OrderService>();
-            builder.Services.AddScoped<IServiceManager, ServiceManager>(); //
-
-
-            builder.Services.AddScoped<IProductService, ProductService>();
-            builder.Services.AddScoped<ICategoryService, CategoryService>();
-            builder.Services.AddScoped<IOrderService, OrderService>();
 
             builder.Services.AddScoped<IServiceManager, ServiceManager>();
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
 
             builder.Services.AddAutoMapper(typeof(Program));
 
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(1);
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
                 options.Cookie.HttpOnly = true;
             });
 

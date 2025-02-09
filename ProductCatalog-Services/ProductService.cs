@@ -24,21 +24,24 @@ namespace ProductCatalog_Services
             _mapper = mapper;
         }
 
-        public void CreateOneProduct(Product product)
+        public void CreateProduct(Product product)
         {
             var pro = _mapper.Map<Product>(product);
             _manager.ProductRepository.Create(pro);
             _manager.Save();
         }
 
-        public void DeleteOneProduct(int delete)
+        public void DeleteProduct(int id)
         {
-            var product = _manager.ProductRepository.GetOneProduct(delete);
-            if(product != null)
+            var product = _manager.ProductRepository.GetOneProduct(id);
+            if (product != null)
             {
                 _manager.ProductRepository.Delete(product);
             }
-            throw new Exception("Product not found");
+            else
+            {
+                throw new Exception("Product not found");
+            }
         }
 
         public IEnumerable<Product> GetAllProducts()
@@ -47,13 +50,13 @@ namespace ProductCatalog_Services
         }
 
 
-        public Product? GetOneProduct(int id)
+        public Product? GetProduct(int id)
         {
             return _manager.ProductRepository.GetOneProduct(id);
         }
 
 
-        public void UpdateOneProduct(Product product)
+        public void UpdateProduct(Product product)
         {
             var entity = _mapper.Map<Product>(product);
             _manager.ProductRepository.Update(entity);
