@@ -35,11 +35,11 @@
             </div>
 
             <!-- Image Upload Field -->
-            <div class="form-group">
+@*             <div class="form-group">
                 <label asp-for="ImageUrl" class="control-label"></label>
                 <input type="file" name="file" class="form-control" />
                 <span asp-validation-for="ImageUrl" class="text-danger"></span>
-            </div>
+            </div> *@
 
             <!-- Status Field -->
             <div class="form-group">
@@ -53,8 +53,8 @@
 
             <!-- Category Dropdown -->
             <div class="form-group">
-                <label for="CategoryId">Kategori</label>
-                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
+                <label asp-for="CategoryId" class="control-label"></label>
+                <input asp-for="CategoryId" class="form-control" />
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
 
