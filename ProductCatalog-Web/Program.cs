@@ -9,7 +9,6 @@ using ProductCatalog_Repositories.Contracts;
 using ProductCatalog_Repositories;
 using Microsoft.Extensions.Options;
 using System.Drawing;
-using ProductCatalog_Repositories.Infrastructe.Mapper;
 
 namespace ProductCatalog_Web
 {
