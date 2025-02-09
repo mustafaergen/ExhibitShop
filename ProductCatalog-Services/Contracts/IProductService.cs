@@ -1,4 +1,5 @@
-﻿using ProductCatolog_Core.Enums;
+﻿using ProductCatolog_Core.DTOs;
+using ProductCatolog_Core.Enums;
 using ProductCatolog_Core.Models;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace ProductCatalog_Services.Contracts
     {
         IEnumerable<Product> GetAllProducts();
         Product? GetOneProduct(int id);
-        void CreateOneProduct(Product product);
+        void CreateOneProduct(ProductCreateDTO product);
         void UpdateOneProduct(Product product);
         void UpdateStatus(int id, Status status);
         void DeleteOneProduct(int delete);

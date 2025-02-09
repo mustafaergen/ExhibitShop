@@ -1,4 +1,6 @@
-﻿using ProductCatolog_Core.Models;
+﻿using ProductCatolog_Core.DTOs;
+using ProductCatolog_Core.Enums;
+using ProductCatolog_Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +12,9 @@ namespace ProductCatalog_Services.Contracts
     public interface ICategoryService
     {
         IEnumerable<Category> GetCategories();
-        void CreateCategory(string categoryName);
-        void UpdateCategory(Category category);
+        Category GetCategoryById(int id);
+        void CreateCategory(CategoryDTO category);
+        void UpdateCategory(CategoryDTO category);
         void DeleteCategory(int id);
     }
 }

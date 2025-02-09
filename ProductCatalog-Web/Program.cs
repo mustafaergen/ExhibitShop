@@ -9,6 +9,7 @@ using ProductCatalog_Repositories.Contracts;
 using ProductCatalog_Repositories;
 using Microsoft.Extensions.Options;
 using System.Drawing;
+using ProductCatalog_Repositories.Infrastructe.Mapper;
 
 namespace ProductCatalog_Web
 {
@@ -27,12 +28,10 @@ namespace ProductCatalog_Web
 
 
 
-            // Identity Servisleri - önce eklenmeli
             builder.Services.AddIdentity<Customer, IdentityRole>()
                 .AddEntityFrameworkStores<RepositoryContext>()
                 .AddDefaultTokenProviders();
 
-            // Repository Bağımlılıkları
             builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
@@ -46,16 +45,13 @@ namespace ProductCatalog_Web
             builder.Services.AddScoped<IServiceManager, ServiceManager>(); //
 
 
-
-            // Service Bağımlılıkları
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IOrderService, OrderService>();
 
-            // Service Manager En Sona Eklenmeli!
             builder.Services.AddScoped<IServiceManager, ServiceManager>();
 
-            builder.Services.AddAutoMapper(typeof(Program));
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
 
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options =>

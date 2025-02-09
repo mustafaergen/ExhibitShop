@@ -117,7 +117,7 @@ namespace ProductCatalog_Web.Controllers
             return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> Profile(ProfileVM model)
+        public async Task<IActionResult> MyAccount(ProfileVM model)
         {
             if (!ModelState.IsValid)
             {
@@ -154,7 +154,7 @@ namespace ProductCatalog_Web.Controllers
                 }
             }
             TempData["SuccessMessage"] = "Profil başarıyla güncellendi!";
-            return RedirectToAction("Profile");
+            return RedirectToAction("MyAccount");
         }
 
 

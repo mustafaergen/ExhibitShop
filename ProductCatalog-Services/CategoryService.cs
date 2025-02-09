@@ -1,5 +1,6 @@
 ﻿using ProductCatalog_Repositories.UnitOfWork;
 using ProductCatalog_Services.Contracts;
+using ProductCatolog_Core.DTOs;
 using ProductCatolog_Core.Models;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,9 @@ namespace ProductCatalog_Services
             _manager = manager;
         }
 
-        public void CreateCategory(string categoryName)
+        public void CreateCategory(CategoryDTO model)
         {
-            var cat = new Category { Name = categoryName };
+            var cat = new Category { Name = model.Name, Status=model.Status };
             _manager.CategoryRepository.Create(cat);
             _manager.Save();
         }
@@ -28,8 +29,11 @@ namespace ProductCatalog_Services
         public void DeleteCategory(int id)
         {
             var cat = _manager.CategoryRepository.FindById(id);
-            _manager.CategoryRepository.Delete(cat);
-            _manager.Save();
+            if (cat is null)
+                throw new Exception("Category is not found");
+                _manager.CategoryRepository.Delete(cat);
+                _manager.Save();
+            
         }
 
         public IEnumerable<Category> GetCategories()
@@ -46,13 +50,13 @@ namespace ProductCatalog_Services
             return _manager.CategoryRepository.FindAll().ToList();
         }
 
-        public Category GetCategoryDTOById(int id)
+        public Category GetCategoryById(int id)
         {
             var cat = _manager.CategoryRepository.FindById(id);
             return new Category { Id = cat.Id, Name = cat.Name, Status = cat.Status };
         }
 
-        public void UpdateCategory(Category category)
+        public void UpdateCategory(CategoryDTO category)
         {
             var cat = _manager.CategoryRepository.FindById(category.Id);
             cat.Name = category.Name;

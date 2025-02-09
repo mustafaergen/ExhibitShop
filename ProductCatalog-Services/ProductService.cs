@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProductCatalog_Repositories.UnitOfWork;
 using ProductCatalog_Services.Contracts;
+using ProductCatolog_Core.DTOs;
 using ProductCatolog_Core.Enums;
 using ProductCatolog_Core.Models;
 using System;
@@ -23,7 +24,7 @@ namespace ProductCatalog_Services
             _mapper = mapper;
         }
 
-        public void CreateOneProduct(Product product)
+        public void CreateOneProduct(ProductCreateDTO product)
         {
             var pro = _mapper.Map<Product>(product);
             _manager.ProductRepository.Create(pro);
