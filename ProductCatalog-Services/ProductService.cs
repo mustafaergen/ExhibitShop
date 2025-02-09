@@ -24,7 +24,7 @@ namespace ProductCatalog_Services
             _mapper = mapper;
         }
 
-        public void CreateOneProduct(ProductCreateDTO product)
+        public void CreateOneProduct(Product product)
         {
             var pro = _mapper.Map<Product>(product);
             _manager.ProductRepository.Create(pro);

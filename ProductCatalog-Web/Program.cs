@@ -51,7 +51,7 @@ namespace ProductCatalog_Web
 
             builder.Services.AddScoped<IServiceManager, ServiceManager>();
 
-            builder.Services.AddAutoMapper(typeof(MappingProfile));
+            builder.Services.AddAutoMapper(typeof(Program));
 
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options =>

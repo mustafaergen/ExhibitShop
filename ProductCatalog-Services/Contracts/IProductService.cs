@@ -13,7 +13,7 @@ namespace ProductCatalog_Services.Contracts
     {
         IEnumerable<Product> GetAllProducts();
         Product? GetOneProduct(int id);
-        void CreateOneProduct(ProductCreateDTO product);
+        void CreateOneProduct(Product product);
         void UpdateOneProduct(Product product);
         void UpdateStatus(int id, Status status);
         void DeleteOneProduct(int delete);

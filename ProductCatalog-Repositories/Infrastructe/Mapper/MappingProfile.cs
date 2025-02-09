@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace ProductCatalog_Repositories.Infrastructe.Mapper
 {
-    public class MappingProfile : Profile
-    {
-        public MappingProfile()
-        {
-            CreateMap<Product, ProductDTO>().ReverseMap();
-            CreateMap<Product, ProductCreateDTO>().ReverseMap();
-            CreateMap<Category, CategoryDTO>().ReverseMap();
-        }
-    }
+    //public class MappingProfile : Profile
+    //{
+    //    public MappingProfile()
+    //    {
+    //        CreateMap<Product, ProductDTO>().ReverseMap();
+    //        CreateMap<Product, ProductCreateDTO>().ReverseMap();
+    //        CreateMap<Category, CategoryDTO>().ReverseMap();
+    //    }
+    //}
 }
