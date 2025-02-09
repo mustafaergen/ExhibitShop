@@ -1,42 +1,68 @@
 ﻿@{
-    ViewData["Title"] = "Index";
-    int uCount = ViewBag.userCount;
-    int nCount = ViewBag.CustomerCount;
+    ViewData["Title"] = "Admin Dashboard";
+    int customerCount = ViewBag.CustomerCount;
 }
 
-<h1>Admin Index</h1>
+<h1 class="text-center my-4">Admin Dashboard</h1>
+
 <div class="row">
-    <div class="col-md-4">
-        <a asp-controller="Product" asp-action="Index" class="text-white">
-            <div class="card bg-success mb-3" style="max-width: 18rem;">
-                <div class="card-header">
-                    <h5 class="card-title">Product Card</h5>
+    <div class="col-md-3">
+        <a asp-controller="Product" asp-action="Index" class="text-white text-decoration-none">
+            <div class="card bg-success mb-4 shadow-lg">
+                <div class="card-header text-center">
+                    <h5 class="card-title"><i class="fas fa-box"></i> Products</h5>
                 </div>
-                <div class="card-body">
-                    <p class="card-text my-3">Total Product Count: <b></b></p>
-                </div>
-            </div>
-        </a>
-    </div>
-    <div class="col-md-4">
-        <a asp-action="GetCustomers" class="text-white">
-            <div class="card bg-primary mb-3" style="max-width: 18rem;">
-                <div class="card-header"><h5 class="card-title">User Card</h5></div>
-                <div class="card-body">
-                    <p class="card-text my-3">Total User Count: <b>@uCount</b></p>
+                <div class="card-body text-center">
+                    <h3><b></b></h3>
+                    <p>Total Products</p>
                 </div>
             </div>
         </a>
     </div>
-    <div class="col-md-4">
-        <a asp-action="GetCustomers" class="text-white">
-            <div class="card bg-danger mb-3" style="max-width: 18rem;">
-                <div class="card-header"><h5 class="card-title">Non Customer Card</h5></div>
-                <div class="card-body">
-                    <p class="card-text my-3">Total Non Customer: <b>@nCount</b></p>
+
+    <div class="col-md-3">
+        <a asp-controller="Category" asp-action="Index" class="text-white text-decoration-none">
+            <div class="card bg-warning mb-4 shadow-lg">
+                <div class="card-header text-center">
+                    <h5 class="card-title"><i class="fas fa-tags"></i> Categories</h5>
+                </div>
+                <div class="card-body text-center">
+                    <h3><b></b></h3>
+                    <p>Total Categories</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a asp-controller="Customer" asp-action="Index" class="text-white text-decoration-none">
+            <div class="card bg-primary mb-4 shadow-lg">
+                <div class="card-header text-center">
+                    <h5 class="card-title"><i class="fas fa-users"></i> Customers</h5>
+                </div>
+                <div class="card-body text-center">
+                    <h3><b>@customerCount</b></h3>
+                    <p>Total Customers</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a asp-controller="Order" asp-action="Index" class="text-white text-decoration-none">
+            <div class="card bg-danger mb-4 shadow-lg">
+                <div class="card-header text-center">
+                    <h5 class="card-title"><i class="fas fa-shopping-cart"></i> Orders</h5>
+                </div>
+                <div class="card-body text-center">
+                    <h3><b></b></h3>
+                    <p>Total Orders</p>
                 </div>
             </div>
         </a>
     </div>
 </div>
 
+@section Scripts {
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+}
