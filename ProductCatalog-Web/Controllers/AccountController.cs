@@ -94,54 +94,70 @@ namespace ProductCatalog_Web.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
         }
-
         [HttpGet]
         public IActionResult AccessDenied()
         {
             return View();
         }
         [HttpGet]
-        public async Task<IActionResult> MyAccount(UserVM model)
+        public async Task<IActionResult> MyAccount()
         {
-            var user = await _userManager.FindByIdAsync(model.Id);
-
+            var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound();
+                return RedirectToAction("Login");
             }
-            else
+            var model = new ProfileVM
             {
-                user.FirstName = model.FirstName;
-                user.LastName = model.LastName;
-                user.UserName = model.UserName;
-                user.Email = model.Email;
-                if (!string.IsNullOrEmpty(model.Password))
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                UserName = user.UserName
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Profile(ProfileVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Login");
+            }
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Email = model.Email;
+            user.UserName = model.UserName;
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
                 {
-                    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-                    var result = await _userManager.ResetPasswordAsync(user, token, model.Password);
-
-                    if (!result.Succeeded)
-                    {
-                        ModelState.AddModelError("", "Şifre güncellenirken bir hata oluştu.");
-                        return View(model);
-                    }
+                    ModelState.AddModelError("", error.Description);
                 }
-                var updateResult = await _userManager.UpdateAsync(user);
-
-                if (updateResult.Succeeded)
+                return View(model);
+            }
+            if (!string.IsNullOrEmpty(model.NewPassword))
+            {
+                var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                if (!changePasswordResult.Succeeded)
                 {
-                    return RedirectToAction("GetCustomers");
-                }
-                else
-                {
-                    foreach (var error in updateResult.Errors)
+                    foreach (var error in changePasswordResult.Errors)
                     {
                         ModelState.AddModelError("", error.Description);
                     }
                     return View(model);
                 }
             }
+            TempData["SuccessMessage"] = "Profil başarıyla güncellendi!";
+            return RedirectToAction("Profile");
         }
+
+
 
 
     }
