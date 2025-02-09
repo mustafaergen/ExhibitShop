@@ -34,6 +34,15 @@ namespace ProductCatalog_Services
 
         public IEnumerable<Category> GetCategories()
         {
+            if (_manager == null)
+            {
+                throw new Exception("❌ HATA: _manager nesnesi NULL!");
+            }
+
+            if (_manager.CategoryRepository == null)
+            {
+                throw new Exception("❌ HATA: _manager.CategoryRepository NULL!");
+            }
             return _manager.CategoryRepository.FindAll().ToList();
         }
 

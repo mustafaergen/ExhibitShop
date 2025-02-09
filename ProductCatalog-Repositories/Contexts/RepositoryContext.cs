@@ -24,7 +24,15 @@ namespace ProductCatalog_Repositories.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            modelBuilder.Entity<Category>()
+                .HasMany(p => p.Products)
+                .WithOne(c => c.Category)
+                .HasForeignKey(p => p.CategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<IdentityRole>().HasData(
                 new IdentityRole
                 {

@@ -7,6 +7,8 @@ using ProductCatolog_Core.Models;
 using ProductCatalog_Repositories.UnitOfWork;
 using ProductCatalog_Repositories.Contracts;
 using ProductCatalog_Repositories;
+using Microsoft.Extensions.Options;
+using System.Drawing;
 
 namespace ProductCatalog_Web
 {
@@ -23,6 +25,8 @@ namespace ProductCatalog_Web
                     b => b.MigrationsAssembly("ProductCatalog-Repositories"))
             );
 
+
+
             // Identity Servisleri - önce eklenmeli
             builder.Services.AddIdentity<Customer, IdentityRole>()
                 .AddEntityFrameworkStores<RepositoryContext>()
@@ -31,6 +35,17 @@ namespace ProductCatalog_Web
             // Repository Bağımlılıkları
             builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+            builder.Services.AddScoped<IRepositoryManager, RepositoryManager>(); //
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
+            builder.Services.AddScoped<IServiceManager, ServiceManager>(); //
+
+
 
             // Service Bağımlılıkları
             builder.Services.AddScoped<IProductService, ProductService>();
@@ -50,6 +65,15 @@ namespace ProductCatalog_Web
             });
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<RepositoryContext>();
+                if (context.Database.CanConnect())
+                    Console.WriteLine("\n\n-db connection SUCCESSFUL-\n\n");
+                else
+                    Console.WriteLine("\n\n-db connection FAILED-\n\n");
+            }
 
             if (!app.Environment.IsDevelopment())
             {
