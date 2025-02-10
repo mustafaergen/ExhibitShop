@@ -1,10 +1,26 @@
 ﻿@{
-    ViewData["Title"] = "AccessDenied";
+    ViewData["Title"] = "Access Denied";
 }
 
-<div class="text-center text-danger">
-    <h1>Opsss!</h1>
-    <h3>Bu sayfa giriş yetkiniz bulunmamaktadır!</h3>
-    <p>Yetkilendirme için iletişime geçiniz: <a href="mailto:admin@mail.com">admin@mail.com</a></p>
+<div class="container d-flex flex-column align-items-center justify-content-center vh-100">
+    <div class="text-center">
+        <i class="fas fa-exclamation-triangle text-danger display-1"></i>
+        <h1 class="text-danger mt-3">Oops! Erişim Engellendi</h1>
+        <h4 class="text-secondary">Bu sayfaya erişim izniniz bulunmamaktadır.</h4>
+        <p class="text-muted">
+            Eğer bu bir hata olduğunu düşünüyorsanız, lütfen <a href="mailto:admin@mail.com" class="text-primary">admin@mail.com</a> adresiyle iletişime geçin.
+        </p>
+        <div class="mt-4">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-primary">
+                <i class="fas fa-home"></i> Ana Sayfaya Dön
+            </a>
+            <a asp-controller="Account" asp-action="Login" class="btn btn-outline-danger">
+                <i class="fas fa-sign-in-alt"></i> Giriş Yap
+            </a>
+        </div>
+    </div>
 </div>
 
+@section Scripts {
+    <script src="https://kit.fontawesome.com/YOUR-FONT-AWESOME-KIT.js" crossorigin="anonymous"></script>
+}

@@ -13,8 +13,8 @@ namespace ProductCatalog_Repositories.Infrastructe.Mapper
     //{
     //    public MappingProfile()
     //    {
-    //        CreateMap<Product, ProductDTO>().ReverseMap();
-    //        CreateMap<Product, ProductCreateDTO>().ReverseMap();
+    //        //CreateMap<Product, ProductDTO>().ReverseMap();
+    //        //CreateMap<Product, ProductCreateDTO>().ReverseMap();
     //        CreateMap<Category, CategoryDTO>().ReverseMap();
     //    }
     //}

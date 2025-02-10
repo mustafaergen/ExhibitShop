@@ -12,7 +12,7 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
-    public class HomeController : Controller
+    public class HomeController : OrderController
     {
         private readonly UserManager<Customer> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;

@@ -22,7 +22,7 @@ namespace ProductCatalog_Web
             builder.Services.AddDbContext<RepositoryContext>(options =>
                 options.UseSqlServer(
                     builder.Configuration.GetConnectionString("SqlConn"),
-                    b => b.MigrationsAssembly("ProductCatalog-Repositories"))
+                    b => b.MigrationsAssembly("ProductCatalog-Repositories")).UseLazyLoadingProxies()
             );
 
 
@@ -50,6 +50,14 @@ namespace ProductCatalog_Web
                 options.Cookie.HttpOnly = true;
             });
 
+            builder.WebHost.UseSentry(options =>
+            options.ConfigureScope(scope =>
+            {
+                scope.Level = SentryLevel.Debug;
+            })
+            );
+
+
             var app = builder.Build();
 
             using (var scope = app.Services.CreateScope())
@@ -66,7 +74,7 @@ namespace ProductCatalog_Web
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-
+            app.UseSentryTracing();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();

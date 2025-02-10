@@ -37,6 +37,7 @@ namespace ProductCatalog_Services
             if (product != null)
             {
                 _manager.ProductRepository.Delete(product);
+                _manager.Save();
             }
             else
             {

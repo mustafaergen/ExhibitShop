@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ProductCatalog_Services.Contracts;
 using ProductCatolog_Core.DTOs;
 using ProductCatolog_Core.Enums;
@@ -9,13 +11,15 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
-    public class CategoryController : Controller
+    public class CategoryController : OrderController
     {
         private readonly IServiceManager _serviceManager;
+        private readonly IMapper _mapper;
 
-        public CategoryController(IServiceManager serviceManager)
+        public CategoryController(IServiceManager serviceManager, IMapper mapper)
         {
             _serviceManager = serviceManager;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
@@ -56,5 +60,6 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
             _serviceManager.CategoryService.DeleteCategory(id);
             return RedirectToAction("Index");
         }
+
     }
 }

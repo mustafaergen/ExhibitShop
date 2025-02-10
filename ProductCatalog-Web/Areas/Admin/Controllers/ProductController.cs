@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ProductCatalog_Services.Contracts;
 using ProductCatolog_Core.Models;
+using System.IO;
 
 namespace ProductCatalog_Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
-    public class ProductController : Controller
+    public class ProductController : OrderController
     {
         private readonly IServiceManager _serviceManager;
 
@@ -28,10 +29,16 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Product product)
+        public IActionResult Create(Product product,IFormFile file)
         {
             if (ModelState.IsValid)
             {
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", file.FileName);
+                using (var stream = new FileStream(path,FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+                product.ImageUrl = file.FileName;
                 _serviceManager.ProductService.CreateProduct(product);
                 return RedirectToAction("Index");
             }
@@ -44,8 +51,17 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
             return View(_serviceManager.ProductService.GetProduct(id));
         }
         [HttpPost]
-        public IActionResult Edit(Product product)
+        public IActionResult Edit(Product product, IFormFile? file)
         {
+            if (file is not null)
+            {
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", file.FileName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+                product.ImageUrl = file.FileName;
+            }
             _serviceManager.ProductService.UpdateProduct(product);
             return RedirectToAction("Index");
         }
