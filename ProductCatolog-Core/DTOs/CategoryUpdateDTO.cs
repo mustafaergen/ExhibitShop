@@ -8,12 +8,8 @@ using System.Threading.Tasks;
 
 namespace ProductCatolog_Core.DTOs
 {
-    public class CategoryDTO
+    public class CategoryUpdateDTO : CategoryDTO
     {
-        public int Id { get; set; }
-        [Required(ErrorMessage = "Name field is required!")]
-        public string? Name { get; set; }
-        [Required(ErrorMessage = "Status field is required!")]
         public Status Status { get; set; }
     }
 }

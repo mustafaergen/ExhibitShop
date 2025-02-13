@@ -9,6 +9,7 @@ using ProductCatalog_Repositories.Contracts;
 using ProductCatalog_Repositories;
 using Microsoft.Extensions.Options;
 using System.Drawing;
+using ProductCatalog_Repositories.Infrastructe.Mapper;
 
 namespace ProductCatalog_Web
 {
@@ -41,7 +42,7 @@ namespace ProductCatalog_Web
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IOrderService, OrderService>();
 
-            builder.Services.AddAutoMapper(typeof(Program));
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
 
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options =>
@@ -93,7 +94,12 @@ namespace ProductCatalog_Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}"
                 );
+                endpoints.MapControllerRoute(
+                  name: "ContentManager",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
             });
+
 
             app.Run();
         }

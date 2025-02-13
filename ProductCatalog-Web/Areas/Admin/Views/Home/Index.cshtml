@@ -1,6 +1,5 @@
 ﻿@{
     ViewData["Title"] = "Admin Dashboard";
-    int customerCount = ViewBag.CustomerCount;
 }
 
 <h1 class="text-center my-4">Admin Dashboard</h1>
@@ -13,7 +12,7 @@
                     <h5 class="card-title"><i class="fas fa-box"></i> Products</h5>
                 </div>
                 <div class="card-body text-center">
-                    <h3><b></b></h3>
+                    <h3><b>@ViewBag.ProductCount</b></h3>
                     <p>Total Products</p>
                 </div>
             </div>
@@ -27,7 +26,7 @@
                     <h5 class="card-title"><i class="fas fa-tags"></i> Categories</h5>
                 </div>
                 <div class="card-body text-center">
-                    <h3><b>@customerCount</b></h3>
+                    <h3><b>@ViewBag.CategoryCount</b></h3>
                     <p>Total Categories</p>
                 </div>
             </div>
@@ -41,7 +40,7 @@
                     <h5 class="card-title"><i class="fas fa-users"></i> Customers</h5>
                 </div>
                 <div class="card-body text-center">
-                    <h3><b>@customerCount</b></h3>
+                    <h3><b>@ViewBag.UserCount</b></h3>
                     <p>Total Customers</p>
                 </div>
             </div>

@@ -12,7 +12,7 @@ namespace ProductCatalog_Services.Contracts
     public interface ICategoryService
     {
         IEnumerable<Category> GetCategories();
-        Category GetCategoryById(int id);
+        CategoryDTO GetCategoryById(int id);
         void CreateCategory(CategoryDTO category);
         void UpdateCategory(CategoryDTO category);
         void DeleteCategory(int id);

@@ -20,6 +20,7 @@
                         <th>#</th>
                         <th><i class="fas fa-tag"></i> @Html.DisplayNameFor(model => model.Name)</th>
                         <th><i class="fas fa-calendar-alt"></i> @Html.DisplayNameFor(model => model.CreatedDate)</th>
+                        <th><i class="fas fa-tag"></i> Product Count</th>
                         <th><i class="fas fa-toggle-on"></i> @Html.DisplayNameFor(model => model.Status)</th>
                         <th class="text-center"><i class="fas fa-cogs"></i> Actions</th>
                     </tr>
@@ -31,6 +32,7 @@
                             <td>@item.Id</td>
                             <td>@item.Name</td>
                             <td>@item.CreatedDate.ToString("dd MMM yyyy")</td>
+                            <td>@item.Products.Count()</td>
                             <td>
                                 @if (item.Status == 0)
                                 {

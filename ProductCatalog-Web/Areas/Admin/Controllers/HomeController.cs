@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProductCatalog_Services.Contracts;
 using ProductCatolog_Core.DTOs;
@@ -12,7 +13,7 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
-    public class HomeController : OrderController
+    public class HomeController : Controller
     {
         private readonly UserManager<Customer> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -28,23 +29,8 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.UserCount = _userManager.Users.Count();
-
-            var customers = _userManager.Users.ToList();
-            int countCustomer = 0;
-            foreach (var item in customers)
-            {
-                var roles = await _userManager.GetRolesAsync(item);
-                if(!roles.Any(roles => roles == "Admin"))
-                {
-                    if (!roles.Any(roles => roles == "Customer"))
-                    {
-                        countCustomer++;
-                    }
-
-                }
-            }
-
-            ViewBag.CustomerCount = countCustomer;
+            ViewBag.ProductCount = GetProductsCount().Count();
+            ViewBag.CategoryCount = GetCategoriesCount().Count();
             return View();
         }
 
@@ -85,6 +71,7 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
             }
             return RedirectToAction("GetCustomers");
         }
+
 
         public async Task<IActionResult> GetCustomers()
         {
@@ -127,5 +114,17 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
 
             return View();
         }
+        private SelectList GetProductsCount()
+        {
+            return new SelectList(_serviceManager.ProductService.GetAllProducts(), "Id", "Name");
+        }
+        private SelectList GetCategoriesCount()
+        {
+            return new SelectList(_serviceManager.CategoryService.GetCategories(), "Id", "Name");
+        }
+        //private SelectList GetOrderCount()
+        //{
+        //    //return new SelectList(_serviceManager.OrderService)
+        //}
     }
 }

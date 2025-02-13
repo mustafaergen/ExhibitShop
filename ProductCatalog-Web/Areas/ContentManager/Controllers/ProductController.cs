@@ -5,10 +5,10 @@ using ProductCatalog_Services.Contracts;
 using ProductCatolog_Core.Models;
 using System.IO;
 
-namespace ProductCatalog_Web.Areas.Admin.Controllers
+namespace ProductCatalog_Web.Areas.ContentManager.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    [Area("ContentManager")]
+    [Authorize(Roles = "ContentManager")]
     public class ProductController : Controller
     {
         private readonly IServiceManager _serviceManager;
@@ -21,28 +21,6 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
         public IActionResult Index()
         {
             return View(_serviceManager.ProductService.GetAllProducts());
-        }
-        [HttpGet]
-        public IActionResult Create()
-        {
-            ViewBag.Categories = GetCategoriesCount();
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Create(Product product,IFormFile file)
-        {
-            if (ModelState.IsValid)
-            {
-                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", file.FileName);
-                using (var stream = new FileStream(path,FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                }
-                product.ImageUrl = file.FileName;
-                _serviceManager.ProductService.CreateProduct(product);
-                return RedirectToAction("Index");
-            }
-            return View(product);
         }
         [HttpGet]
         public IActionResult Edit(int id)
@@ -63,13 +41,6 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
                 product.ImageUrl = file.FileName;
             }
             _serviceManager.ProductService.UpdateProduct(product);
-            return RedirectToAction("Index");
-        }
-
-        [HttpGet]
-        public IActionResult Delete(int id)
-        {
-            _serviceManager.ProductService.DeleteProduct(id);
             return RedirectToAction("Index");
         }
         private SelectList GetCategoriesCount()

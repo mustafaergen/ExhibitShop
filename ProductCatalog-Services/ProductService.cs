@@ -78,5 +78,9 @@ namespace ProductCatalog_Services
                 throw new Exception("Product not found");
             }
         }
+        public IEnumerable<Product> GetProductsByCategory(int categoryId)
+        {
+            return _manager.ProductRepository.GetAllProducts().Where(x => x.CategoryId == categoryId);
+        }
     }
 }

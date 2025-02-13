@@ -50,10 +50,10 @@ namespace ProductCatalog_Services
             return _manager.CategoryRepository.FindAll().ToList();
         }
 
-        public Category GetCategoryById(int id)
+        public CategoryDTO GetCategoryById(int id)
         {
             var cat = _manager.CategoryRepository.FindById(id);
-            return new Category { Id = cat.Id, Name = cat.Name, Status = cat.Status };
+            return new CategoryDTO { Id = cat.Id, Name = cat.Name, Status = cat.Status };
         }
 
         public void UpdateCategory(CategoryDTO category)

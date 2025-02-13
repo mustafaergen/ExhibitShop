@@ -11,7 +11,7 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
-    public class CategoryController : OrderController
+    public class CategoryController : Controller
     {
         private readonly IServiceManager _serviceManager;
         private readonly IMapper _mapper;
@@ -43,16 +43,16 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
             return View(model);
         }
         [HttpGet]
-        public IActionResult Edit()
+        public IActionResult Edit(int id)
         {
-            
-            return View();
+            return View(_serviceManager.CategoryService.GetCategoryById(id));
         }
         [HttpPost]
-        public IActionResult Edit(CategoryDTO model)
+        public IActionResult Edit(CategoryDTO model, Status status)
         {
+            model.Status = status;
             _serviceManager.CategoryService.UpdateCategory(model);
-            return View(model); 
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public IActionResult Delete(int id)

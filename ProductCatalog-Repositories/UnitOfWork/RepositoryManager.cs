@@ -11,14 +11,12 @@ namespace ProductCatalog_Repositories.UnitOfWork
     public class RepositoryManager : IRepositoryManager
     {
         private readonly RepositoryContext _context;
-        private readonly IProductRepository _productRepository; //
-        private readonly ICategoryRepository _categoryRepository; //
-        private readonly IOrderRepository _orderRepository; //
+        private readonly IProductRepository _productRepository;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IOrderRepository _orderRepository;
 
-        public RepositoryManager(RepositoryContext context, //
-                                 IProductRepository productRepository,
-                                 ICategoryRepository categoryRepository,
-                                 IOrderRepository orderRepository)
+        public RepositoryManager
+            (RepositoryContext context, IProductRepository productRepository, ICategoryRepository categoryRepository, IOrderRepository orderRepository)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
