@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using ProductCatalog_Services.Contracts;
 using ProductCatolog_Core.Models;
 using ProductCatolog_Core.VMs;
 
@@ -9,11 +10,13 @@ namespace ProductCatalog_Web.Controllers
     {
         private readonly UserManager<Customer> _userManager;
         private readonly SignInManager<Customer> _signInManager;
+        private readonly IServiceManager _serviceManager;
 
-        public AccountController(UserManager<Customer> userManager, SignInManager<Customer> signInManager)
+        public AccountController(UserManager<Customer> userManager, SignInManager<Customer> signInManager, IServiceManager serviceManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _serviceManager = serviceManager;
         }
 
         [HttpGet]
@@ -27,7 +30,7 @@ namespace ProductCatalog_Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new Customer() { FirstName=model.FirstName,LastName=model.LastName, UserName = model.Email, Email = model.Email};
+                var user = new Customer() { FirstName = model.FirstName, LastName = model.LastName, UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -38,7 +41,7 @@ namespace ProductCatalog_Web.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Giriş yapılamadı!");
+                        ModelState.AddModelError("", "\r\nFailed to log in!");
                     }
                 }
                 else
@@ -81,7 +84,7 @@ namespace ProductCatalog_Web.Controllers
                     }
                 }
 
-                ModelState.AddModelError("", "Geçersiz giriş bilgileri!");
+                ModelState.AddModelError("", "\r\nInvalid login information!");
             }
             return View(model);
         }
@@ -153,10 +156,74 @@ namespace ProductCatalog_Web.Controllers
                     return View(model);
                 }
             }
-            TempData["SuccessMessage"] = "Profil başarıyla güncellendi!";
+            TempData["SuccessMessage"] = "Profile updated successfully!";
             return RedirectToAction("MyAccount");
         }
+        [HttpGet]
+        public IActionResult ResetPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken] 
+        public async Task<IActionResult> ResetPassword(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Email address not found.");
+                return View();
+            }
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var resetPasswordUrl = Url.Action("ResetPasswordConfirm", "Account", new { token = token, email = email }, Request.Scheme);
+            var subject = "Password Reset Request";
+            var body = $"Click the link below to reset your password: {resetPasswordUrl}";
+            await _serviceManager.EmailService.SendEmailAsync(email, subject, body);
+            TempData["SuccessMessage"] = "A password reset email has been sent to your email address.";
 
+            return View();
+        }
+        [HttpGet]
+        public IActionResult ResetPasswordConfirm(string token, string email)
+        {
+            if (token == null || email == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var model = new ResetPasswordVM { Token = token, Email = email };
+            return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPasswordConfirm(ResetPasswordVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Invalid password reset request.");
+                return View(model);
+            }
+
+            var resetPassResult = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
+            if (resetPassResult.Succeeded)
+            {
+                TempData["SuccessMessage"] = "Your password has been successfully reset. You will be redirected to the login page in 10 seconds.";
+                return View();
+            }
+
+            foreach (var error in resetPassResult.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View(model);
+        }
 
 
 
