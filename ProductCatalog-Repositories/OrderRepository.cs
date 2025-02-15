@@ -1,11 +1,14 @@
 ﻿using ProductCatalog_Repositories.Contexts;
 using ProductCatalog_Repositories.Contracts;
+using ProductCatolog_Core.DTOs;
 using ProductCatolog_Core.Models;
+using ProductCatolog_Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProductCatalog_Repositories
 {
@@ -16,28 +19,57 @@ namespace ProductCatalog_Repositories
         {
         }
 
-        public IQueryable<Order> Orders => throw new NotImplementedException();
+        public IQueryable<Order> Orders => _context.Orders.Include(o=>o.Lines).ThenInclude(cl=>cl.Product).OrderBy(o=>o.OrderStatus).ThenByDescending(o => o.Id);
 
-        public int NumberOfInProcess => throw new NotImplementedException();
+        public int NumberOfInProcess => _context.Orders.Count(o => o.OrderStatus.Equals(false));
 
         public void Complete(int id)
         {
-            throw new NotImplementedException();
+            var order = FindById(id);
+            if(order is null)
+            {
+                throw new Exception("Order not found");
+            }
+            order.OrderStatus = OrderStatus.Delivered;
         }
 
         public IQueryable<Order> GetAllOrdersByUserId(string userId)
         {
-            throw new NotImplementedException();
+            return FindAll().Where(o => o.UserId == userId);
         }
 
         public Order? GetOneOrder(int id)
         {
-            throw new NotImplementedException();
+            return FindById(id);
+        }
+
+        public IQueryable<Order> GettAllOrders() => FindAll();
+
+        public IEnumerable<OrderUserDTO> GettAllOrdersWithUser()
+        {
+            return _context.Orders
+               .Join(_context.Users,
+               o => o.UserId,
+               u => u.Id,
+               (o, u) => new OrderUserDTO
+               {
+                   OrderId = o.Id,
+                   UserName = u.UserName,
+                   OrderName = o.Name,
+                   OrderDate = o.CreatedDate,
+                   City = o.City,
+                   OrderStatus = o.OrderStatus
+               });
         }
 
         public void SaveOrder(Order order)
         {
-            throw new NotImplementedException();
+            _context.AttachRange(order.Lines.Select(l => l.Product));
+            if(order.Id==0)
+            {
+                _context.Orders.Add(order);
+            }
+            _context.SaveChanges();
         }
     }
 }

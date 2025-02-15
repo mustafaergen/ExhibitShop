@@ -31,6 +31,7 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
             ViewBag.UserCount = _userManager.Users.Count();
             ViewBag.ProductCount = GetProductsCount().Count();
             ViewBag.CategoryCount = GetCategoriesCount().Count();
+            ViewBag.OrderCount = GetOrderCountList().Count();
             return View();
         }
 
@@ -122,9 +123,9 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
         {
             return new SelectList(_serviceManager.CategoryService.GetCategories(), "Id", "Name");
         }
-        //private SelectList GetOrderCount()
-        //{
-        //    //return new SelectList(_serviceManager.OrderService)
-        //}
+        public SelectList GetOrderCountList()
+        {
+            return new SelectList(_serviceManager.OrderService.GettAllOrders(),"Id","Name");
+        }
     }
 }

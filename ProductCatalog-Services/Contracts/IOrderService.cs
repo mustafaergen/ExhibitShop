@@ -1,4 +1,5 @@
-﻿using ProductCatolog_Core.Models;
+﻿using ProductCatolog_Core.DTOs;
+using ProductCatolog_Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace ProductCatalog_Services.Contracts
     {
         IEnumerable<Order> Orders { get; }
         IEnumerable<Order> GetAllOrdersByUserId(string userId);
+        IEnumerable<OrderUserDTO> GettAllOrdersWithUser();
+        IEnumerable<Order> GettAllOrders();
         Order? GetOneOrder(int id);
         void Complete(int id);
         void SaveOrder(Order order);
