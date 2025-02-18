@@ -9,6 +9,7 @@ namespace ProductCatolog_Core.Enums
     public enum Status
     {
         Active,
-        Passive 
+        Passive,
+        Request
     }
 }

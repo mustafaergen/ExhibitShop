@@ -7,14 +7,16 @@ namespace ProductCatalog_Services
     public class ServiceManager : IServiceManager
     {
         private readonly IProductService _productService;
+        private readonly IArticleService _articleService;
         private readonly ICategoryService _categoryService;
         private readonly IOrderService _orderService;
         private readonly IEmailService _emailService;
         private readonly UserManager<Customer> _userManager; // Burada IdentityUser yerine Customer kullanıyoruz.
 
-        public ServiceManager(IProductService productService, ICategoryService categoryService, IOrderService orderService, UserManager<Customer> userManager, IEmailService emailService)
+        public ServiceManager(IProductService productService,IArticleService articleService, ICategoryService categoryService, IOrderService orderService, UserManager<Customer> userManager, IEmailService emailService)
         {
             _productService = productService;
+            _articleService = articleService;
             _categoryService = categoryService;
             _orderService = orderService;
             _userManager = userManager;
@@ -27,5 +29,7 @@ namespace ProductCatalog_Services
         public UserManager<Customer> UserManager => _userManager;
 
         public IEmailService EmailService => _emailService;
+
+        public IArticleService ArticlesService => _articleService;
     }
 }

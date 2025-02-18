@@ -18,6 +18,7 @@ namespace ProductCatalog_Repositories.Contexts
         {
         }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Article> Articles { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
 
@@ -45,6 +46,12 @@ namespace ProductCatalog_Repositories.Contexts
                     Id = "2",
                     Name = "Customer",
                     NormalizedName = "CUSTOMER"
+                },
+                new IdentityRole
+                {
+                    Id = "3",
+                    Name = "ContentManager",
+                    NormalizedName = "CONTENTMANAGER"
                 });
 
             var hasher = new PasswordHasher<Customer>();

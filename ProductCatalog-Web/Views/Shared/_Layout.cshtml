@@ -20,24 +20,21 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Articles" asp-action="Index">Articles</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="Index">Product</a>
-                        </li>
-                        @if (User.IsInRole("Admin") || User.IsInRole("ContentManager"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="@(User.IsInRole("Admin") ? "Admin" : "ContentManager")"
-                                   asp-controller="Home" asp-action="Index">
-                                    @(User.IsInRole("Admin") ? "Admin Panel" : "Content Manager Panel")
-                                </a>
-                            </li>
-                        }
                     </ul>
                     <div class="navbar-nav d-flex">
                         @if (User.Identity.IsAuthenticated)
                         {
+                            @if (User.IsInRole("Admin") || User.IsInRole("ContentManager"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="@(User.IsInRole("Admin") ? "Admin" : "ContentManager")"
+                                       asp-controller="Home" asp-action="Index">
+                                        @(User.IsInRole("Admin") ? "Admin Panel" : "Content Manager Panel")
+                                    </a>
+                                </li>
+                            }
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="MyAccount">My Account (@User.Identity.Name)</a>
                             </li>
@@ -75,5 +72,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    @RenderSection("Styles", false)
 </body>
 </html>

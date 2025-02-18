@@ -34,20 +34,34 @@
     </div>
 
     <div class="col-md-3">
-        <a  asp-controller="Home" asp-action="GetCustomers" class="text-white text-decoration-none">
-            <div class="card bg-primary mb-4 shadow-lg">
+        <a asp-controller="Articles" class="text-white text-decoration-none">
+            <div class="card bg-success mb-4 shadow-lg">
                 <div class="card-header text-center">
-                    <h5 class="card-title"><i class="fas fa-users"></i> Customers</h5>
+                    <h5 class="card-title"><i class="fas fa-file-alt"></i> Articles</h5>
                 </div>
                 <div class="card-body text-center">
-                    <h3><b>@ViewBag.UserCount</b></h3>
-                    <p>Total Customers</p>
+                    <h3><b>@ViewBag.ArticleCount</b></h3>
+                    <p>Total Articles</p>
                 </div>
             </div>
         </a>
     </div>
 
     <div class="col-md-3">
+        <a asp-controller="Home" asp-action="GetCustomers" class="text-white text-decoration-none">
+            <div class="card bg-primary mb-4 shadow-lg">
+                <div class="card-header text-center">
+                    <h5 class="card-title"><i class="fas fa-users"></i> Customers</h5>
+                </div>
+                <div class="card-body text-center">
+                    <h3><b>@ViewBag.UserCount</b></h3>
+                    <p>Total Blogs</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+@*     <div class="col-md-3">
         <a asp-controller="Order" asp-action="Index" class="text-white text-decoration-none">
             <div class="card bg-danger mb-4 shadow-lg">
                 <div class="card-header text-center">
@@ -59,7 +73,7 @@
                 </div>
             </div>
         </a>
-    </div>
+    </div> *@
 </div>
 
 @section Scripts {

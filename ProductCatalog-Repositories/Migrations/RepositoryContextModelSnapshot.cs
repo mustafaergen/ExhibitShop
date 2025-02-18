@@ -52,16 +52,23 @@ namespace ProductCatalog_Repositories.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "c1a04cfc-b29f-4941-9daf-d49edc3dc1fd",
+                            ConcurrencyStamp = "85ee516b-afbd-426b-844e-6defeb06163b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "32bd2960-8492-47ea-be90-36b57c749a93",
+                            ConcurrencyStamp = "e7cf93e2-ab74-453a-9682-773d3c0def28",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            ConcurrencyStamp = "30fc45a1-bc34-4081-b1f7-129ce4450b24",
+                            Name = "ContentManager",
+                            NormalizedName = "CONTENTMANAGER"
                         });
                 });
 
@@ -249,6 +256,50 @@ namespace ProductCatalog_Repositories.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("ProductCatolog_Core.Models.Article", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Conclusion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Development")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Introduction")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Articles");
+                });
+
             modelBuilder.Entity("ProductCatolog_Core.Models.CartLine", b =>
                 {
                     b.Property<int>("CartLineId")
@@ -393,15 +444,15 @@ namespace ProductCatalog_Repositories.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6f971226-ba3e-4475-b8a4-21157b5a8a10",
+                            ConcurrencyStamp = "0338cf80-37be-443e-bd0b-2fdc74658a6b",
                             Email = "admin@mail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN@MAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAMVYrdkVhq7qlm9N/fjT37BSkEgx1/OjrVdh9CIsvtEfNginWhV7QJ3dl0RPCKdWA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKQNw4XfQn/CIHA0uWdt/GPCwlarREeAubbojH2jVTAqOIQ77Q9/C1KLlNyIXb/7oQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c2d57e7d-4614-4300-a8b2-6caf1a12e59b",
+                            SecurityStamp = "8018ec7a-6387-465c-a81e-78df3bac51ef",
                             TwoFactorEnabled = false,
                             UserName = "admin@mail.com",
                             FirstName = "Admin1",
@@ -490,7 +541,7 @@ namespace ProductCatalog_Repositories.Migrations
                     b.HasOne("ProductCatolog_Core.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Category");
                 });
