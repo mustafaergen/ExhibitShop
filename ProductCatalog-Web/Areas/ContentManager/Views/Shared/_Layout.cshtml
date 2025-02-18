@@ -24,15 +24,15 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Customer Home Page</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-white" asp-area="ContentManager" asp-controller="Articles" asp-action="Index">My Blogs</a>
                         </li>
                     </ul>
                     <div class="navbar-nav">
                         @if (User.Identity.IsAuthenticated)
                         {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Customer Home Page</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="MyAccount">
                                     <i class="fas fa-user"></i> @User.Identity.Name
