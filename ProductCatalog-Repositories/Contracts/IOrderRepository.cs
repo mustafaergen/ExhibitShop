@@ -1,4 +1,5 @@
 ﻿using ProductCatalog_Repositories.Contracts.Base;
+using ProductCatolog_Core.DTOs;
 using ProductCatolog_Core.Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace ProductCatalog_Repositories.Contracts
         IQueryable<Order> Orders { get; }
         Order? GetOneOrder(int id);
         IQueryable<Order> GetAllOrdersByUserId(string userId);
+        IEnumerable<OrderUserDTO> GettAllOrdersWithUser();
+        IQueryable<Order> GettAllOrders();
         void Complete(int id);
         void SaveOrder(Order order);
         int NumberOfInProcess { get; } //İşlemde kaçtane sipariş var.

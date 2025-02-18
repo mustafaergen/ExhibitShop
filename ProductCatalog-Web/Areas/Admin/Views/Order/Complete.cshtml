@@ -1,0 +1,11 @@
+﻿@page "{OrderId:int}"
+
+@{
+    ViewData["Title"] = "Order Completed";
+    Layout = "_Layout";
+}
+
+<h2>Order Completed</h2>
+<p>The order has been successfully completed.</p>
+
+<a asp-page="/Orders/Index" class="btn btn-primary">Go Back to Orders</a>

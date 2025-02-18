@@ -1,0 +1,101 @@
+﻿@using ProductCatolog_Core.Enums
+@model ProductCatolog_Core.Models.Order
+
+@{
+    ViewData["Title"] = "Order Completed";
+
+    string info = ViewData["Success"]?.ToString() ?? "";
+}
+
+<div>
+    <h1>Order Completed</h1>
+
+    @if (!string.IsNullOrEmpty(info))
+    {
+        <div class="alert alert-success text-center">
+            <h6>@info</h6>
+        </div>
+    }
+
+    <hr />
+
+    <dl class="row">
+        <dt class="col-sm-3">Order No:</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Id)</dd>
+
+        <dt class="col-sm-3">Order Name:</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+
+        <dt class="col-sm-3">Shipping Address:</dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Line1)<br />
+            @Html.DisplayFor(model => model.Line2)<br />
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt class="col-sm-3">Order Date:</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.CreatedDate)</dd>
+
+        <dt class="col-sm-3">Order Status:</dt>
+        <dd class="col-sm-9">
+            @switch (Model.OrderStatus)
+            {
+                case OrderStatus.OrderReceived:
+                    <span class="badge badge-secondary">Order Received</span>
+                    break;
+                case OrderStatus.OrderConfirmed:
+                    <span class="badge badge-primary">Order Confirmed</span>
+                    break;
+                case OrderStatus.OrderCancelled:
+                    <span class="badge badge-danger">Cancelled</span>
+                    break;
+                case OrderStatus.Proccessing:
+                    <span class="badge badge-warning">Processing</span>
+                    break;
+                case OrderStatus.Shipped:
+                    <span class="badge badge-info">Shipped</span>
+                    break;
+                case OrderStatus.Delivered:
+                    <span class="badge badge-success">Delivered</span>
+                    break;
+                case OrderStatus.Returned:
+                    <span class="badge badge-dark">Returned</span>
+                    break;
+                default:
+                    <span class="badge badge-light">Unknown Status</span>
+                    break;
+            }
+        </dd>
+    </dl>
+
+    <hr />
+
+    <h4>Order Details</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Lines)
+                {
+                    <tr>
+                        <td>@item.Product.Name</td>
+                        <td>@item.Product.Price.ToString("C2")</td>
+                        <td>@item.Quantity</td>
+                        <td>@((item.Product.Price * item.Quantity).ToString("C2"))</td>
+                    </tr>
+                }
+                <tr class="font-weight-bold">
+                    <td>Total Price:</td>
+                    <td colspan="3" class="text-right">@Model.Lines.Sum(x => x.Product.Price * x.Quantity).ToString("C2")</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

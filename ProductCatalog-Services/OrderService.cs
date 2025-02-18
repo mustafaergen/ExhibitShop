@@ -1,5 +1,6 @@
 ﻿using ProductCatalog_Repositories.UnitOfWork;
 using ProductCatalog_Services.Contracts;
+using ProductCatolog_Core.DTOs;
 using ProductCatolog_Core.Models;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,11 @@ namespace ProductCatalog_Services
 
         public int NumberOfInProcess => _manager.OrderRepository.NumberOfInProcess;
 
+        public IEnumerable<OrderUserDTO> GettAllOrdersWithUser()
+        {
+            return _manager.OrderRepository.GettAllOrdersWithUser();
+        }
+
         public void Complete(int id)
         {
             _manager.OrderRepository.Complete(id);
@@ -41,6 +47,11 @@ namespace ProductCatalog_Services
         public void SaveOrder(Order order)
         {
             _manager.OrderRepository.SaveOrder(order);
+        }
+
+        public IEnumerable<Order> GettAllOrders()
+        {
+           return _manager.OrderRepository.GettAllOrders();
         }
     }
 }
