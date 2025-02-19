@@ -15,6 +15,7 @@ namespace ProductCatalog_Services.Contracts
         IOrderService OrderService { get; }
         IArticleService ArticlesService { get; }
         IEmailService EmailService { get; }
+        ICartService CartService { get; }
         UserManager<Customer> UserManager { get; }
 
     }

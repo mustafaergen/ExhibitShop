@@ -30,28 +30,28 @@
                     @switch (item.OrderStatus)
                     {
                         case OrderStatus.OrderReceived:
-                            <span class="badge badge-secondary">Order Received</span>
+                            <span class="badge bg-secondary">Order Received</span>
                             break;
                         case OrderStatus.OrderConfirmed:
-                            <span class="badge badge-primary">Order Confirmed</span>
+                            <span class="badge bg-primary">Order Confirmed</span>
                             break;
                         case OrderStatus.OrderCancelled:
-                            <span class="badge badge-danger">Cancelled</span>
+                            <span class="badge bg-danger">Cancelled</span>
                             break;
                         case OrderStatus.Proccessing:
-                            <span class="badge badge-warning">Processing</span>
+                            <span class="badge bg-warning text-dark">Processing</span>
                             break;
                         case OrderStatus.Shipped:
-                            <span class="badge badge-info">Shipped</span>
+                            <span class="badge bg-info text-dark">Shipped</span>
                             break;
                         case OrderStatus.Delivered:
-                            <span class="badge badge-success">Delivered</span>
+                            <span class="badge bg-success">Delivered</span>
                             break;
                         case OrderStatus.Returned:
-                            <span class="badge badge-dark">Returned</span>
+                            <span class="badge bg-dark">Returned</span>
                             break;
                         default:
-                            <span class="badge badge-light">Unknown Status</span>
+                            <span class="badge bg-light text-dark">Unknown Status</span>
                             break;
                     }
                 </td>

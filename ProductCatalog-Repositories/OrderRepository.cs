@@ -19,18 +19,19 @@ namespace ProductCatalog_Repositories
         {
         }
 
-        public IQueryable<Order> Orders => _context.Orders.Include(o=>o.Lines).ThenInclude(cl=>cl.Product).OrderBy(o=>o.OrderStatus).ThenByDescending(o => o.Id);
+        public IQueryable<Order> Orders => _context.Orders.Include(o => o.Lines).ThenInclude(cl => cl.Product).OrderBy(o => o.OrderStatus).ThenByDescending(o => o.Id);
 
         public int NumberOfInProcess => _context.Orders.Count(o => o.OrderStatus.Equals(false));
 
         public void Complete(int id)
         {
             var order = FindById(id);
-            if(order is null)
+            if (order is null)
             {
                 throw new Exception("Order not found");
             }
             order.OrderStatus = OrderStatus.Delivered;
+            _context.SaveChanges();
         }
 
         public IQueryable<Order> GetAllOrdersByUserId(string userId)
@@ -47,27 +48,20 @@ namespace ProductCatalog_Repositories
 
         public IEnumerable<OrderUserDTO> GettAllOrdersWithUser()
         {
-            return _context.Orders
-               .Join(_context.Users,
-               o => o.UserId,
-               u => u.Id,
-               (o, u) => new OrderUserDTO
-               {
-                   OrderId = o.Id,
-                   UserName = u.UserName,
-                   OrderName = o.Name,
-                   OrderDate = o.CreatedDate,
-                   City = o.City,
-                   OrderStatus = o.OrderStatus
-               });
+            return _context.Orders.Include(o => o.User).Select(o => new OrderUserDTO{OrderId = o.Id,UserName = o.User.UserName,OrderName = o.Name,OrderDate = o.CreatedDate,City = o.City,OrderStatus = o.OrderStatus}).ToList();
         }
+
 
         public void SaveOrder(Order order)
         {
             _context.AttachRange(order.Lines.Select(l => l.Product));
-            if(order.Id==0)
+            if (order.Id == 0)
             {
                 _context.Orders.Add(order);
+            }
+            else
+            {
+                _context.Orders.Update(order);
             }
             _context.SaveChanges();
         }

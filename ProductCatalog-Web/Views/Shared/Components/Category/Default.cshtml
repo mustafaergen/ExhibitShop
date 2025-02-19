@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ProductCatolog_Core.Models.Category>
+
+<div class="category-list card shadow-sm p-3">
+    <h3 class="text-center text-primary">Categories</h3>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item all-categories">
+            <a asp-route-CatId="" class="text-decoration-none text-white fw-bold">
+                Tüm Kategoriler
+            </a>
+        </li>
+        @foreach (var category in Model)
+        {
+            <li class="list-group-item">
+                <a asp-route-CatId="@category.Id" class="text-decoration-none text-dark fw-bold">
+                    @category.Name
+                </a>
+            </li>
+        }
+    </ul>
+</div>
+
+<style>
+    .category-list {
+        margin-bottom: 20px;
+        border-radius: 10px;
+        background: #f8f9fa;
+    }
+
+    .list-group-item {
+        transition: background-color 0.3s ease;
+    }
+
+        .list-group-item:hover {
+            background-color: #e9ecef;
+        }
+
+        .list-group-item a:hover {
+            color: #0056b3;
+        }
+
+    .all-categories {
+        background-color: #007bff;
+        text-align: center;
+        border-radius: 5px;
+        margin-bottom: 5px;
+    }
+
+        .all-categories a {
+            color: white !important;
+            display: block;
+            padding: 10px;
+        }
+
+        .all-categories:hover {
+            background-color: #0056b3;
+        }
+</style>

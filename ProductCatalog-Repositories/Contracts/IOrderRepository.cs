@@ -18,6 +18,6 @@ namespace ProductCatalog_Repositories.Contracts
         IQueryable<Order> GettAllOrders();
         void Complete(int id);
         void SaveOrder(Order order);
-        int NumberOfInProcess { get; } //İşlemde kaçtane sipariş var.
+        int NumberOfInProcess { get; }
     }
 }

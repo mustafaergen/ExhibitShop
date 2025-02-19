@@ -3,6 +3,7 @@ using ProductCatalog_Services;
 using ProductCatalog_Services.Contracts;
 using ProductCatalog_Web.Models;
 using ProductCatolog_Core.Enums;
+using ProductCatolog_Core.Models;
 using System.Diagnostics;
 
 namespace ProductCatalog_Web.Controllers
@@ -17,11 +18,30 @@ namespace ProductCatalog_Web.Controllers
             _serviceManager = serviceManager;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? CatId)
         {
-            var activeProducts = _serviceManager.ProductService.GetAllProducts().Where(p => p.Status == Status.Active).ToList();
+            var activeProducts = _serviceManager.ProductService.GetAllProducts().ToList();
+            if (CatId != null)
+            {
+                activeProducts = _serviceManager.ProductService
+                    .GetProductsByCategory(CatId)
+                    .Where(p => p.Status == Status.Active)
+                    .ToList();
+
+                if (!activeProducts.Any())
+                {
+                    ViewData["NoProductsMessage"] = "No products available in this category.";
+                }
+            }
+            else
+            {
+                activeProducts = _serviceManager.ProductService
+                    .GetAllProducts().Where(x=>x.Status==Status.Active)
+                    .ToList();
+            }
             return View(activeProducts);
         }
+
 
         public IActionResult Privacy()
         {

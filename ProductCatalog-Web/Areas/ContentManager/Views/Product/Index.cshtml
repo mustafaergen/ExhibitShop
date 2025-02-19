@@ -1,56 +1,80 @@
-﻿@model IEnumerable<ProductCatolog_Core.Models.Product>
+﻿@using System.Globalization
+@model IEnumerable<ProductCatolog_Core.Models.Product>
 
 @{
-    ViewData["Title"] = "Products";
+    ViewData["Title"] = "Home";
 }
 
-<div class="container mt-4">
-    <h2 class="text-center text-primary mb-4"><i class="fas fa-boxes"></i> Product List</h2>
+<h1 class="text-center my-5">Welcome to the Product Catalog!</h1>
 
-    <div class="d-flex justify-content-between mb-3">
-        <h4 class="fw-bold">Products</h4>
-    </div>
-
+<div class="container">
     <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="col-md-4 mb-4">
-                <div class="card shadow-lg border-0">
-                    <img src="~/img/@item.ImageUrl" class="card-img-top" alt="@item.Name" style="height: 200px; object-fit: cover;">
 
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">@item.Name</h5>
-                        <p class="card-text text-muted">@item.Summary</p>
-                        <p class="fw-bold text-success">Price: $@item.Price</p>
-
-                        <div class="mb-2">
-                            <strong>Category:</strong> @item.Category.Name
-                        </div>
-
-                        <div>
-                            <strong>Status:</strong>
-                            @if (item.Status == 0)
-                            {
-                                <span class="badge bg-success">Active</span>
-                            }
-                            else
-                            {
-                                <span class="badge bg-danger">Passive</span>
-                            }
-                        </div>
-                    </div>
-
-                    <div class="card-footer d-flex justify-content-between">
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">
-                            <i class="fas fa-edit"></i> Edit
-                        </a>
-                    </div>
-                </div>
+        <div class="col-md-3">
+            <div class="sidebar p-3 shadow">
+                @await Component.InvokeAsync("Category")
             </div>
-        }
+        </div>
+
+        <div class="col-md-9">
+            <div class="row">
+
+                @if (ViewData["NoProductsMessage"] != null)
+                {
+                    <div class="col-12">
+                        <div class="alert alert-warning text-center shadow-sm">
+                            @ViewData["NoProductsMessage"]
+                        </div>
+                    </div>
+                }
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="product-card shadow-lg border rounded">
+                            <img src="~/img/@item.ImageUrl" alt="Product Image" class="img-thumbnail" style="width: 400px; height: 400px;" />
+                            <div class="product-info p-3">
+                                <h5 class="product-title">@item.Name</h5>
+                                <p class="product-summary text-muted">@item.Summary</p>
+                                <p class="product-price text-success">@item.Price.ToString("C", new CultureInfo("en-US"))</p>
+                                <div class="d-flex justify-content-between">
+                                    <a href="@Url.Action("Detail", "Home", new { id = item.Id })" class="btn btn-primary">Details</a>
+                                    <form method="post" action="@Url.Action("AddToCart", "Cart")">
+                                        <input type="hidden" name="productId" value="@item.Id" />
+                                        <button type="submit" class="btn btn-success">Add To Cart</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+
     </div>
 </div>
 
-@section Scripts {
-    <script src="https://kit.fontawesome.com/YOUR-FONT-AWESOME-KIT.js" crossorigin="anonymous"></script>
-}
+<style>
+    .sidebar {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .alert-warning {
+        font-size: 1.2rem;
+        padding: 15px;
+        border-radius: 8px;
+        background-color: #fff3cd;
+        border: 1px solid #ffeeba;
+        color: #856404;
+    }
+
+    .product-card {
+        transition: transform 0.3s ease;
+    }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+</style>  

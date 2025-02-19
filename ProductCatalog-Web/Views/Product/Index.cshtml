@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ProductCatolog_Core.Models.Product>
+
+@{
+    ViewData["Title"] = "All Products";
+}
+<div class="row">
+    <div class="col-md-3">
+        <hr />
+        @await Component.InvokeAsync("Category")
+
+        <div class="my-3 p-3 border rounded bg-light shadow-sm">
+            <h4 class="mb-3">Price Filter</h4>
+            <form asp-action="" method="get">
+                <div class="mb-2">
+                    <label for="MinPrice" class="form-label">Minimum Price</label>
+                    <input type="number" name="MinPrice" id="MinPrice" class="form-control" placeholder="E.g.: 100" min="0">
+                </div>
+                <div class="mb-2">
+                    <label for="MaxPrice" class="form-label">Maximum Price</label>
+                    <input type="number" name="MaxPrice" id="MaxPrice" class="form-control" placeholder="E.g.: 1000" min="0">
+                </div>
+                <button type="submit" class="btn btn-success w-100">Apply</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            @if (Model is not null && Model.Count() > 0)
+            {
+                @foreach (var item in Model)
+                {
+                    @await Html.PartialAsync("_ProductCard", item)
+                }
+            }
+            else
+            {
+                <div class="alert alert-warning" role="alert">
+                    There is no product we can show you in this category.
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,4 +1,5 @@
 ﻿@using ProductCatolog_Core.Enums
+@using System.Globalization
 @model ProductCatolog_Core.Models.Order
 
 @{
@@ -86,14 +87,14 @@
                 {
                     <tr>
                         <td>@item.Product.Name</td>
-                        <td>@item.Product.Price.ToString("C2")</td>
+                        <td>@item.Product.Price.ToString("C", new CultureInfo("en-US"))</td>
                         <td>@item.Quantity</td>
-                        <td>@((item.Product.Price * item.Quantity).ToString("C2"))</td>
+                        <td>@((item.Product.Price * item.Quantity).ToString("C", new CultureInfo("en-US")))</td>
                     </tr>
                 }
                 <tr class="font-weight-bold">
                     <td>Total Price:</td>
-                    <td colspan="3" class="text-right">@Model.Lines.Sum(x => x.Product.Price * x.Quantity).ToString("C2")</td>
+                    <td colspan="3" class="text-right">@Model.Lines.Sum(x => x.Product.Price * x.Quantity).ToString("C",new CultureInfo("en-US"))</td>
                 </tr>
             </tbody>
         </table>

@@ -8,35 +8,52 @@ namespace ProductCatalog_Web.Controllers
     public class OrderController : Controller
     {
         private readonly IServiceManager _serviceManager;
-        private readonly Cart _cart;
 
-        public OrderController(IServiceManager serviceManager, Cart cart)
+        public OrderController(IServiceManager serviceManager)
         {
             _serviceManager = serviceManager;
-            _cart = cart;
         }
+
         [Authorize]
         [HttpGet]
         public IActionResult CheckOut()
         {
+            var user = _serviceManager.UserManager.GetUserAsync(User).Result;
+            var cart = _serviceManager.CartService.GetCartByUserIdAsync(user.Id).Result;
+
+            if (cart == null || cart.CartLines.Count == 0)
+            {
+                ModelState.AddModelError("", "Your cart is empty!");
+                return View(); 
+            }
+
             return View();
         }
+
         [Authorize]
         [HttpPost]
         public IActionResult CheckOut(Order order)
         {
-            if(_cart.Lines.Count == 0)
+            var user = _serviceManager.UserManager.GetUserAsync(User).Result;
+            var cart = _serviceManager.CartService.GetCartByUserIdAsync(user.Id).Result;
+
+            if (cart == null || cart.CartLines.Count == 0)
             {
                 ModelState.AddModelError("", "Your cart is empty!");
+                return View(order); 
             }
+
+            order.Lines = cart.CartLines.ToList();  
+
             if (ModelState.IsValid)
             {
-                order.Lines = _cart.Lines.ToArray();
                 _serviceManager.OrderService.SaveOrder(order);
-                return RedirectToAction("Completed", new {OrderId= order.Id});
+                return RedirectToAction("Completed", new { OrderId = order.Id });
             }
-            return View(order);
+
+            return View(order); 
         }
+
         [HttpGet]
         public IActionResult Completed(int OrderId)
         {
@@ -44,6 +61,7 @@ namespace ProductCatalog_Web.Controllers
             ViewData["Success"] = "Congratulations, your order has been placed successfully.";
             return View(order);
         }
+
         [HttpGet]
         public IActionResult MyOrders()
         {

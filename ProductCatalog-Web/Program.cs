@@ -37,6 +37,7 @@ namespace ProductCatalog_Web
             builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+            builder.Services.AddScoped<ICartRepository, CartRepository>();
 
             builder.Services.AddScoped<IServiceManager, ServiceManager>();
             builder.Services.AddScoped<IProductService, ProductService>();
@@ -44,9 +45,10 @@ namespace ProductCatalog_Web
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IOrderService, OrderService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
+            builder.Services.AddScoped<ICartService, CartService>();
 
             builder.Services.AddAutoMapper(typeof(MappingProfile));
-
+            //builder.Services.AddSingleton<Cart>();
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options =>
             {

@@ -13,6 +13,7 @@ namespace ProductCatalog_Repositories.UnitOfWork
         IArticleRepository ArticleRepository { get; }
         ICategoryRepository CategoryRepository { get; }
         IOrderRepository OrderRepository { get; }
+        ICartRepository CartRepository { get; }
 
         void Save();
     }

@@ -52,23 +52,30 @@ namespace ProductCatalog_Repositories.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "85ee516b-afbd-426b-844e-6defeb06163b",
+                            ConcurrencyStamp = "c0c032bd-4afb-445e-b3f0-914c1b4aad87",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "e7cf93e2-ab74-453a-9682-773d3c0def28",
+                            ConcurrencyStamp = "51dd5400-f27e-4662-a024-4a63fafd63a5",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
                             Id = "3",
-                            ConcurrencyStamp = "30fc45a1-bc34-4081-b1f7-129ce4450b24",
+                            ConcurrencyStamp = "eb4191fc-a996-4ff2-9cbd-482311075147",
                             Name = "ContentManager",
                             NormalizedName = "CONTENTMANAGER"
+                        },
+                        new
+                        {
+                            Id = "4",
+                            ConcurrencyStamp = "6d5eed2f-b5de-42fa-9fa4-005ab8b01747",
+                            Name = "CustomerRelationsManager",
+                            NormalizedName = "CUSTOMERRELATIONSMANAGER"
                         });
                 });
 
@@ -300,16 +307,42 @@ namespace ProductCatalog_Repositories.Migrations
                     b.ToTable("Articles");
                 });
 
-            modelBuilder.Entity("ProductCatolog_Core.Models.CartLine", b =>
+            modelBuilder.Entity("ProductCatolog_Core.Models.Cart", b =>
                 {
-                    b.Property<int>("CartLineId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartLineId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("ProductCatolog_Core.Models.CartLine", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -317,13 +350,15 @@ namespace ProductCatalog_Repositories.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("CartLineId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId");
 
                     b.HasIndex("OrderId");
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CartLine");
+                    b.ToTable("CartLines");
                 });
 
             modelBuilder.Entity("ProductCatolog_Core.Models.Category", b =>
@@ -444,15 +479,15 @@ namespace ProductCatalog_Repositories.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0338cf80-37be-443e-bd0b-2fdc74658a6b",
+                            ConcurrencyStamp = "8d15ea46-f17f-4ea0-bd94-a512e30481ba",
                             Email = "admin@mail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN@MAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKQNw4XfQn/CIHA0uWdt/GPCwlarREeAubbojH2jVTAqOIQ77Q9/C1KLlNyIXb/7oQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEI0LD36nVv3Uwd41tMGXZbDBeEuToJZleFzbC325zfCfb8Yrg4Y6nHfl8kPNBgxl3A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8018ec7a-6387-465c-a81e-78df3bac51ef",
+                            SecurityStamp = "36aee481-5fad-45a2-bfdb-1b090b7fbbdc",
                             TwoFactorEnabled = false,
                             UserName = "admin@mail.com",
                             FirstName = "Admin1",
@@ -513,6 +548,12 @@ namespace ProductCatalog_Repositories.Migrations
 
             modelBuilder.Entity("ProductCatolog_Core.Models.CartLine", b =>
                 {
+                    b.HasOne("ProductCatolog_Core.Models.Cart", "Cart")
+                        .WithMany("CartLines")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ProductCatolog_Core.Models.Order", null)
                         .WithMany("Lines")
                         .HasForeignKey("OrderId");
@@ -522,6 +563,8 @@ namespace ProductCatalog_Repositories.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Cart");
 
                     b.Navigation("Product");
                 });
@@ -544,6 +587,11 @@ namespace ProductCatalog_Repositories.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("ProductCatolog_Core.Models.Cart", b =>
+                {
+                    b.Navigation("CartLines");
                 });
 
             modelBuilder.Entity("ProductCatolog_Core.Models.Category", b =>

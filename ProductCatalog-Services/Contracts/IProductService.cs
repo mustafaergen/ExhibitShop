@@ -12,7 +12,8 @@ namespace ProductCatalog_Services.Contracts
     public interface IProductService
     {
         IEnumerable<Product> GetAllProducts();
-        IEnumerable<Product> GetProductsByCategory(int categoryId);
+        IEnumerable<Product> GetProductsByStatus(Status? status);
+        IEnumerable<Product> GetProductsByCategory(int? categoryId);
         Product? GetProduct(int id);
         void CreateProduct(Product product);
         void UpdateProduct(Product product);
