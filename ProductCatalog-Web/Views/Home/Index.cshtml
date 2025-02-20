@@ -15,7 +15,7 @@
                 @await Component.InvokeAsync("Category")
                 <div class="my-3 p-3 border rounded bg-light shadow-sm">
                     <h4 class="mb-3">Price Filter</h4>
-                    <form asp-action="" method="get">
+                    <form asp-action="Index" method="get">
                         <div class="mb-2">
                             <label for="MinPrice" class="form-label">Minimum Price</label>
                             <input type="number" name="MinPrice" id="MinPrice" class="form-control" placeholder="E.g.: 100" min="0">

@@ -20,7 +20,7 @@ namespace ProductCatalog_Web.Controllers
 
         public IActionResult Index(int? CatId)
         {
-            var activeProducts = _serviceManager.ProductService.GetAllProducts().ToList();
+            var activeProducts = _serviceManager.ProductService.GetAllProducts();
             if (CatId != null)
             {
                 activeProducts = _serviceManager.ProductService
@@ -36,10 +36,9 @@ namespace ProductCatalog_Web.Controllers
             else
             {
                 activeProducts = _serviceManager.ProductService
-                    .GetAllProducts().Where(x=>x.Status==Status.Active)
-                    .ToList();
+                    .GetAllProducts().Where(x=>x.Status==Status.Active);
             }
-            return View(activeProducts);
+            return View(activeProducts.ToList());
         }
 
 
