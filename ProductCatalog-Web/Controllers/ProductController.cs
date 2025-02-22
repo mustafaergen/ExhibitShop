@@ -23,10 +23,10 @@ namespace ProductCatalog_Web.Controllers
             if (param.CatId != null)
                 products = products.ByCatId(param.CatId);
 
-            if (param.search != null)
+           else if (param.search != null)
                 products = products.BySearch(param.search);
 
-            if (param.MinPrice != null && param.MaxPrice != null && param.IsValidPrice)
+           else if (param.MinPrice != null && param.MaxPrice != null && param.IsValidPrice)
                 products = products.ByPrice(param.MinPrice, param.MaxPrice);
 
             return View(products);

@@ -41,8 +41,16 @@ namespace ProductCatalog_Web.Controllers
                 var cartLine = cart.CartLines.FirstOrDefault(x => x.ProductId == productId);
                 if (cartLine != null)
                 {
-                    cartLine.Quantity += 1;
-                    await _serviceManager.CartService.UpdateAsync(cart);
+                    if (cartLine.Quantity < quantity)
+                    {
+                        cartLine.Quantity += 1;
+                        await _serviceManager.CartService.UpdateAsync(cart);
+                    }
+                    else
+                    {
+                        cartLine.Quantity -= 1;
+                        await _serviceManager.CartService.UpdateAsync(cart);
+                    }
                 }
                 else
                 {

@@ -58,8 +58,8 @@ namespace ProductCatalog_Repositories.Contexts
                 new IdentityRole
                 {
                     Id = "4",
-                    Name= "CustomerRelationsManager",
-                    NormalizedName = "CUSTOMERRELATIONSMANAGER"
+                    Name= "CustomerRelations",
+                    NormalizedName = "CUSTOMERRELATIONS"
                 });
 
             var hasher = new PasswordHasher<Customer>();
