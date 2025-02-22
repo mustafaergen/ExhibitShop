@@ -13,20 +13,10 @@ namespace ProductCatalog_Web.Controllers
         {
             _serviceManager = serviceManager;
         }
-
         [Authorize]
         [HttpGet]
         public IActionResult CheckOut()
         {
-            var user = _serviceManager.UserManager.GetUserAsync(User).Result;
-            var cart = _serviceManager.CartService.GetCartByUserIdAsync(user.Id).Result;
-
-            if (cart == null || cart.CartLines.Count == 0)
-            {
-                ModelState.AddModelError("", "Your cart is empty!");
-                return View(); 
-            }
-
             return View();
         }
 
@@ -65,7 +55,7 @@ namespace ProductCatalog_Web.Controllers
         [HttpGet]
         public IActionResult MyOrders()
         {
-            var userId = _serviceManager.UserManager.GetUserId(User);
+            var userId = _serviceManager.UserManager.GetUserAsync(User).Result.Id;
             var orders = _serviceManager.OrderService.GetAllOrdersByUserId(userId);
             return View(orders);
         }

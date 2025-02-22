@@ -18,27 +18,9 @@ namespace ProductCatalog_Web.Controllers
             _serviceManager = serviceManager;
         }
 
-        public IActionResult Index(int? CatId)
+        public IActionResult Index()
         {
-            var activeProducts = _serviceManager.ProductService.GetAllProducts();
-            if (CatId != null)
-            {
-                activeProducts = _serviceManager.ProductService
-                    .GetProductsByCategory(CatId)
-                    .Where(p => p.Status == Status.Active)
-                    .ToList();
-
-                if (!activeProducts.Any())
-                {
-                    ViewData["NoProductsMessage"] = "No products available in this category.";
-                }
-            }
-            else
-            {
-                activeProducts = _serviceManager.ProductService
-                    .GetAllProducts().Where(x=>x.Status==Status.Active);
-            }
-            return View(activeProducts.ToList());
+            return View(_serviceManager.ProductService.GetProductsByStatus(Status.Active));
         }
 
 

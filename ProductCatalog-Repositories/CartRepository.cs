@@ -18,7 +18,16 @@ namespace ProductCatalog_Repositories
 
         public async Task<Cart> GetCartByUserIdAsync(string userId)
         {
-            return await _context.Carts.Include(c => c.CartLines).ThenInclude(cl => cl.Product).FirstOrDefaultAsync(c => c.UserId == userId);
+            var cart = await _context.Carts.Include(c => c.CartLines).ThenInclude(cl => cl.Product).FirstOrDefaultAsync(c => c.UserId == userId);
+
+            if (cart == null)
+            {
+                cart = new Cart { UserId = userId, CartLines = new List<CartLine>() };
+                _context.Carts.Add(cart);
+                await _context.SaveChangesAsync();
+            }
+
+            return cart;
         }
 
         public async Task<CartLine> AddProductToCartAsync(string userId, int productId, int quantity)

@@ -65,17 +65,13 @@ namespace ProductCatalog_Web.Controllers
             var cart = await _serviceManager.CartService.GetCartByUserIdAsync(user.Id);
             if (cart != null)
             {
-                // CartLines koleksiyonunun bir kopyasını alın
-                var cartLines = cart.CartLines.ToList(); // Koleksiyonu kopyalayın
+                var cartLines = cart.CartLines.ToList(); 
 
-                // Kopya üzerinde işlem yapın
                 foreach (var item in cartLines)
                 {
-                    // Karttaki her ürünü kaldırın
                     await _serviceManager.CartService.RemoveProductFromCartAsync(user.Id, item.ProductId);
                 }
 
-                // Yeni güncellenmiş cart'ı veritabanına kaydedin
                 await _serviceManager.CartService.UpdateAsync(cart);
             }
             return RedirectToAction("Index");
