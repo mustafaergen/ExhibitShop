@@ -14,15 +14,33 @@
                 <form asp-action="Index" method="get">
                     <div class="mb-2">
                         <label for="MinPrice" class="form-label">Minimum Price</label>
-                        <input type="number" name="MinPrice" id="MinPrice" class="form-control" placeholder="E.g.: 100" min="0">
+                        <input type="number" name="MinPrice" id="MinPrice" class="form-control"
+                               placeholder="Min Price" min="0" value="@Context.Request.Query["MinPrice"]">
                     </div>
                     <div class="mb-2">
                         <label for="MaxPrice" class="form-label">Maximum Price</label>
-                        <input type="number" name="MaxPrice" id="MaxPrice" class="form-control" placeholder="E.g.: 1000" min="0">
+                        <input type="number" name="MaxPrice" id="MaxPrice" class="form-control"
+                               placeholder="Max Price" min="0" value="@Context.Request.Query["MaxPrice"]">
                     </div>
                     <button type="submit" class="btn btn-success w-100">Apply</button>
                 </form>
             </div>
+        </div>
+        <div class="mb-3">
+            @if (!string.IsNullOrEmpty(Context.Request.Query["MinPrice"]) || !string.IsNullOrEmpty(Context.Request.Query["MaxPrice"]))
+            {
+                <div class="alert alert-info">
+                    Filtered by Price:
+                    @if (!string.IsNullOrEmpty(Context.Request.Query["MinPrice"]))
+                    {
+                        <span>Min: @Context.Request.Query["MinPrice"]</span>
+                    }
+                    @if (!string.IsNullOrEmpty(Context.Request.Query["MaxPrice"]))
+                    {
+                        <span> Max: @Context.Request.Query["MaxPrice"]</span>
+                    }
+                </div>
+            }
         </div>
         <div class="col-12 offset-lg-2">
             <div class="row">
