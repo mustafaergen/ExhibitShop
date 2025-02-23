@@ -33,7 +33,8 @@ namespace ProductCatalog_Web.Controllers
                 return View(order); 
             }
 
-            order.Lines = cart.CartLines.ToList();  
+            order.Lines = cart.CartLines.ToList();
+            order.UserId = user.Id;
 
             if (ModelState.IsValid)
             {
@@ -58,6 +59,12 @@ namespace ProductCatalog_Web.Controllers
             var userId = _serviceManager.UserManager.GetUserAsync(User).Result.Id;
             var orders = _serviceManager.OrderService.GetAllOrdersByUserId(userId);
             return View(orders);
+        }
+        [HttpGet]
+        public IActionResult Detail(int orderId)
+        {
+            var order = _serviceManager.OrderService.GetOneOrder(orderId);
+            return View(order);
         }
     }
 }

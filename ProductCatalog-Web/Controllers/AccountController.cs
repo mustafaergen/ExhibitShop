@@ -122,10 +122,6 @@ namespace ProductCatalog_Web.Controllers
         [HttpPost]
         public async Task<IActionResult> MyAccount(ProfileVM model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
