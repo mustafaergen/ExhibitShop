@@ -26,7 +26,12 @@ namespace ProductCatalog_Web.Controllers
            else if (param.search != null)
                 products = products.BySearch(param.search);
 
-           else if (param.MinPrice != null && param.MaxPrice != null && param.IsValidPrice)
+           else if (param.MinPrice != null || param.MaxPrice != null)
+                if(param.MinPrice is null || param.MinPrice > param.MaxPrice)
+                    param.MinPrice = 0;
+                else if (param.MaxPrice is null)
+                    param.MaxPrice = decimal.MaxValue;
+
                 products = products.ByPrice(param.MinPrice, param.MaxPrice);
 
             return View(products);

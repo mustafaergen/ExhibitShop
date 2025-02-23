@@ -10,8 +10,8 @@ namespace ProductCatolog_Core.Request
     {
         public int? CatId { get; set; }
         public string? search { get; set; }
-        public int? MinPrice { get; set; } = 0;
-        public int? MaxPrice { get; set; } = int.MaxValue;
+        public decimal? MinPrice { get; set; } = 0;
+        public decimal? MaxPrice { get; set; } = decimal.MaxValue;
         public bool IsValidPrice => MaxPrice > MinPrice;
     }
 }
