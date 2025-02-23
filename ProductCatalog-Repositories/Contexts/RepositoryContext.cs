@@ -23,6 +23,7 @@ namespace ProductCatalog_Repositories.Contexts
         public DbSet<Order> Orders { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartLine> CartLines { get; set; }
+        public DbSet<Questions> Questions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -16,9 +16,10 @@ namespace ProductCatalog_Repositories.UnitOfWork
         private readonly ICategoryRepository _categoryRepository;
         private readonly IOrderRepository _orderRepository;
         private readonly ICartRepository _cartRepository;
+        private readonly IQuestionsRepository _questionsRepository;
 
         public RepositoryManager
-            (RepositoryContext context, IProductRepository productRepository, IArticleRepository articleRepository, ICategoryRepository categoryRepository, IOrderRepository orderRepository, ICartRepository cartRepository)
+            (RepositoryContext context, IProductRepository productRepository, IArticleRepository articleRepository, ICategoryRepository categoryRepository, IOrderRepository orderRepository, ICartRepository cartRepository, IQuestionsRepository questionsRepository)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
@@ -26,6 +27,7 @@ namespace ProductCatalog_Repositories.UnitOfWork
             _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
             _orderRepository = orderRepository ?? throw new ArgumentNullException(nameof(orderRepository));
             _cartRepository = cartRepository;
+            _questionsRepository = questionsRepository;
         }
 
         public IProductRepository ProductRepository => _productRepository;
@@ -34,6 +36,8 @@ namespace ProductCatalog_Repositories.UnitOfWork
         public IOrderRepository OrderRepository => _orderRepository;
 
         public ICartRepository CartRepository => _cartRepository;
+
+        public IQuestionsRepository QuestionsRepository => _questionsRepository;
 
         public void Save()
         {

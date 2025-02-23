@@ -52,30 +52,30 @@ namespace ProductCatalog_Repositories.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "6e39a7f4-0968-4025-a0ba-f2e7567fdc22",
+                            ConcurrencyStamp = "f41c02e7-fda7-49af-9d1e-063efb54c599",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "4dd0d780-aa02-4c1f-b1d6-af5cb0fb4f2b",
+                            ConcurrencyStamp = "ac450a0a-49f5-42ea-826e-1d9132cafad3",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
                             Id = "3",
-                            ConcurrencyStamp = "e52c78a6-2e3c-4cce-8c40-469a1db0801b",
+                            ConcurrencyStamp = "b2c929ec-3d2a-41e4-b310-89bd8d627122",
                             Name = "ContentManager",
                             NormalizedName = "CONTENTMANAGER"
                         },
                         new
                         {
                             Id = "4",
-                            ConcurrencyStamp = "d428b666-26ca-416c-a039-e88cc7d4f587",
-                            Name = "CustomerRelationsManager",
-                            NormalizedName = "CUSTOMERRELATIONSMANAGER"
+                            ConcurrencyStamp = "d7c121fb-a867-48a2-884a-dd6914a38128",
+                            Name = "CustomerRelations",
+                            NormalizedName = "CUSTOMERRELATIONS"
                         });
                 });
 
@@ -460,6 +460,55 @@ namespace ProductCatalog_Repositories.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("ProductCatolog_Core.Models.Questions", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Answer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Question")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QuestionTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionTypeId");
+
+                    b.ToTable("Questions");
+                });
+
+            modelBuilder.Entity("ProductCatolog_Core.Models.QuestionType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("QuestionType");
+                });
+
             modelBuilder.Entity("ProductCatolog_Core.Models.Customer", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -479,15 +528,15 @@ namespace ProductCatalog_Repositories.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "58a11f3f-f52d-4ad9-acdd-b12e6b0c45db",
+                            ConcurrencyStamp = "8bdc7d0a-2254-44a8-93e6-36c1d20e7c95",
                             Email = "admin@mail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN@MAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIdLQaufpXWHrTMwZGfcxWvdpJcs8rcqsfAvMKfkFxgeGIKyEgKb84HQNn1ZJ1tBfA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEE6m4Lu6QfOSdfLHp/1gQXEYdKMo4hMCtuMk49Z4qzH+U20pJTLA7//jtLqP3MWTtQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "40fc3af8-e119-4c45-a28e-5206997549f8",
+                            SecurityStamp = "ff6a1d6f-c0c7-44b9-ace9-8ba5880942a1",
                             TwoFactorEnabled = false,
                             UserName = "admin@mail.com",
                             FirstName = "Admin1",
@@ -589,6 +638,17 @@ namespace ProductCatalog_Repositories.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("ProductCatolog_Core.Models.Questions", b =>
+                {
+                    b.HasOne("ProductCatolog_Core.Models.QuestionType", "QuestionType")
+                        .WithMany("Questions")
+                        .HasForeignKey("QuestionTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("QuestionType");
+                });
+
             modelBuilder.Entity("ProductCatolog_Core.Models.Cart", b =>
                 {
                     b.Navigation("CartLines");
@@ -602,6 +662,11 @@ namespace ProductCatalog_Repositories.Migrations
             modelBuilder.Entity("ProductCatolog_Core.Models.Order", b =>
                 {
                     b.Navigation("Lines");
+                });
+
+            modelBuilder.Entity("ProductCatolog_Core.Models.QuestionType", b =>
+                {
+                    b.Navigation("Questions");
                 });
 #pragma warning restore 612, 618
         }

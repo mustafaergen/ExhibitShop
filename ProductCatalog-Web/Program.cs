@@ -38,6 +38,7 @@ namespace ProductCatalog_Web
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
             builder.Services.AddScoped<ICartRepository, CartRepository>();
+            builder.Services.AddScoped<IQuestionsRepository, QuestionsRepository>();
 
             builder.Services.AddScoped<IServiceManager, ServiceManager>();
             builder.Services.AddScoped<IProductService, ProductService>();
@@ -46,9 +47,9 @@ namespace ProductCatalog_Web
             builder.Services.AddScoped<IOrderService, OrderService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddScoped<ICartService, CartService>();
+            builder.Services.AddScoped<IQuestionsService, QuestionsService>();
 
             builder.Services.AddAutoMapper(typeof(MappingProfile));
-            //builder.Services.AddSingleton<Cart>();
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options =>
             {
@@ -102,6 +103,10 @@ namespace ProductCatalog_Web
                 endpoints.MapControllerRoute(
                   name: "ContentManager",
                   pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+                endpoints.MapControllerRoute(
+                name: "CustomerRelations",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
             });
 
