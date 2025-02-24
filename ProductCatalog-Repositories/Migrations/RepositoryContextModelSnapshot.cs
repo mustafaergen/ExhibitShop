@@ -52,28 +52,28 @@ namespace ProductCatalog_Repositories.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "f41c02e7-fda7-49af-9d1e-063efb54c599",
+                            ConcurrencyStamp = "f71e8eaf-b078-47e6-863a-9ae90465a882",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "ac450a0a-49f5-42ea-826e-1d9132cafad3",
+                            ConcurrencyStamp = "50b65b7c-b396-48ce-99af-e0985eac125a",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
                             Id = "3",
-                            ConcurrencyStamp = "b2c929ec-3d2a-41e4-b310-89bd8d627122",
+                            ConcurrencyStamp = "f13b639a-7994-4e52-8f34-7aacdf76b102",
                             Name = "ContentManager",
                             NormalizedName = "CONTENTMANAGER"
                         },
                         new
                         {
                             Id = "4",
-                            ConcurrencyStamp = "d7c121fb-a867-48a2-884a-dd6914a38128",
+                            ConcurrencyStamp = "9838e47b-edc9-42fc-afd9-f71b9c27794b",
                             Name = "CustomerRelations",
                             NormalizedName = "CUSTOMERRELATIONS"
                         });
@@ -479,7 +479,7 @@ namespace ProductCatalog_Repositories.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("QuestionTypeId")
+                    b.Property<int?>("QuestionTypeId")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -500,13 +500,19 @@ namespace ProductCatalog_Repositories.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("QuestionType");
+                    b.ToTable("QuestionTypes");
                 });
 
             modelBuilder.Entity("ProductCatolog_Core.Models.Customer", b =>
@@ -528,15 +534,15 @@ namespace ProductCatalog_Repositories.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8bdc7d0a-2254-44a8-93e6-36c1d20e7c95",
+                            ConcurrencyStamp = "16455aa2-8914-493d-93c0-1843a01c8027",
                             Email = "admin@mail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN@MAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE6m4Lu6QfOSdfLHp/1gQXEYdKMo4hMCtuMk49Z4qzH+U20pJTLA7//jtLqP3MWTtQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEESOKbvbQF5je4PdEaQcqwviOJ/JDp+vaasH0UsO3tFGYqpNG5GTQ7WbrzzyY1weaQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ff6a1d6f-c0c7-44b9-ace9-8ba5880942a1",
+                            SecurityStamp = "412b4018-551e-4c07-8190-583744a8f5ce",
                             TwoFactorEnabled = false,
                             UserName = "admin@mail.com",
                             FirstName = "Admin1",
@@ -642,9 +648,7 @@ namespace ProductCatalog_Repositories.Migrations
                 {
                     b.HasOne("ProductCatolog_Core.Models.QuestionType", "QuestionType")
                         .WithMany("Questions")
-                        .HasForeignKey("QuestionTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("QuestionTypeId");
 
                     b.Navigation("QuestionType");
                 });

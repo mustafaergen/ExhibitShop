@@ -1,5 +1,6 @@
 ﻿using ProductCatalog_Repositories.UnitOfWork;
 using ProductCatalog_Services.Contracts;
+using ProductCatolog_Core.Enums;
 using ProductCatolog_Core.Models;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,20 @@ namespace ProductCatalog_Services
 
         public Questions GetQuestionsById(int id)
         {
-            return _manager.QuestionsRepository.FindById(id);
+            var question = _manager.QuestionsRepository.FindById(id);
+            if (question == null)
+            {
+                throw new Exception("Question is not found");
+            }
+            else
+            {
+                return question;
+            }
+        }
+
+        public IEnumerable<Questions> GetQuestionsByStatus(Status? status)
+        {
+            return _manager.QuestionsRepository.FindAll().Where(x=>x.Status == status).ToList();
         }
 
         public IEnumerable<Questions> GetQuestionsByType(int id)
@@ -51,9 +65,20 @@ namespace ProductCatalog_Services
             return _manager.QuestionsRepository.FindAllCondition(x => x.QuestionTypeId == id).ToList();
         }
 
-        public void UpdateQuestions(Questions category)
+
+        public void UpdateQuestions(Questions questions)
         {
-            _manager.QuestionsRepository.Update(category);
+            var existingQuestion = _manager.QuestionsRepository.FindById(questions.Id);
+            if (existingQuestion == null)
+            {
+                throw new Exception("Question is not found");
+            }
+
+            existingQuestion.QuestionTypeId = questions.QuestionTypeId;
+            existingQuestion.Status = questions.Status;
+            existingQuestion.Question = questions.Question;
+            existingQuestion.Answer = questions.Answer;
+
             _manager.Save();
         }
     }

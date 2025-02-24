@@ -1,0 +1,132 @@
+﻿@model IEnumerable<ProductCatolog_Core.Models.Questions>
+
+@{
+    ViewData["Title"] = "Customer Support";
+    Layout = "_Layout";
+}
+
+<style>
+    .bg-orange {
+        background-color: #ff7f00 !important;
+        color: white;
+    }
+
+    .faq-container {
+        margin-top: 10px;
+    }
+
+    .faq-item {
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+        cursor: pointer;
+    }
+
+    .faq-question {
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .faq-answer {
+        display: none;
+        padding-top: 5px;
+        color: #333;
+    }
+
+    .contact-btn {
+        background-color: #ff7f00;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        display: block;
+        margin: 20px auto 0;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        transition: background 0.3s ease;
+    }
+
+        .contact-btn:hover {
+            background-color: #e67300;
+            color: white;
+        }
+</style>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group">
+                <a asp-controller="CustomerSupport" asp-action="Index" asp-route-id="0"
+                   class="list-group-item list-group-item-action bg-orange text-white">
+                    Popular Questions
+                </a>
+                @foreach (var type in ViewBag.QuestionType as SelectList)
+                {
+                    <a asp-controller="CustomerSupport" asp-action="Index" asp-route-id="@type.Value"
+                       class="list-group-item list-group-item-action @(Context.Request.Query["id"] == type.Value ? "bg-orange text-white" : "")">
+                        @type.Text
+                    </a>
+                }
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card shadow">
+                <div class="card-header bg-orange text-white">
+                    <h5 class="mb-0"><i class="fa-solid fa-book"></i> Frequently Asked Questions</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model != null && Model.Any())
+                    {
+                        <div class="faq-container">
+                            @foreach (var question in Model)
+                            {
+                                <div class="faq-item">
+                                    <div class="faq-question" data-question-id="@question.Id">
+                                        @question.Question
+                                        <i class="fa-solid fa-plus"></i>
+                                    </div>
+                                    <div class="faq-answer" id="answer-@question.Id">
+                                        @question.Answer
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No questions found in this category.</p>
+                    }
+                </div>
+            </div>
+
+            <a href="/CustomerSupport/Contact" class="contact-btn text-center">
+                <i class="fa-solid fa-envelope"></i> Contact Us
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".faq-question").forEach(item => {
+                item.addEventListener("click", function () {
+                    let answer = this.nextElementSibling;
+                    let icon = this.querySelector("i");
+
+                    if (answer.style.display === "block") {
+                        answer.style.display = "none";
+                        icon.classList.remove("fa-minus");
+                        icon.classList.add("fa-plus");
+                    } else {
+                        answer.style.display = "block";
+                        icon.classList.remove("fa-plus");
+                        icon.classList.add("fa-minus");
+                    }
+                });
+            });
+        });
+    </script>
+}

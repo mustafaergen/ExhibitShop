@@ -17,17 +17,19 @@ namespace ProductCatalog_Repositories.UnitOfWork
         private readonly IOrderRepository _orderRepository;
         private readonly ICartRepository _cartRepository;
         private readonly IQuestionsRepository _questionsRepository;
+        private readonly IQuestionTypeRepository _questionTypeRepository;
 
         public RepositoryManager
-            (RepositoryContext context, IProductRepository productRepository, IArticleRepository articleRepository, ICategoryRepository categoryRepository, IOrderRepository orderRepository, ICartRepository cartRepository, IQuestionsRepository questionsRepository)
+            (RepositoryContext context, IProductRepository productRepository, IArticleRepository articleRepository, ICategoryRepository categoryRepository, IOrderRepository orderRepository, ICartRepository cartRepository, IQuestionsRepository questionsRepository, IQuestionTypeRepository questionTypeRepository)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
-            _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
-            _articleRepository = articleRepository ?? throw new ArgumentNullException(nameof(articleRepository));
-            _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
-            _orderRepository = orderRepository ?? throw new ArgumentNullException(nameof(orderRepository));
+            _context = context;
+            _productRepository = productRepository;
+            _articleRepository = articleRepository;
+            _categoryRepository = categoryRepository;
+            _orderRepository = orderRepository;
             _cartRepository = cartRepository;
             _questionsRepository = questionsRepository;
+            _questionTypeRepository = questionTypeRepository;
         }
 
         public IProductRepository ProductRepository => _productRepository;
@@ -38,6 +40,8 @@ namespace ProductCatalog_Repositories.UnitOfWork
         public ICartRepository CartRepository => _cartRepository;
 
         public IQuestionsRepository QuestionsRepository => _questionsRepository;
+
+        public IQuestionTypeRepository QuestionTypeRepository => _questionTypeRepository;
 
         public void Save()
         {

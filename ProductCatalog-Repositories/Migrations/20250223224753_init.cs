@@ -102,16 +102,18 @@ namespace ProductCatalog_Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "QuestionType",
+                name: "QuestionTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_QuestionType", x => x.Id);
+                    table.PrimaryKey("PK_QuestionTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -278,7 +280,7 @@ namespace ProductCatalog_Repositories.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Question = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Answer = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    QuestionTypeId = table.Column<int>(type: "int", nullable: false),
+                    QuestionTypeId = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false)
                 },
@@ -286,11 +288,10 @@ namespace ProductCatalog_Repositories.Migrations
                 {
                     table.PrimaryKey("PK_Questions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Questions_QuestionType_QuestionTypeId",
+                        name: "FK_Questions_QuestionTypes_QuestionTypeId",
                         column: x => x.QuestionTypeId,
-                        principalTable: "QuestionType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "QuestionTypes",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -332,16 +333,16 @@ namespace ProductCatalog_Repositories.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1", "f41c02e7-fda7-49af-9d1e-063efb54c599", "Admin", "ADMIN" },
-                    { "2", "ac450a0a-49f5-42ea-826e-1d9132cafad3", "Customer", "CUSTOMER" },
-                    { "3", "b2c929ec-3d2a-41e4-b310-89bd8d627122", "ContentManager", "CONTENTMANAGER" },
-                    { "4", "d7c121fb-a867-48a2-884a-dd6914a38128", "CustomerRelations", "CUSTOMERRELATIONS" }
+                    { "1", "f71e8eaf-b078-47e6-863a-9ae90465a882", "Admin", "ADMIN" },
+                    { "2", "50b65b7c-b396-48ce-99af-e0985eac125a", "Customer", "CUSTOMER" },
+                    { "3", "f13b639a-7994-4e52-8f34-7aacdf76b102", "ContentManager", "CONTENTMANAGER" },
+                    { "4", "9838e47b-edc9-42fc-afd9-f71b9c27794b", "CustomerRelations", "CUSTOMERRELATIONS" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 0, "8bdc7d0a-2254-44a8-93e6-36c1d20e7c95", "Customer", "admin@mail.com", true, "Admin1", "Admin1", false, null, "ADMIN@MAIL.COM", "ADMIN@MAIL.COM", "AQAAAAEAACcQAAAAEE6m4Lu6QfOSdfLHp/1gQXEYdKMo4hMCtuMk49Z4qzH+U20pJTLA7//jtLqP3MWTtQ==", null, false, "ff6a1d6f-c0c7-44b9-ace9-8ba5880942a1", false, "admin@mail.com" });
+                values: new object[] { "1", 0, "16455aa2-8914-493d-93c0-1843a01c8027", "Customer", "admin@mail.com", true, "Admin1", "Admin1", false, null, "ADMIN@MAIL.COM", "ADMIN@MAIL.COM", "AQAAAAEAACcQAAAAEESOKbvbQF5je4PdEaQcqwviOJ/JDp+vaasH0UsO3tFGYqpNG5GTQ7WbrzzyY1weaQ==", null, false, "412b4018-551e-4c07-8190-583744a8f5ce", false, "admin@mail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -457,7 +458,7 @@ namespace ProductCatalog_Repositories.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "QuestionType");
+                name: "QuestionTypes");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

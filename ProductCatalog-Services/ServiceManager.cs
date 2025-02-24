@@ -14,8 +14,9 @@ namespace ProductCatalog_Services
         private readonly ICartService _cartService;
         private readonly UserManager<Customer> _userManager;
         private readonly IQuestionsService _questionsService;
+        private readonly IQuestionTypeService _questionTypeService;
 
-        public ServiceManager(IProductService productService, IArticleService articleService, ICategoryService categoryService, IOrderService orderService, UserManager<Customer> userManager, IEmailService emailService, ICartService cartService, IQuestionsService questionsService)
+        public ServiceManager(IProductService productService, IArticleService articleService, ICategoryService categoryService, IOrderService orderService, UserManager<Customer> userManager, IEmailService emailService, ICartService cartService, IQuestionsService questionsService, IQuestionTypeService questionTypeService)
         {
             _productService = productService;
             _articleService = articleService;
@@ -25,6 +26,7 @@ namespace ProductCatalog_Services
             _emailService = emailService;
             _cartService = cartService;
             _questionsService = questionsService;
+            _questionTypeService = questionTypeService;
         }
 
         public IProductService ProductService => _productService;
@@ -38,5 +40,7 @@ namespace ProductCatalog_Services
 
         public ICartService CartService => _cartService;
         public IQuestionsService QuestionsService => _questionsService;
+
+        public IQuestionTypeService QuestionTypeService => _questionTypeService;
     }
 }

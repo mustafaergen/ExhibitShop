@@ -2,7 +2,7 @@
 @model IEnumerable<ProductCatolog_Core.Models.Product>
 
 @{
-    ViewData["Title"] = "Ürün Kataloğu";
+    ViewData["Title"] = "Produt Catalog";
 }
 
 <h1 class="text-center my-4">Product Catalog</h1>
@@ -16,7 +16,6 @@
                     <img src="~/img/@item.ImageUrl" class="card-img-top" alt="@item.Name" style="height: 250px; object-fit: cover;">
                     <div class="card-body">
                         <h5 class="card-title">@item.Name</h5>
-                        <p class="card-text text-muted">@item.Summary</p>
                         <h6 class="text-primary">@(item.Price.ToString("C", new CultureInfo("en-US")))</h6>
 
                         <div class="d-flex justify-content-between mt-3">

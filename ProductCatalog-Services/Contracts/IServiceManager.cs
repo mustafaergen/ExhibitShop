@@ -18,6 +18,7 @@ namespace ProductCatalog_Services.Contracts
         ICartService CartService { get; }
         UserManager<Customer> UserManager { get; }
         IQuestionsService QuestionsService { get; }
+        IQuestionTypeService QuestionTypeService { get; }
 
     }
 }

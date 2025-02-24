@@ -1,0 +1,58 @@
+﻿@model ProductCatolog_Core.Models.Questions
+
+@{
+    ViewData["Title"] = "Create Question";
+    Layout = "_Layout";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-4">
+                    <h4 class="text-center text-primary fw-bold mb-3">Create New Question</h4>
+                    <hr />
+
+                    <form method="post" asp-area="CustomerRelations" asp-controller="Questions" asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Question" class="form-label fw-semibold">Question</label>
+                            <input asp-for="Question" class="form-control border-primary shadow-sm" />
+                            <span asp-validation-for="Question" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Answer" class="form-label fw-semibold">Answer</label>
+                            <textarea asp-for="Answer" class="form-control border-primary shadow-sm" rows="3"></textarea>
+                            <span asp-validation-for="Answer" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="QuestionTypeId" class="form-label fw-semibold">Question Type</label>
+                            <select asp-for="QuestionTypeId" class="form-select border-primary shadow-sm" asp-items="@ViewBag.QuestionTypes">
+                                <option value="">-- Select Question Type --</option>
+                            </select>
+                            <span asp-validation-for="QuestionTypeId" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Status" class="form-label fw-semibold">Status</label>
+                            <select asp-for="Status" class="form-select border-primary shadow-sm" asp-items="Html.GetEnumSelectList<ProductCatolog_Core.Enums.Status>()">
+                                <option value="">-- Select Status --</option>
+                            </select>
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary px-4">Back to List</a>
+                            <button type="submit" class="btn btn-primary px-4">Create</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

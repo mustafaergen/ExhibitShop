@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ProductCatalog_Services;
 using ProductCatalog_Services.Contracts;
 using ProductCatalog_Web.Models;
@@ -20,6 +21,7 @@ namespace ProductCatalog_Web.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Articles = GetArticles();
             return View(_serviceManager.ProductService.GetProductsByStatus(Status.Active));
         }
 
@@ -43,6 +45,10 @@ namespace ProductCatalog_Web.Controllers
 
             return View(pro);
                 
+        }
+        private SelectList GetArticles()
+        {
+            return new SelectList(_serviceManager.ArticlesService.GetAllArticle(), "Id", "Name");
         }
     }
 }

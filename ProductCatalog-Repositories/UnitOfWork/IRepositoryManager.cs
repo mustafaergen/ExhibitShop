@@ -15,6 +15,7 @@ namespace ProductCatalog_Repositories.UnitOfWork
         IOrderRepository OrderRepository { get; }
         ICartRepository CartRepository { get; }
         IQuestionsRepository QuestionsRepository { get; }
+        IQuestionTypeRepository QuestionTypeRepository { get; }
 
         void Save();
     }
