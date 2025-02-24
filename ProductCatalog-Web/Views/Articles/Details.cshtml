@@ -1,0 +1,112 @@
+﻿@model ProductCatolog_Core.Models.Article
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="display-3">@Model.Name</h1>
+            <p class="text-muted">
+                <strong>Published on:</strong> @Model.CreatedDate.ToString("MMMM dd, yyyy")
+            </p>
+        </div>
+    </div>
+    @if (!string.IsNullOrEmpty(Model.ImageUrl1))
+    {
+        <div class="row mb-4">
+            <div class="col-12">
+                <img src="~/img/@Model.ImageUrl1" alt="Product Image" class="img-thumbnail" style="width: 400px; height: 400px;" />
+            </div>
+        </div>
+    }
+    <div class="row mb-4">
+        <div class="col-12">
+            <h3 class="text-primary"></h3>
+            <p>@Html.Raw(Model.Introduction)</p>
+        </div>
+    </div>
+    <div class="row mb-4">
+        @if (!string.IsNullOrEmpty(Model.ImageUrl2))
+        {
+            <div class="col-12 mb-3">
+                <img src="~/img/@Model.ImageUrl2" alt="Product Image" class="img-thumbnail" style="width: 300px; height: 300px;" />
+            </div>
+        }
+        <div class="col-12">
+            <h3 class="text-success"></h3>
+            <p>@Html.Raw(Model.Development)</p>
+        </div>
+    </div>
+    <div class="row mb-4">
+        @if (!string.IsNullOrEmpty(Model.ImageUrl3))
+        {
+            <div class="col-12 mb-3">
+                <img src="~/img/@Model.ImageUrl3" alt="Product Image" class="img-thumbnail" style="width: 300px; height: 300px;" />
+            </div>
+        }
+        <div class="col-12">
+            <h3 class="text-danger"></h3>
+            <p>@Html.Raw(Model.Conclusion)</p>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-12">
+            <a asp-action="Index" asp-controller="Articles" class="btn btn-secondary btn-lg">
+                <i class="fas fa-arrow-left"></i> Back to Blogs
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .container {
+            max-width: 900px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+
+            .btn-secondary:hover {
+                background-color: #5a6268;
+            }
+
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .row {
+            margin-bottom: 20px;
+        }
+    </style>
+}

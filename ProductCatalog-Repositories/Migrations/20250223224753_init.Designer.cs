@@ -12,7 +12,7 @@ using ProductCatalog_Repositories.Contexts;
 namespace ProductCatalog_Repositories.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20250205175847_init")]
+    [Migration("20250223224753_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,16 +54,30 @@ namespace ProductCatalog_Repositories.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "c1a04cfc-b29f-4941-9daf-d49edc3dc1fd",
+                            ConcurrencyStamp = "f71e8eaf-b078-47e6-863a-9ae90465a882",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "32bd2960-8492-47ea-be90-36b57c749a93",
+                            ConcurrencyStamp = "50b65b7c-b396-48ce-99af-e0985eac125a",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            ConcurrencyStamp = "f13b639a-7994-4e52-8f34-7aacdf76b102",
+                            Name = "ContentManager",
+                            NormalizedName = "CONTENTMANAGER"
+                        },
+                        new
+                        {
+                            Id = "4",
+                            ConcurrencyStamp = "9838e47b-edc9-42fc-afd9-f71b9c27794b",
+                            Name = "CustomerRelations",
+                            NormalizedName = "CUSTOMERRELATIONS"
                         });
                 });
 
@@ -251,16 +265,86 @@ namespace ProductCatalog_Repositories.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ProductCatolog_Core.Models.CartLine", b =>
+            modelBuilder.Entity("ProductCatolog_Core.Models.Article", b =>
                 {
-                    b.Property<int>("CartLineId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartLineId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Conclusion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Development")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Introduction")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Articles");
+                });
+
+            modelBuilder.Entity("ProductCatolog_Core.Models.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("ProductCatolog_Core.Models.CartLine", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -268,13 +352,15 @@ namespace ProductCatalog_Repositories.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("CartLineId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId");
 
                     b.HasIndex("OrderId");
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CartLine");
+                    b.ToTable("CartLines");
                 });
 
             modelBuilder.Entity("ProductCatolog_Core.Models.Category", b =>
@@ -376,6 +462,61 @@ namespace ProductCatalog_Repositories.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("ProductCatolog_Core.Models.Questions", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Answer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Question")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("QuestionTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionTypeId");
+
+                    b.ToTable("Questions");
+                });
+
+            modelBuilder.Entity("ProductCatolog_Core.Models.QuestionType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("QuestionTypes");
+                });
+
             modelBuilder.Entity("ProductCatolog_Core.Models.Customer", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -395,15 +536,15 @@ namespace ProductCatalog_Repositories.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6f971226-ba3e-4475-b8a4-21157b5a8a10",
+                            ConcurrencyStamp = "16455aa2-8914-493d-93c0-1843a01c8027",
                             Email = "admin@mail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN@MAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAMVYrdkVhq7qlm9N/fjT37BSkEgx1/OjrVdh9CIsvtEfNginWhV7QJ3dl0RPCKdWA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEESOKbvbQF5je4PdEaQcqwviOJ/JDp+vaasH0UsO3tFGYqpNG5GTQ7WbrzzyY1weaQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c2d57e7d-4614-4300-a8b2-6caf1a12e59b",
+                            SecurityStamp = "412b4018-551e-4c07-8190-583744a8f5ce",
                             TwoFactorEnabled = false,
                             UserName = "admin@mail.com",
                             FirstName = "Admin1",
@@ -464,6 +605,12 @@ namespace ProductCatalog_Repositories.Migrations
 
             modelBuilder.Entity("ProductCatolog_Core.Models.CartLine", b =>
                 {
+                    b.HasOne("ProductCatolog_Core.Models.Cart", "Cart")
+                        .WithMany("CartLines")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ProductCatolog_Core.Models.Order", null)
                         .WithMany("Lines")
                         .HasForeignKey("OrderId");
@@ -473,6 +620,8 @@ namespace ProductCatalog_Repositories.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Cart");
 
                     b.Navigation("Product");
                 });
@@ -492,9 +641,23 @@ namespace ProductCatalog_Repositories.Migrations
                     b.HasOne("ProductCatolog_Core.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("ProductCatolog_Core.Models.Questions", b =>
+                {
+                    b.HasOne("ProductCatolog_Core.Models.QuestionType", "QuestionType")
+                        .WithMany("Questions")
+                        .HasForeignKey("QuestionTypeId");
+
+                    b.Navigation("QuestionType");
+                });
+
+            modelBuilder.Entity("ProductCatolog_Core.Models.Cart", b =>
+                {
+                    b.Navigation("CartLines");
                 });
 
             modelBuilder.Entity("ProductCatolog_Core.Models.Category", b =>
@@ -505,6 +668,11 @@ namespace ProductCatalog_Repositories.Migrations
             modelBuilder.Entity("ProductCatolog_Core.Models.Order", b =>
                 {
                     b.Navigation("Lines");
+                });
+
+            modelBuilder.Entity("ProductCatolog_Core.Models.QuestionType", b =>
+                {
+                    b.Navigation("Questions");
                 });
 #pragma warning restore 612, 618
         }

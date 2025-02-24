@@ -10,8 +10,13 @@ namespace ProductCatalog_Repositories.UnitOfWork
     public interface IRepositoryManager
     {
         IProductRepository ProductRepository { get; }
+        IArticleRepository ArticleRepository { get; }
         ICategoryRepository CategoryRepository { get; }
         IOrderRepository OrderRepository { get; }
+        ICartRepository CartRepository { get; }
+        IQuestionsRepository QuestionsRepository { get; }
+        IQuestionTypeRepository QuestionTypeRepository { get; }
+
         void Save();
     }
 }

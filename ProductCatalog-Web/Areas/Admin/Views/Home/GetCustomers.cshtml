@@ -8,7 +8,7 @@
     <h1 class="text-center text-primary mb-4">Customer List</h1>
 
     <div class="text-right mb-3">
-        <a href="@Url.Action("Index", "Role")" class="btn btn-primary">Manage Roles</a>
+        <a asp-action="Index" asp-controller="Role" class="btn btn-primary">Manage Roles</a>
     </div>
 
     <table class="table table-bordered table-striped table-hover">
@@ -34,8 +34,8 @@
                     <td>@Html.DisplayFor(modelItem => item.Email)</td>
                     <td>@Html.DisplayFor(modelItem => item.Roles)</td>
                     <td class="text-center">
-                        <a href="@Url.Action("RoleManager", new { id = item.Id })" class="btn btn-warning btn-sm">Edit</a>
-                        <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger btn-sm ml-2">Delete</a>
+                        <a asp-action="RoleManager" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm ml-2">Delete</a>
                     </td>
                 </tr>
             }

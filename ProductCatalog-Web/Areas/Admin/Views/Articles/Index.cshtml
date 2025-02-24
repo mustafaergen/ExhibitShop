@@ -1,0 +1,109 @@
+﻿@using ProductCatolog_Core.Enums
+
+@model IEnumerable<ProductCatolog_Core.Models.Article>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Blogs Controller</h1>
+
+<div class="form-group mb-3">
+    <div class="row">
+        <div class="col">
+            <form asp-action="Index" method="get">
+                <input type="hidden" name="status"  value="@Status.Request"  />
+                <input type="submit" value="Show Request Articles" class="btn btn-success w-100" />
+            </form>
+        </div>
+        <div class="col">
+            <form asp-action="Index" method="get">
+                <input type="submit" value="Show All Articles" class="btn btn-primary w-100" />
+            </form>
+        </div>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Introduction)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Development)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Conclusion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                 <td style="white-space: normal; word-break: break-word; max-width: 100%;">
+                      <div style="max-width: 1500000px; max-height: 300px; overflow: auto; padding: 10px; border: 1px solid #ccc;">
+                        @Html.Raw(item.Introduction)
+                      </div>
+                </td>
+                <td style="white-space: normal; word-break: break-word; max-width: 100%;">
+                    <div style="max-width: 1500000px; max-height: 300px; overflow: auto; padding: 10px; border: 1px solid #ccc;">
+                        @Html.Raw(item.Development)
+                    </div>
+                </td>
+                <td style="white-space: normal; word-break: break-word; max-width: 100%;">
+                    <div style="max-width: 1500000px; max-height: 300px; overflow: auto; padding: 10px; border: 1px solid #ccc;">
+                        @Html.Raw(item.Conclusion)
+                    </div>
+                </td>
+                <td>
+                    <img src="~/img/@item.ImageUrl1" alt="Image1" class="img-fluid" />
+                </td>
+                <td>
+                    <img src="~/img/@item.ImageUrl2" alt="Image1" class="img-fluid" />
+                </td>
+                <td>
+                    <img src="~/img/@item.ImageUrl3" alt="Image1" class="img-fluid" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) 
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

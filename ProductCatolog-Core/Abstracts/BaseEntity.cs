@@ -11,7 +11,7 @@ namespace ProductCatolog_Core.Abstracts
     {
         public int Id { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
-        public Status Status { get; set; } = Status.Active;
+        public Status Status { get; set; } = Status.Passive;
 
     }
 }

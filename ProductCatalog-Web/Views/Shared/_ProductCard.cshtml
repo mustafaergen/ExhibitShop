@@ -1,0 +1,35 @@
+﻿@using System.Globalization
+@model ProductCatolog_Core.Models.Product
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<div class="col-md-4 mb-4">
+    <div class="product-card shadow-lg border rounded">
+        <img src="~/img/@Model.ImageUrl" alt="@Model.Name" class="img-thumbnail" style="width: 400px; height: 400px;" />
+        <div class="product-info p-3 text-center">
+            <h5 class="product-title fw-bold">@Model.Name</h5>
+            <p class="product-summary text-muted">@Model.Summary</p>
+            <p class="product-price text-success fw-bold">@Model.Price.ToString("C", new CultureInfo("en-US"))</p>
+            <div class="d-flex justify-content-between">
+                <a asp-controller="Product" asp-action="GetById" asp-route-id="@Model.Id" class="btn btn-primary">Details</a>
+                <form method="post" asp-controller="Cart" asp-action="AddToCart">
+                    <input type="hidden" name="productId" value="@Model.Id" />
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-cart-plus"></i> Add To Cart
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .product-card {
+        transition: transform 0.3s ease;
+    }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+</style>

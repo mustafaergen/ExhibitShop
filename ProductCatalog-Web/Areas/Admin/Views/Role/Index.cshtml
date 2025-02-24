@@ -3,7 +3,7 @@
 <h1>Manage Roles</h1>
 
 <div>
-    <a href="@Url.Action("CreateRole", "Role")" class="btn btn-success">Create New Role</a>
+    <a asp-action="CreateRole" asp-controller="Role" class="btn btn-success">Create New Role</a>
 </div>
 <br />
 <table class="table table-bordered">
@@ -19,8 +19,8 @@
             <tr>
                 <td>@role.Name</td>
                 <td class="text-center">
-                    <a href="@Url.Action("EditRole", "Role", new { id = role.Id })" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="@Url.Action("DeleteRole", "Role", new { id = role.Id })" class="btn btn-danger btn-sm ml-2">Delete</a>
+                    <a asp-action="EditRole" asp-controller="Role" asp-route-id="@role.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="DeleteRole" asp-controller="Role" asp-route-id="@role.Id" class="btn btn-danger btn-sm ml-2">Delete</a>
                 </td>
             </tr>
         }
@@ -28,5 +28,5 @@
 </table>
 
 <div>
-    <a class="btn btn-primary" asp-controller="Home" asp-action="GetCustomers">Back to List</a>
+    <a asp-action="GetCustomers" asp-controller="Home" class="btn btn-primary">Back to List</a>
 </div>

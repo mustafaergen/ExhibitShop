@@ -25,7 +25,7 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Categories = GetCategoriesCount();
+            ViewBag.Categories = GetCategories();
             return View();
         }
         [HttpPost]
@@ -47,7 +47,7 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            ViewBag.Categories = GetCategoriesCount();
+            ViewBag.Categories = GetCategories();
             return View(_serviceManager.ProductService.GetProduct(id));
         }
         [HttpPost]
@@ -72,7 +72,7 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
             _serviceManager.ProductService.DeleteProduct(id);
             return RedirectToAction("Index");
         }
-        private SelectList GetCategoriesCount()
+        private SelectList GetCategories()
         {
               return new SelectList(_serviceManager.CategoryService.GetCategories(),"Id","Name");
         }

@@ -1,0 +1,126 @@
+﻿@using ProductCatolog_Core.Enums
+@using System.Globalization
+@model ProductCatolog_Core.Models.Order
+
+@{
+    ViewData["Title"] = "Order Completed";
+    string info = ViewData["Success"]?.ToString() ?? "";
+}
+
+<div class="container my-5">
+    <div class="card shadow-lg p-4">
+        <h1 class="text-success text-center">
+            <i class="bi bi-check-circle-fill"></i> Order Completed
+        </h1>
+
+        @if (!string.IsNullOrEmpty(info))
+        {
+            <div class="alert alert-success text-center mt-3">
+                <h6>@info</h6>
+            </div>
+        }
+
+        <hr />
+
+        <div class="row">
+            <div class="col-md-6">
+                <h4 class="text-primary">Order Information</h4>
+                <dl class="row">
+                    <dt class="col-sm-4">Order No:</dt>
+                    <dd class="col-sm-8 fw-bold">@Model.Id</dd>
+
+                    <dt class="col-sm-4">Customer Name:</dt>
+                    <dd class="col-sm-8">@Model.Name</dd>
+
+                    <dt class="col-sm-4">Order Date:</dt>
+                    <dd class="col-sm-8">@Model.CreatedDate.ToString("MMM dd, yyyy")</dd>
+
+                    <dt class="col-sm-4">Order Status:</dt>
+                    <dd class="col-sm-8">
+                        @switch (Model.OrderStatus)
+                        {
+                            case OrderStatus.OrderReceived:
+                                <span class="badge bg-secondary p-2">Order Received</span>
+                                break;
+                            case OrderStatus.OrderConfirmed:
+                                <span class="badge bg-primary p-2">Order Confirmed</span>
+                                break;
+                            case OrderStatus.OrderCancelled:
+                                <span class="badge bg-danger p-2">Cancelled</span>
+                                break;
+                            case OrderStatus.Proccessing:
+                                <span class="badge bg-warning text-dark p-2">Processing</span>
+                                break;
+                            case OrderStatus.Shipped:
+                                <span class="badge bg-info p-2">Shipped</span>
+                                break;
+                            case OrderStatus.Delivered:
+                                <span class="badge bg-success p-2">Delivered</span>
+                                break;
+                            case OrderStatus.Returned:
+                                <span class="badge bg-dark p-2">Returned</span>
+                                break;
+                            default:
+                                <span class="badge bg-light p-2">Unknown Status</span>
+                                break;
+                        }
+                    </dd>
+                </dl>
+            </div>
+
+            <div class="col-md-6">
+                <h4 class="text-primary">Shipping Address</h4>
+                <div class="border rounded p-3 bg-light">
+                    <p class="mb-1"><i class="bi bi-house-door-fill"></i> @Model.Line1</p>
+                    @if (!string.IsNullOrEmpty(Model.Line2))
+                    {
+                        <p class="mb-1"><i class="bi bi-building"></i> @Model.Line2</p>
+                    }
+                    <p class="mb-1"><i class="bi bi-geo-alt-fill"></i> @Model.City</p>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <h4 class="text-primary">Order Details</h4>
+        <div class="table-responsive">
+            <table class="table table-hover border text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th><i class="bi bi-box-seam"></i> Product Name</th>
+                        <th><i class="bi bi-currency-dollar"></i> Price</th>
+                        <th><i class="bi bi-hash"></i> Quantity</th>
+                        <th><i class="bi bi-cash"></i> Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Lines)
+                    {
+                        <tr>
+                            <td>@item.Product.Name</td>
+                            <td>@item.Product.Price.ToString("C", new CultureInfo("en-US"))</td>
+                            <td>@item.Quantity</td>
+                            <td>@((item.Product.Price * item.Quantity).ToString("C", new CultureInfo("en-US")))</td>
+                        </tr>
+                    }
+                    <tr class="fw-bold bg-light">
+                        <td>Total Price:</td>
+                        <td colspan="3" class="text-end text-success">
+                            @Model.Lines.Sum(x => x.Product.Price * x.Quantity).ToString("C", new CultureInfo("en-US"))
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Shop
+            </a>
+            <a asp-action="MyOrders" class="btn btn-primary">
+                <i class="bi bi-list-check"></i> View My Orders
+            </a>
+        </div>
+    </div>
+</div>

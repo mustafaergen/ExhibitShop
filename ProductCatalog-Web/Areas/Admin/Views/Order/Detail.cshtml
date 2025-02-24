@@ -1,0 +1,93 @@
+﻿@model ProductCatolog_Core.Models.Order
+@using ProductCatolog_Core.Enums
+@using System.Globalization
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg border-0 rounded-3">
+        <div class="card-header bg-primary text-white text-center py-3">
+            <h2 class="mb-0">Order Details</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-muted">Order Information</h5>
+                    <ul class="list-group mb-4">
+                        <li class="list-group-item"><strong>Order No:</strong> @Model.Id</li>
+                        <li class="list-group-item"><strong>Order Name:</strong> @Model.Name</li>
+                        <li class="list-group-item">
+                            <strong>Shipping Address:</strong><br>
+                            @Model.Line1 <br> @Model.Line2 <br> @Model.City
+                        </li>
+                        <li class="list-group-item"><strong>Order Date:</strong> @Model.CreatedDate.ToString("MMMM dd, yyyy")</li>
+                        <li class="list-group-item">
+                            <strong>Order Status:</strong>
+                            @switch (Model.OrderStatus)
+                            {
+                                case OrderStatus.OrderReceived:
+                                    <span class="badge bg-secondary">Order Received</span>
+                                    break;
+                                case OrderStatus.OrderConfirmed:
+                                    <span class="badge bg-primary">Order Confirmed</span>
+                                    break;
+                                case OrderStatus.OrderCancelled:
+                                    <span class="badge bg-danger">Order Cancelled</span>
+                                    break;
+                                case OrderStatus.Proccessing:
+                                    <span class="badge bg-warning text-dark">Processing</span>
+                                    break;
+                                case OrderStatus.Shipped:
+                                    <span class="badge bg-info">Shipped</span>
+                                    break;
+                                case OrderStatus.Delivered:
+                                    <span class="badge bg-success">Delivered</span>
+                                    break;
+                                case OrderStatus.Returned:
+                                    <span class="badge bg-dark">Returned</span>
+                                    break;
+                                default:
+                                    <span class="badge bg-light text-dark">Unknown Status</span>
+                                    break;
+                            }
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-6">
+                    <h5 class="text-muted">Ordered Products</h5>
+                    <table class="table table-striped">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>Product</th>
+                                <th>Image</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Lines)
+                            {
+                                <tr>
+                                    <td>@item.Product.Name</td>
+                                    <td>
+                                        <img src="~/img/@item.Product.ImageUrl" class="img-thumbnail" alt="@item.Product.Name" style="width: 80px; height: 80px; object-fit: cover;">
+                                    </td>
+                                    <td>@item.Product.Price.ToString("C", new CultureInfo("en-US"))</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@((item.Product.Price * item.Quantity).ToString("C", new CultureInfo("en-US")))</td>
+                                </tr>
+                            }
+                            <tr class="table-primary">
+                                <td colspan="4" class="text-end"><strong>Total Price:</strong></td>
+                                <td><strong>@Model.Lines.Sum(x => x.Product.Price * x.Quantity).ToString("C", new CultureInfo("en-US"))</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

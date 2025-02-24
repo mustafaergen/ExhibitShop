@@ -34,14 +34,29 @@
     </div>
 
     <div class="col-md-3">
-        <a  asp-controller="Home" asp-action="GetCustomers" class="text-white text-decoration-none">
+        <a asp-controller="Articles" class="text-white text-decoration-none">
+            <div class="card bg-success mb-4 shadow-lg">
+                <div class="card-header text-center">
+                    <h5 class="card-title"><i class="fas fa-file-alt"></i> Articles</h5>
+                </div>
+                <div class="card-body text-center">
+                    <h3><b>@ViewBag.ArticleCount</b></h3>
+                    <p>Total Articles</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+    <div class="col-md-3">
+        <a asp-controller="Home" asp-action="GetCustomers" class="text-white text-decoration-none">
             <div class="card bg-primary mb-4 shadow-lg">
                 <div class="card-header text-center">
-                    <h5 class="card-title"><i class="fas fa-users"></i> Customers</h5>
+                    <h5 class="card-title"><i class="fas fa-users"></i> Users</h5>
                 </div>
                 <div class="card-body text-center">
                     <h3><b>@ViewBag.UserCount</b></h3>
-                    <p>Total Customers</p>
+                    <p>Total Users</p>
                 </div>
             </div>
         </a>
@@ -54,12 +69,12 @@
                     <h5 class="card-title"><i class="fas fa-shopping-cart"></i> Orders</h5>
                 </div>
                 <div class="card-body text-center">
-                    <h3><b></b></h3>
+                    <h3><b>@ViewBag.OrderCount</b></h3>
                     <p>Total Orders</p>
                 </div>
             </div>
         </a>
-    </div>
+    </div> 
 </div>
 
 @section Scripts {

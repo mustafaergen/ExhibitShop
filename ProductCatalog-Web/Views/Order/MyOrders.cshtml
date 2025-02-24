@@ -1,0 +1,72 @@
+﻿@using ProductCatolog_Core.Enums
+@model IEnumerable<ProductCatolog_Core.Models.Order>
+
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">
+        <i class="bi bi-card-list"></i> My Orders
+    </h1>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-striped border text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th><i class="bi bi-hash"></i> Order No</th>
+                    <th><i class="bi bi-person-circle"></i> Order Name</th>
+                    <th><i class="bi bi-geo-alt"></i> City</th>
+                    <th><i class="bi bi-info-circle"></i> Status</th>
+                    <th><i class="bi bi-calendar"></i> Date</th>
+                    <th><i class="bi bi-eye"></i> Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-bold">@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.City</td>
+                        <td>
+                            @switch (item.OrderStatus)
+                            {
+                                case OrderStatus.OrderReceived:
+                                    <span class="badge bg-secondary p-2">Order Received</span>
+                                    break;
+                                case OrderStatus.OrderConfirmed:
+                                    <span class="badge bg-primary p-2">Order Confirmed</span>
+                                    break;
+                                case OrderStatus.OrderCancelled:
+                                    <span class="badge bg-danger p-2">Cancelled</span>
+                                    break;
+                                case OrderStatus.Proccessing:
+                                    <span class="badge bg-warning text-dark p-2">Processing</span>
+                                    break;
+                                case OrderStatus.Shipped:
+                                    <span class="badge bg-info p-2">Shipped</span>
+                                    break;
+                                case OrderStatus.Delivered:
+                                    <span class="badge bg-success p-2">Delivered</span>
+                                    break;
+                                case OrderStatus.Returned:
+                                    <span class="badge bg-dark p-2">Returned</span>
+                                    break;
+                                default:
+                                    <span class="badge bg-light p-2">Unknown Status</span>
+                                    break;
+                            }
+                        </td>
+                        <td>@item.CreatedDate.ToString("MMM dd, yyyy")</td>
+                        <td>
+                            <a asp-action="Detail" asp-route-OrderId="@item.Id" class="btn btn-sm btn-info">
+                                <i class="bi bi-eye"></i> View
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

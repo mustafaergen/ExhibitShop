@@ -18,8 +18,13 @@ namespace ProductCatalog_Repositories.Contexts
         {
         }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Article> Articles { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartLine> CartLines { get; set; }
+        public DbSet<Questions> Questions { get; set; }
+        public DbSet<QuestionType> QuestionTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,6 +50,18 @@ namespace ProductCatalog_Repositories.Contexts
                     Id = "2",
                     Name = "Customer",
                     NormalizedName = "CUSTOMER"
+                },
+                new IdentityRole
+                {
+                    Id = "3",
+                    Name = "ContentManager",
+                    NormalizedName = "CONTENTMANAGER"
+                },
+                new IdentityRole
+                {
+                    Id = "4",
+                    Name= "CustomerRelations",
+                    NormalizedName = "CUSTOMERRELATIONS"
                 });
 
             var hasher = new PasswordHasher<Customer>();

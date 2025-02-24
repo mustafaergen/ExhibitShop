@@ -1,0 +1,66 @@
+﻿@using ProductCatolog_Core.Enums
+@model IEnumerable<ProductCatolog_Core.DTOs.OrderUserDTO>
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h1 class="mb-4">Orders</h1>
+
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>Order No</th>
+            <th>Customer Name</th>
+            <th>Order Name</th>
+            <th>City</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.OrderId)</td>
+                <td>@item.UserName</td>
+                <td>@Html.DisplayFor(modelItem => item.OrderName)</td>
+                <td>@Html.DisplayFor(modelItem => item.City)</td>
+                <td>
+                    @switch (item.OrderStatus)
+                    {
+                        case OrderStatus.OrderReceived:
+                            <span class="badge bg-secondary">Order Received</span>
+                            break;
+                        case OrderStatus.OrderConfirmed:
+                            <span class="badge bg-primary">Order Confirmed</span>
+                            break;
+                        case OrderStatus.OrderCancelled:
+                            <span class="badge bg-danger">Cancelled</span>
+                            break;
+                        case OrderStatus.Proccessing:
+                            <span class="badge bg-warning text-dark">Processing</span>
+                            break;
+                        case OrderStatus.Shipped:
+                            <span class="badge bg-info text-dark">Shipped</span>
+                            break;
+                        case OrderStatus.Delivered:
+                            <span class="badge bg-success">Delivered</span>
+                            break;
+                        case OrderStatus.Returned:
+                            <span class="badge bg-dark">Returned</span>
+                            break;
+                        default:
+                            <span class="badge bg-light text-dark">Unknown Status</span>
+                            break;
+                    }
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.OrderDate)</td>
+                <td>
+                    <a asp-action="Detail" asp-route-OrderId="@item.OrderId" class="btn btn-sm btn-info">View</a>
+                    <a asp-action="Complete" asp-route-OrderId="@item.OrderId" class="btn btn-sm btn-success">Complete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,161 @@
+﻿@using ProductCatolog_Core.Enums
+@model ProductCatolog_Core.Models.Article
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Article</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Introduction" class="control-label"></label>
+                <textarea asp-for="Introduction" class="form-control" id="introduction"></textarea>
+                <span asp-validation-for="Introduction" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Development" class="control-label"></label>
+                <textarea asp-for="Development" class="form-control" id="development"></textarea>
+                <span asp-validation-for="Development" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Conclusion" class="control-label"></label>
+                <textarea asp-for="Conclusion" class="form-control" id="conclusion"></textarea>
+                <span asp-validation-for="Conclusion" class="text-danger"></span>
+            </div>
+            <script src="https://cdn.tiny.cloud/1/1kxyrsdra6gg5wpiu45o5vpbsh5fq5glysoowx0x5zc96i0m/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+            <script>
+                tinymce.init({
+                    selector: '#introduction',
+                    height: 400,
+                    menubar: true,
+                    plugins: [
+                        'advlist autolink lists link image charmap print preview anchor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table paste code help wordcount'
+                    ],
+                    toolbar: 'undo redo | formatselect | ' +
+                        'bold italic backcolor | alignleft aligncenter ' +
+                        'alignright alignjustify | bullist numlist outdent indent | ' +
+                        'removeformat | help',
+                    content_style: 'body { font-family:Arial,sans-serif; font-size:14px }'
+                });
+
+                tinymce.init({
+                    selector: '#development',
+                    height: 400,
+                    menubar: true,
+                    plugins: [
+                        'advlist autolink lists link image charmap print preview anchor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table paste code help wordcount'
+                    ],
+                    toolbar: 'undo redo | formatselect | ' +
+                        'bold italic backcolor | alignleft aligncenter ' +
+                        'alignright alignjustify | bullist numlist outdent indent | ' +
+                        'removeformat | help',
+                    content_style: 'body { font-family:Arial,sans-serif; font-size:14px }'
+                });
+
+                tinymce.init({
+                    selector: '#conclusion',
+                    height: 400,
+                    menubar: true,
+                    plugins: [
+                        'advlist autolink lists link image charmap print preview anchor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table paste code help wordcount'
+                    ],
+                    toolbar: 'undo redo | formatselect | ' +
+                        'bold italic backcolor | alignleft aligncenter ' +
+                        'alignright alignjustify | bullist numlist outdent indent | ' +
+                        'removeformat | help',
+                    content_style: 'body { font-family:Arial,sans-serif; font-size:14px }'
+                });
+            </script>
+            <div class="form-group mb-3">
+                <label asp-for="ImageUrl1" class="form-label fw-bold">
+                    <i class="fas fa-image"></i> Upload Image
+                </label>
+
+                @if (!string.IsNullOrEmpty(Model.ImageUrl1))
+                {
+                    <div>
+                        <img src="~/img/@Model.ImageUrl1" alt="Image1" class="img-fluid" />
+                        <br />
+                    </div>
+                    <input type="hidden" name="existingImage1" value="@Model.ImageUrl1" />
+                }
+
+                <input type="file" name="file1" class="form-control" />
+                <span asp-validation-for="ImageUrl1" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ImageUrl2" class="form-label fw-bold">
+                    <i class="fas fa-image"></i> Upload Image
+                </label>
+
+                @if (!string.IsNullOrEmpty(Model.ImageUrl2))
+                {
+                    <div>
+                        <img src="~/img/@Model.ImageUrl2" alt="Image1" class="img-fluid" />
+                        <br />
+                    </div>
+                    <input type="hidden" name="existingImage2" value="@Model.ImageUrl2" />
+                }
+
+                <input type="file" name="file2" class="form-control" />
+                <span asp-validation-for="ImageUrl2" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ImageUrl3" class="form-label fw-bold">
+                    <i class="fas fa-image"></i> Upload Image
+                </label>
+
+                @if (!string.IsNullOrEmpty(Model.ImageUrl3))
+                {
+                    <div>
+                        <img src="~/img/@Model.ImageUrl3" alt="Image1" class="img-fluid" />
+                        <br />
+                    </div>
+                    <input type="hidden" name="existingImage3" value="@Model.ImageUrl3" />
+                }
+
+                <input type="file" name="file3" class="form-control" />
+                <span asp-validation-for="ImageUrl3" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Status" class="form-label fw-bold"><i class="fas fa-toggle-on"></i> Status</label>
+                <select asp-for="Status" class="form-select">
+                    <option value="Request">Request Activation</option>
+                    <option value="Passive">Passive</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+    }
+}

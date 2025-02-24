@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using ProductCatalog_Repositories.Extensions;
 using ProductCatalog_Repositories.UnitOfWork;
 using ProductCatalog_Services.Contracts;
 using ProductCatolog_Core.DTOs;
@@ -50,6 +51,8 @@ namespace ProductCatalog_Services
           return _manager.ProductRepository.GetAllProducts().ToList();
         }
 
+        
+
 
         public Product? GetProduct(int id)
         {
@@ -78,9 +81,25 @@ namespace ProductCatalog_Services
                 throw new Exception("Product not found");
             }
         }
-        public IEnumerable<Product> GetProductsByCategory(int categoryId)
+        public IEnumerable<Product> GetProductsByCategory(int? categoryId)
         {
             return _manager.ProductRepository.GetAllProducts().Where(x => x.CategoryId == categoryId);
+        }
+
+        public IEnumerable<Product> GetProductsByStatus(Status? status)
+        {
+            try
+            {
+                if(status is null)
+                    return _manager.ProductRepository.GetAllProducts().ToList();
+                else
+                    return _manager.ProductRepository.GetAllProducts().StatusActive(status);
+            }
+            catch
+            {
+
+                throw new Exception("An error occurred while fetching the products");
+            }
         }
     }
 }
