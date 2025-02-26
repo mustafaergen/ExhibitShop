@@ -11,6 +11,8 @@ namespace ProductCatolog_Core.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public virtual ICollection<Questions>? Questions{ get; set; }
+        public virtual ICollection<Article>? Articles{ get; set; }
     }
     
 }

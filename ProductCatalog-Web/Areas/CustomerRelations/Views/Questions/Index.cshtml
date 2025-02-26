@@ -23,6 +23,7 @@
                         <th>Question Type</th>
                         <th>ID</th>
                         <th>Created Date</th>
+                        <th>Question Status</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -36,6 +37,7 @@
                             <td>@item.QuestionType.Name</td>
                             <td>@Html.DisplayFor(modelItem => item.Id)</td>
                             <td>@Html.DisplayFor(modelItem => item.CreatedDate)</td>
+                            <td>@Html.DisplayFor(modelItem => item.QuestionStatus)</td>
                             <td>
                                 <span class="badge bg-@(item.Status == ProductCatolog_Core.Enums.Status.Active ? "success" : "danger")">
                                     @Html.DisplayFor(modelItem => item.Status)

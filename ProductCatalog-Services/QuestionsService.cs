@@ -65,6 +65,10 @@ namespace ProductCatalog_Services
             return _manager.QuestionsRepository.FindAllCondition(x => x.QuestionTypeId == id).ToList();
         }
 
+        public IEnumerable<Questions> GetQuestionsByUserId(string id)
+        {
+            return _manager.QuestionsRepository.FindAllCondition(x => x.UserId == id).ToList();
+        }
 
         public void UpdateQuestions(Questions questions)
         {

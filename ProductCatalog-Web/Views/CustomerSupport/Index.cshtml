@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ProductCatolog_Core.Models.Questions>
+﻿@using ProductCatolog_Core.Enums
+@model IEnumerable<ProductCatolog_Core.Models.Questions>
 
 @{
     ViewData["Title"] = "Customer Support";
@@ -82,6 +83,8 @@
                         <div class="faq-container">
                             @foreach (var question in Model)
                             {
+                                @if(question.QuestionStatus == QuestionStatus.CustomerRelations)
+                                {
                                 <div class="faq-item">
                                     <div class="faq-question" data-question-id="@question.Id">
                                         @question.Question
@@ -91,6 +94,7 @@
                                         @question.Answer
                                     </div>
                                 </div>
+                                }
                             }
                         </div>
                     }
@@ -101,7 +105,7 @@
                 </div>
             </div>
 
-            <a href="/CustomerSupport/Contact" class="contact-btn text-center">
+            <a asp-controller="Question" class="contact-btn text-center">
                 <i class="fa-solid fa-envelope"></i> Contact Us
             </a>
         </div>

@@ -29,8 +29,10 @@
 
                     <div class="mb-3">
                         <label asp-for="Status" class="form-label"></label>
-                        <select asp-for="Status" class="form-select" asp-items="Html.GetEnumSelectList<ProductCatolog_Core.Enums.Status>()">
+                        <select asp-for="Status" class="form-select">
                             <option value="">-- Select Status --</option>
+                            <option value="Passive">Passive</option>
+                            <option value="Active">Active</option>
                         </select>
                         <span asp-validation-for="Status" class="text-danger"></span>
                     </div>

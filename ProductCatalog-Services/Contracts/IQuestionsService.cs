@@ -15,6 +15,7 @@ namespace ProductCatalog_Services.Contracts
         IEnumerable<Questions> GetQuestionsByType(int id);
         IEnumerable<Questions> GetQuestionsByStatus(Status? status);
         Questions GetQuestionsById(int id);
+        IEnumerable<Questions> GetQuestionsByUserId(string id);
         void CreateQuestions(Questions questions);
         void UpdateQuestions(Questions questions);
         void DeleteQuestions(int id);

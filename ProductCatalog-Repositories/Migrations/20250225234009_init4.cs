@@ -5,31 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProductCatalog_Repositories.Migrations
 {
-    public partial class init : Migration
+    public partial class init4 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Articles",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Introduction = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Development = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Conclusion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageUrl1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImageUrl2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImageUrl3 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Articles", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -135,6 +114,33 @@ namespace ProductCatalog_Repositories.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Articles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Introduction = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Development = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Conclusion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageUrl2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageUrl3 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Articles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Articles_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -278,8 +284,10 @@ namespace ProductCatalog_Repositories.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Question = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Answer = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Answer = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    QuestionStatus = table.Column<int>(type: "int", nullable: false),
                     QuestionTypeId = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false)
@@ -287,6 +295,11 @@ namespace ProductCatalog_Repositories.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Questions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Questions_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Questions_QuestionTypes_QuestionTypeId",
                         column: x => x.QuestionTypeId,
@@ -333,21 +346,26 @@ namespace ProductCatalog_Repositories.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1", "f71e8eaf-b078-47e6-863a-9ae90465a882", "Admin", "ADMIN" },
-                    { "2", "50b65b7c-b396-48ce-99af-e0985eac125a", "Customer", "CUSTOMER" },
-                    { "3", "f13b639a-7994-4e52-8f34-7aacdf76b102", "ContentManager", "CONTENTMANAGER" },
-                    { "4", "9838e47b-edc9-42fc-afd9-f71b9c27794b", "CustomerRelations", "CUSTOMERRELATIONS" }
+                    { "1", "04e11afa-849f-4323-a605-10c30f6aeaad", "Admin", "ADMIN" },
+                    { "2", "ff47c1a6-389c-4df5-8195-039375e616b6", "Customer", "CUSTOMER" },
+                    { "3", "f028c0c4-02a6-4904-85ed-7840f2599ffd", "ContentManager", "CONTENTMANAGER" },
+                    { "4", "3f178e44-4c90-4e2c-a67e-e97cd65de8f2", "CustomerRelations", "CUSTOMERRELATIONS" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 0, "16455aa2-8914-493d-93c0-1843a01c8027", "Customer", "admin@mail.com", true, "Admin1", "Admin1", false, null, "ADMIN@MAIL.COM", "ADMIN@MAIL.COM", "AQAAAAEAACcQAAAAEESOKbvbQF5je4PdEaQcqwviOJ/JDp+vaasH0UsO3tFGYqpNG5GTQ7WbrzzyY1weaQ==", null, false, "412b4018-551e-4c07-8190-583744a8f5ce", false, "admin@mail.com" });
+                values: new object[] { "1", 0, "84cfc78c-9ca7-4767-bee5-b7b255cf9696", "Customer", "admin@mail.com", true, "Admin1", "Admin1", false, null, "ADMIN@MAIL.COM", "ADMIN@MAIL.COM", "AQAAAAEAACcQAAAAECnS2UXXru3otZCqjW6MEg4dnN2IhNTsOwvioAKEWDzhG/dvIXzKL0nAvdoa27QlIA==", null, false, "299fcf98-1e0d-43e0-800d-fd8820f16f0f", false, "admin@mail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[] { "1", "1" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Articles_UserId",
+                table: "Articles",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -417,6 +435,11 @@ namespace ProductCatalog_Repositories.Migrations
                 name: "IX_Questions_QuestionTypeId",
                 table: "Questions",
                 column: "QuestionTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Questions_UserId",
+                table: "Questions",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

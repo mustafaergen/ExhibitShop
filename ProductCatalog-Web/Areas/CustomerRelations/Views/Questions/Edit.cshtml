@@ -18,15 +18,15 @@
                     <form asp-action="Edit">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                        <div class="mb-3">
-                            <label asp-for="Question" class="form-label fw-semibold">Question</label>
-                            <input asp-for="Question" class="form-control border-primary shadow-sm" />
+                        <div class="form-group">
+                            <label asp-for="Question" class="control-label">Your Question</label>
+                            <textarea asp-for="Question" class="form-control" id="question" readonly></textarea>
                             <span asp-validation-for="Question" class="text-danger"></span>
                         </div>
 
-                        <div class="mb-3">
-                            <label asp-for="Answer" class="form-label fw-semibold">Answer</label>
-                            <textarea asp-for="Answer" class="form-control border-primary shadow-sm" rows="3"></textarea>
+                        <div class="form-group">
+                            <label asp-for="Answer" class="control-label">Answer</label>
+                            <textarea asp-for="Answer" class="form-control" id="answer"></textarea>
                             <span asp-validation-for="Answer" class="text-danger"></span>
                         </div>
 
@@ -38,12 +38,20 @@
                             <span asp-validation-for="QuestionTypeId" class="text-danger"></span>
                         </div>
 
-                        <div class="mb-3">
-                            <label asp-for="Status" class="form-label fw-semibold">Status</label>
-                            <select asp-for="Status" class="form-select border-primary shadow-sm" asp-items="Html.GetEnumSelectList<ProductCatolog_Core.Enums.Status>()">
-                                <option value="">-- Select Status --</option>
+                        <div class="form-group mb-3">
+                            <label asp-for="Status" class="form-label fw-bold"><i class="fas fa-toggle-on"></i> Status</label>
+                            <select asp-for="Status" class="form-select">
+                                <option value="Passive">Passive</option>
+                                <option value="Active">Active</option>
                             </select>
                             <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="QuestionStatus" class="form-label fw-bold"><i class="fas fa-toggle-on"></i> Question Status</label>
+                            <select asp-for="QuestionStatus" class="form-select">
+                            </select>
+                            <span asp-validation-for="QuestionStatus" class="text-danger"></span>
                         </div>
 
                         <div class="d-flex justify-content-between mt-4">
@@ -61,4 +69,43 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/1kxyrsdra6gg5wpiu45o5vpbsh5fq5glysoowx0x5zc96i0m/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#question',
+            height: 400,
+            menubar: true,
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+            ],
+            toolbar: 'undo redo | formatselect | ' +
+                     'bold italic backcolor | alignleft aligncenter ' +
+                     'alignright alignjustify | bullist numlist outdent indent | ' +
+                     'removeformat | help',
+            content_style: 'body { font-family:Arial,sans-serif; font-size:14px }',
+            readonly: 1
+        });
+        tinymce.init({
+            selector: '#answer',
+            height: 400,
+            menubar: true,
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+            ],
+            toolbar: 'undo redo | formatselect | ' +
+                     'bold italic backcolor | alignleft aligncenter ' +
+                     'alignright alignjustify | bullist numlist outdent indent | ' +
+                     'removeformat | help',
+            content_style: 'body { font-family:Arial,sans-serif; font-size:14px }'
+        });
+    </script>
+}
