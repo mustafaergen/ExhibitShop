@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ProductCatalog_Services.Contracts;
+using ProductCatolog_Core.Enums;
 using ProductCatolog_Core.Models;
 
 namespace ProductCatalog_Web.Areas.CustomerRelations.Controllers
@@ -31,8 +32,11 @@ namespace ProductCatalog_Web.Areas.CustomerRelations.Controllers
         [HttpPost]
         public IActionResult Create(Questions model)
         {
+            var userId = _serviceManager.UserManager.GetUserId(User);
             if (ModelState.IsValid)
             {
+                model.Status = Status.Active;
+                model.UserId = userId;
                 _serviceManager.QuestionsService.CreateQuestions(model);
                 return RedirectToAction("Index");
             }
