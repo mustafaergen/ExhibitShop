@@ -29,6 +29,7 @@ namespace ProductCatalog_Services
         public void DeleteCategory(int id)
         {
             var cat = _manager.CategoryRepository.FindById(id);
+
             if (cat is null)
                 throw new Exception("Category is not found");
                 _manager.CategoryRepository.Delete(cat);
