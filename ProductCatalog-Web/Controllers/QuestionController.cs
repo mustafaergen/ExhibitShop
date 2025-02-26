@@ -15,10 +15,12 @@ namespace ProductCatalog_Web.Controllers
             _serviceManager = serviceManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var userId = _serviceManager.UserManager.GetUserAsync(User).Result.Id;
-            return View(_serviceManager.QuestionsService.GetQuestionsByUserId(userId));
+            var user = await _serviceManager.UserManager.GetUserAsync(User);
+            if (user is null)
+                return RedirectToAction("Login","Account");
+            return View(_serviceManager.QuestionsService.GetQuestionsByUserId(user.Id));
         }
         [HttpGet]
         public IActionResult Create()
@@ -30,9 +32,11 @@ namespace ProductCatalog_Web.Controllers
         [HttpPost]
         public IActionResult Create(Questions model)
         {
+            var userId = _serviceManager.UserManager.GetUserId(User);
             if (ModelState.IsValid)
             {
                 model.Status = Status.Active;
+                model.UserId = userId;
                 _serviceManager.QuestionsService.CreateQuestions(model);
                 return RedirectToAction("Index");
             }

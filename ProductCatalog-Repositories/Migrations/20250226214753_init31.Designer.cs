@@ -12,8 +12,8 @@ using ProductCatalog_Repositories.Contexts;
 namespace ProductCatalog_Repositories.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20250225234009_init4")]
-    partial class init4
+    [Migration("20250226214753_init31")]
+    partial class init31
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,28 +54,28 @@ namespace ProductCatalog_Repositories.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "04e11afa-849f-4323-a605-10c30f6aeaad",
+                            ConcurrencyStamp = "e6f893d5-c762-4287-89b3-ab04cbf85b52",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "ff47c1a6-389c-4df5-8195-039375e616b6",
+                            ConcurrencyStamp = "7752438d-32ee-4bce-9738-75cbe7d8e7ce",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
                             Id = "3",
-                            ConcurrencyStamp = "f028c0c4-02a6-4904-85ed-7840f2599ffd",
+                            ConcurrencyStamp = "d16cc7fc-14fd-4925-b276-dd47d308219d",
                             Name = "ContentManager",
                             NormalizedName = "CONTENTMANAGER"
                         },
                         new
                         {
                             Id = "4",
-                            ConcurrencyStamp = "3f178e44-4c90-4e2c-a67e-e97cd65de8f2",
+                            ConcurrencyStamp = "5844fc2a-c950-4166-9bac-17a5ab6f59d2",
                             Name = "CustomerRelations",
                             NormalizedName = "CUSTOMERRELATIONS"
                         });
@@ -495,7 +495,6 @@ namespace ProductCatalog_Repositories.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -549,15 +548,15 @@ namespace ProductCatalog_Repositories.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "84cfc78c-9ca7-4767-bee5-b7b255cf9696",
+                            ConcurrencyStamp = "93ed0150-8469-40dc-9f66-846db4efe85e",
                             Email = "admin@mail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN@MAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECnS2UXXru3otZCqjW6MEg4dnN2IhNTsOwvioAKEWDzhG/dvIXzKL0nAvdoa27QlIA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMDDLUpEemD53qJJ7yuOpwedsN8yJyzofuaqKKQcHgFQNrYD6K/yve/Qfw3grhXWWw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "299fcf98-1e0d-43e0-800d-fd8820f16f0f",
+                            SecurityStamp = "770d5c82-9c7b-420b-a830-5be35792f7db",
                             TwoFactorEnabled = false,
                             UserName = "admin@mail.com",
                             FirstName = "Admin1",
@@ -675,15 +674,14 @@ namespace ProductCatalog_Repositories.Migrations
                         .WithMany("Questions")
                         .HasForeignKey("QuestionTypeId");
 
-                    b.HasOne("ProductCatolog_Core.Models.Customer", "Customer")
-                        .WithMany("Questions")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("QuestionType");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ProductCatolog_Core.Models.Cart", b =>
@@ -709,8 +707,6 @@ namespace ProductCatalog_Repositories.Migrations
             modelBuilder.Entity("ProductCatolog_Core.Models.Customer", b =>
                 {
                     b.Navigation("Articles");
-
-                    b.Navigation("Questions");
                 });
 #pragma warning restore 612, 618
         }

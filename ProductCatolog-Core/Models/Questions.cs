@@ -8,12 +8,12 @@ namespace ProductCatolog_Core.Models
 {
     public class Questions : BaseEntity
     {
-        public string UserId { get; set; }
         public string Question { get; set; } 
         public string? Answer { get; set; }
         public QuestionStatus QuestionStatus { get; set; } = QuestionStatus.Customer;
         public int? QuestionTypeId { get; set; }
-        public virtual Customer? Customer { get; set; }
         public virtual QuestionType? QuestionType { get; set; }
+        public string? UserId { get; set; }
+        public virtual IdentityUser? User { get; set; }
     }
 }
