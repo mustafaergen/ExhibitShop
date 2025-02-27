@@ -12,8 +12,8 @@ using ProductCatalog_Repositories.Contexts;
 namespace ProductCatalog_Repositories.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20250226214753_init31")]
-    partial class init31
+    [Migration("20250227134508_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,28 +54,28 @@ namespace ProductCatalog_Repositories.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "e6f893d5-c762-4287-89b3-ab04cbf85b52",
+                            ConcurrencyStamp = "3c33b05d-f42b-4965-842c-2f1185a98855",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "7752438d-32ee-4bce-9738-75cbe7d8e7ce",
+                            ConcurrencyStamp = "8820bd84-4fcb-44c0-8bd6-0f70cce173b8",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
                             Id = "3",
-                            ConcurrencyStamp = "d16cc7fc-14fd-4925-b276-dd47d308219d",
+                            ConcurrencyStamp = "262b359c-f305-4fe3-b0b9-51b0af7bc105",
                             Name = "ContentManager",
                             NormalizedName = "CONTENTMANAGER"
                         },
                         new
                         {
                             Id = "4",
-                            ConcurrencyStamp = "5844fc2a-c950-4166-9bac-17a5ab6f59d2",
+                            ConcurrencyStamp = "3aeb84ec-89b8-40c5-b3c6-88a701d4394e",
                             Name = "CustomerRelations",
                             NormalizedName = "CUSTOMERRELATIONS"
                         });
@@ -414,6 +414,9 @@ namespace ProductCatalog_Repositories.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("OrderNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("OrderStatus")
                         .HasColumnType("int");
 
@@ -548,15 +551,15 @@ namespace ProductCatalog_Repositories.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "93ed0150-8469-40dc-9f66-846db4efe85e",
+                            ConcurrencyStamp = "d3e8771f-026c-40d0-9769-319d9980331e",
                             Email = "admin@mail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN@MAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMDDLUpEemD53qJJ7yuOpwedsN8yJyzofuaqKKQcHgFQNrYD6K/yve/Qfw3grhXWWw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGtQvu2UNvO9wT319rEYhbrUdilTVYMQcwyMc3BuQbAY2xjlZA3FUb6ExJKZgQxXUg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "770d5c82-9c7b-420b-a830-5be35792f7db",
+                            SecurityStamp = "c60682f7-14f8-418d-91af-fa658b4bd9fc",
                             TwoFactorEnabled = false,
                             UserName = "admin@mail.com",
                             FirstName = "Admin1",

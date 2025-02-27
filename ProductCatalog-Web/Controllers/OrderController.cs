@@ -35,6 +35,8 @@ namespace ProductCatalog_Web.Controllers
 
             order.Lines = cart.CartLines.ToList();
             order.UserId = user.Id;
+            order.OrderNumber = _serviceManager.OrderService.GenerateOrderNumber();
+            
 
             if (ModelState.IsValid)
             {
@@ -66,5 +68,18 @@ namespace ProductCatalog_Web.Controllers
             var order = _serviceManager.OrderService.GetOneOrder(orderId);
             return View(order);
         }
+        [HttpGet]
+        public IActionResult ShippingStatus(string? orderNumber)
+        {
+            if (string.IsNullOrEmpty(orderNumber))
+            {
+                return View();
+            }
+
+            var order = _serviceManager.OrderService.GetOrderByOrderNumber(orderNumber);
+
+            return View(order);
+        }
+
     }
 }

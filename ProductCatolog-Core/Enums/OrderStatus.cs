@@ -8,6 +8,6 @@ namespace ProductCatolog_Core.Enums
 {
     public enum OrderStatus
     {
-       OrderReceived,OrderConfirmed,OrderCancelled,Proccessing,Shipped,Delivered,Returned
+       OrderReceived,OrderConfirmed,OrderCancelled,Processing, Shipped,Delivered,Returned
     }
 }

@@ -16,8 +16,10 @@ namespace ProductCatalog_Repositories.Contracts
         IQueryable<Order> GetAllOrdersByUserId(string userId);
         IEnumerable<OrderUserDTO> GettAllOrdersWithUser();
         IQueryable<Order> GettAllOrders();
+        Order? GetOrderByOrderNumber(string orderNumber);
         void Complete(int id);
         void SaveOrder(Order order);
         int NumberOfInProcess { get; }
+        string GenerateOrderNumber();
     }
 }

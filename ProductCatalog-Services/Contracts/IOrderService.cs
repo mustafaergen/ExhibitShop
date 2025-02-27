@@ -15,8 +15,10 @@ namespace ProductCatalog_Services.Contracts
         IEnumerable<OrderUserDTO> GettAllOrdersWithUser();
         IEnumerable<Order> GettAllOrders();
         Order? GetOneOrder(int id);
+        Order? GetOrderByOrderNumber(string orderNumber);
         void Complete(int id);
         void SaveOrder(Order order);
-        int NumberOfInProcess { get; } 
+        int NumberOfInProcess { get; }
+        string GenerateOrderNumber();
     }
 }
