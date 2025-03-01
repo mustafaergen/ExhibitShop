@@ -352,7 +352,7 @@ namespace ProductCatalog_Repositories.Migrations
                     CounterPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     ProductCount = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false)
                 },
@@ -368,8 +368,7 @@ namespace ProductCatalog_Repositories.Migrations
                         name: "FK_Offers_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
@@ -377,16 +376,16 @@ namespace ProductCatalog_Repositories.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1", "410da904-4a10-4680-8687-faf65bd9a974", "Admin", "ADMIN" },
-                    { "2", "a6cb8385-1d1b-46c1-806b-53ba8111738f", "Customer", "CUSTOMER" },
-                    { "3", "ebb35629-b454-4211-a3f3-9438f5f0d49e", "ContentManager", "CONTENTMANAGER" },
-                    { "4", "d58dc532-ea00-478d-be4c-627ffc4fc079", "CustomerRelations", "CUSTOMERRELATIONS" }
+                    { "1", "a3a10fe5-e252-40d9-ad06-69408296d237", "Admin", "ADMIN" },
+                    { "2", "ae7658b6-68b4-4fb7-af76-2ea0e51efae5", "Customer", "CUSTOMER" },
+                    { "3", "897de6c8-f818-49c1-9d0d-8bb7a6920012", "ContentManager", "CONTENTMANAGER" },
+                    { "4", "b22d140c-3ded-4764-86cd-4e3215b988c9", "CustomerRelations", "CUSTOMERRELATIONS" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 0, "99640c38-31db-4cba-b946-fd264d5ff202", "Customer", "admin@mail.com", true, "Admin1", "Admin1", false, null, "ADMIN@MAIL.COM", "ADMIN@MAIL.COM", "AQAAAAEAACcQAAAAEM9+lM2PKgXPC98zFeZCwL1DdNGdrj8D7O0Z34wBb8W5OBgl7B4aCT5EtHfpxLRsag==", null, false, "e9c59ee9-0d07-4f61-8731-dcef67efdc6e", false, "admin@mail.com" });
+                values: new object[] { "1", 0, "fcb08c5f-064a-4e65-b86b-632e046d21a2", "Customer", "admin@mail.com", true, "Admin1", "Admin1", false, null, "ADMIN@MAIL.COM", "ADMIN@MAIL.COM", "AQAAAAEAACcQAAAAEIRFTvO9AyQf1HV5/t0oLr9P9Om8IUYFdVMOQIGfX4G03YbvVQk5C3FPT1V1a0yfnA==", null, false, "84834ef6-d30a-4835-90a2-796b63af6118", false, "admin@mail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

@@ -18,7 +18,7 @@ namespace ProductCatalog_Web.Controllers
 
         public IActionResult Index(RequestParameters param)
         {
-            var products = _serviceManager.ProductService.GetProductsByStatus(Status.Active);
+            var products = _serviceManager.ProductService.GetProductsByAvailable();
 
             if (param.CatId != null)
                 products = products.ByCatId(param.CatId);

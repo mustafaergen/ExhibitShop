@@ -19,12 +19,13 @@ namespace ProductCatalog_Web.Controllers
             return View(off);
         }
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
+            var product = _serviceManager.ProductService.GetProduct(id);
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Offers offer, int id)
+        public IActionResult Create(Offers offer)
         {
             //if(offer.UserId is null && offer.Product is null)
             //{

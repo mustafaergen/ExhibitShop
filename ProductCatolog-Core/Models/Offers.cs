@@ -14,6 +14,7 @@ namespace ProductCatolog_Core.Models
         public decimal? CounterPrice { get; set; }
         public int ProductCount{ get; set; }
         public string? UserId { get; set; }
+        public int? ProductId { get; set; }
         public virtual IdentityUser? User { get; set; }
         public virtual Product Product { get; set; }
     }

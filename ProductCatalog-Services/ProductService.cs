@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 using ProductCatalog_Repositories.Extensions;
 using ProductCatalog_Repositories.UnitOfWork;
 using ProductCatalog_Services.Contracts;
@@ -100,6 +101,10 @@ namespace ProductCatalog_Services
 
                 throw new Exception("An error occurred while fetching the products");
             }
+        }
+        public IEnumerable<Product> GetProductsByAvailable()
+        {
+            return _manager.ProductRepository.GetAllProducts().Where(x => x.Status == Status.Active || x.Status == Status.Featured);
         }
     }
 }

@@ -14,6 +14,22 @@
         background-color: #f4f4f4;
     }
 
+    .price {
+        font-size: 22px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+        .price .amount {
+            color: forestgreen;
+        }
+
+        .price .currency {
+            color: forestgreen;
+            font-weight: bold;
+        }
+
+
     .catalog-container {
         max-width: 1200px;
         margin: auto;
@@ -71,7 +87,7 @@
 
     .btn-custom {
         display: inline-block;
-        background-color: #ff9f00;
+        background-color: #007bff;
         color: white;
         padding: 10px 20px;
         text-decoration: none;
@@ -82,8 +98,9 @@
     }
 
         .btn-custom:hover {
-            background-color: #cc7a00;
+            background-color: #0056b3;
         }
+
 </style>
 
 <div class="catalog-container">
@@ -96,7 +113,10 @@
             <div class="product-info">
                 <h2>@item.Name</h2>
                 <p>@item.Summary</p>
-                <div class="price">@item.Price.ToString("C", new CultureInfo("en-US"))</div>
+                <div class="price">
+                    <span class="currency">@item.Price.ToString("C", new CultureInfo("en-US"))[0]</span>
+                    <span class="amount">@item.Price.ToString("C", new CultureInfo("en-US")).Substring(1)</span>
+                </div>
                 <a asp-action="GetById" asp-controller="Product" asp-route-id="@item.Id" class="btn-custom">
                     Show Details
                 </a>
@@ -104,3 +124,4 @@
         </div>
     }
 </div>
+

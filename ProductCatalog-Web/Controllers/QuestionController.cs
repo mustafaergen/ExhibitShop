@@ -23,7 +23,7 @@ namespace ProductCatalog_Web.Controllers
             return View(_serviceManager.QuestionsService.GetQuestionsByUserId(user.Id));
         }
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
             ViewBag.QuestionTypes = new SelectList(_serviceManager.QuestionTypeService.GetQuestionTypes(), "Id", "Name");
             return View();

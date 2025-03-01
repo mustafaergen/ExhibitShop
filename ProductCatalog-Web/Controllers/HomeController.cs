@@ -22,7 +22,7 @@ namespace ProductCatalog_Web.Controllers
         public IActionResult Index()
         {
             ViewBag.Articles = GetArticles();
-            return View(_serviceManager.ProductService.GetProductsByStatus(Status.Active));
+            return View(_serviceManager.ProductService.GetProductsByStatus(Status.Featured));
         }
 
 

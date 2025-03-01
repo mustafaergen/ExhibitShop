@@ -4,9 +4,11 @@
 @{
     ViewData["Title"] = "Detail";
 }
+
 <head>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
 </head>
+
 <div class="container mt-5">
     <div class="row">
         <div class="col-12 text-center">
@@ -21,11 +23,11 @@
         <div class="col-md-6 text-center">
             @if (!string.IsNullOrEmpty(Model.ImageUrl))
             {
-                    <img src="~/img/@Model.ImageUrl" alt="Product Image" class="img-fluid shadow-lg rounded" />
+                <img src="~/img/@Model.ImageUrl" alt="Product Image" class="img-fluid shadow-lg rounded" />
             }
             else
             {
-                    <p class="text-muted">No Image Available</p>
+                <p class="text-muted">No Image Available</p>
             }
         </div>
         <div class="col-md-6">
@@ -39,13 +41,13 @@
                     <span><strong>Category:</strong></span>
                     <span>@Model.Category.Name</span>
                 </li>
-                <form method="post" asp-action="AddToCart" asp-controller="Cart">
-                    <input type="hidden" name="productId" value="@Model.Id" />
-                    <button type="submit" class="btn btn-success btn-lg mt-3 d-flex align-items-center justify-content-center">
-                        <i class="fas fa-cart-plus mr-2"></i> Add To Cart
-                    </button>
-                </form>
             </ul>
+            <form method="post" asp-action="AddToCart" asp-controller="Cart">
+                <input type="hidden" name="productId" value="@Model.Id" />
+                <button type="submit" class="btn btn-success btn-lg mt-3 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-cart-plus mr-2"></i> Add To Cart
+                </button>
+            </form>
         </div>
     </div>
 
@@ -65,100 +67,135 @@
     </div>
 </div>
 
-<!-- Bulk Offer Button -->
-<a asp-controller="Offers" asp-action="Create" 
-   asp-route-UserId="@ViewBag.UserId" 
+<a asp-controller="Offers" asp-action="Create"
+   asp-route-UserId="@ViewBag.UserId"
    asp-route-ProductId="@Model.Id"
-   class="btn btn-warning position-fixed bottom-3 end-3 shadow-lg"
-   style="z-index: 1000; padding: 12px 20px; border-radius: 50px; font-size: 18px;">
-    <i class="fa-solid fa-handshake"></i> Make a Bulk Offer
+   class="btn-offer"
+   id="offerBtn">
+    <i class="fas fa-handshake fa-lg"></i> Make a Bulk Offer
 </a>
 
 @section Styles {
-        <style>
-            .container {
-                max-width: 950px;
+    <style>
+        .container {
+            max-width: 950px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #007bff;
+            letter-spacing: 1px;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .btn-lg {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 12px;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+            transition: all 0.3s ease;
+        }
+
+            .btn-success:hover {
+                background-color: #218838;
+                border-color: #1e7e34;
             }
 
-            h1 {
-                font-size: 3rem;
-                font-weight: bold;
-                color: #007bff;
-                letter-spacing: 1px;
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            transition: all 0.3s ease;
+        }
+
+            .btn-secondary:hover {
+                background-color: #5a6268;
+                border-color: #545b62;
             }
 
-            h3 {
-                font-size: 1.8rem;
-                font-weight: 500;
-                margin-top: 20px;
-                margin-bottom: 15px;
+        img {
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
+            height: auto;
+        }
+
+        .list-group-item {
+            font-size: 1.1rem;
+            padding: 12px 15px;
+        }
+
+            .list-group-item span {
+                font-weight: 600;
             }
 
-            p {
-                font-size: 1.1rem;
-                line-height: 1.6;
-                color: #555;
-                margin-bottom: 20px;
+            .list-group-item .text-success {
+                color: #28a745 !important;
             }
 
-            .btn-lg {
-                padding: 15px 30px;
-                font-size: 1.2rem;
-                border-radius: 12px;
+            .list-group-item .fas {
+                margin-right: 10px;
             }
 
-            .btn-success {
-                background-color: #28a745;
-                border-color: #28a745;
-                transition: all 0.3s ease;
+        .btn-offer {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease-in-out;
+            text-decoration: none;
+            border: none;
+            outline: none;
+        }
+
+            .btn-offer i {
+                font-size: 22px;
+                transition: transform 0.3s ease-in-out;
             }
 
-                .btn-success:hover {
-                    background-color: #218838;
-                    border-color: #1e7e34;
-                }
-
-            .btn-secondary {
-                background-color: #6c757d;
-                border-color: #6c757d;
-                transition: all 0.3s ease;
+            .btn-offer:hover {
+                background: linear-gradient(135deg, #ff5722, #d84315);
+                box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+                transform: translateY(-3px);
             }
 
-                .btn-secondary:hover {
-                    background-color: #5a6268;
-                    border-color: #545b62;
-                }
-
-            img {
-                border-radius: 12px;
-                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-                max-width: 100%;
-                height: auto;
+            .btn-offer:active {
+                transform: scale(0.95);
             }
-
-            .list-group-item {
-                font-size: 1.1rem;
-                padding: 12px 15px;
-            }
-
-                .list-group-item span {
-                    font-weight: 600;
-                }
-
-                .list-group-item .text-success {
-                    color: #28a745 !important;
-                }
-
-                .list-group-item .fas {
-                    margin-right: 10px;
-                }
-
-            .position-fixed {
-                bottom: 20px;
-                right: 20px;
-                padding: 15px 25px;
-                font-size: 16px;
-                font-weight: bold;
-            }
-        </style>
+    </style>
 }
+
+<script>
+    document.getElementById("offerBtn").addEventListener("click", function () {
+        let btn = this;
+        btn.style.transform = "scale(1.1)";
+        setTimeout(() => btn.style.transform = "scale(1)", 150);
+    });
+</script>
