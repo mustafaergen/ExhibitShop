@@ -1,0 +1,130 @@
+﻿@model ProductCatolog_Core.Models.Offers
+
+@{
+    ViewData["Title"] = "Edit Offer";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 card shadow p-4">
+            <h2 class="text-center text-primary mb-4">Edit Offer</h2>
+
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="UserId" />
+                <input type="hidden" asp-for="Status" id="offerStatus" />
+
+                <div class="mb-3">
+                    <label asp-for="OfferPrice" class="form-label fw-bold">Offer Price</label>
+                    <input asp-for="OfferPrice" class="form-control bg-light" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ProductCount" class="form-label fw-bold">Product Count</label>
+                    <input asp-for="ProductCount" class="form-control bg-light" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CreatedDate" class="form-label fw-bold">Created Date</label>
+                    <input asp-for="CreatedDate" class="form-control bg-light" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CounterPrice" class="form-label fw-bold text-danger">Your Counter Price</label>
+                    <input asp-for="CounterPrice" class="form-control border border-danger" />
+                    <span asp-validation-for="CounterPrice" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-success px-4">
+                        <i class="fas fa-save me-2"></i>Save
+                    </button>
+                    <button type="button" class="btn btn-danger px-4" id="rejectOffer">
+                        <i class="fas fa-times me-2"></i>Reject Offer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="text-center mt-3">
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Offers
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+        <script>
+            document.getElementById("rejectOffer").addEventListener("click", function () {
+                if (confirm("Are you sure you want to reject this offer?")) {
+                    document.getElementById("offerStatus").value = "Passive";
+                    document.forms[0].submit();
+                }
+            });
+        </script>
+}
+
+@section Styles {
+        <style>
+            .container {
+                max-width: 600px;
+            }
+
+            .card {
+                border-radius: 12px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .btn {
+                border-radius: 8px;
+                font-size: 1.1rem;
+            }
+
+            .btn-success {
+                background-color: #28a745;
+                border: none;
+            }
+
+                .btn-success:hover {
+                    background-color: #218838;
+                }
+
+            .btn-danger {
+                background-color: #dc3545;
+                border: none;
+            }
+
+                .btn-danger:hover {
+                    background-color: #c82333;
+                }
+
+            .btn-secondary {
+                background-color: #6c757d;
+            }
+
+                .btn-secondary:hover {
+                    background-color: #5a6268;
+                }
+
+            .form-control {
+                padding: 12px;
+                font-size: 1rem;
+                border-radius: 8px;
+            }
+
+            .form-label {
+                font-weight: 600;
+            }
+
+            .bg-light {
+                background-color: #f8f9fa !important;
+            }
+        </style>
+}

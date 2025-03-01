@@ -2,40 +2,100 @@
 @model IEnumerable<ProductCatolog_Core.Models.Product>
 
 @{
-    ViewData["Title"] = "Produt Catalog";
+    ViewData["Title"] = "Product Catalog";
 }
 
-<h1 class="text-center my-4">Product Catalog</h1>
+<style>
+    /* Tam ekran her ürün */
+    .full-screen-section {
+        height: 100vh;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+    }
 
-<div class="container">
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="col-md-4 mb-4">
-                <div class="card shadow-sm">
-                    <img src="~/img/@item.ImageUrl" class="card-img-top" alt="@item.Name" style="height: 250px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">@item.Name</h5>
-                        <h6 class="text-primary">@(item.Price.ToString("C", new CultureInfo("en-US")))</h6>
-
-                        <div class="d-flex justify-content-between mt-3">
-                            <a asp-action="GetById" asp-controller="Product" asp-route-id="@item.Id" class="btn btn-outline-primary">
-                                Show Details
-                            </a>
-
-                            <form asp-action="AddToCart" asp-controller="Cart" method="post" class="d-flex">
-                                <input type="hidden" name="ProductId" value="@item.Id" />
-                                <input type="number" name="Quantity" class="form-control me-2" value="1" min="1" style="width: 60px;">
-                                <button type="submit" class="btn btn-success">
-                                    <i class="fas fa-shopping-cart"></i> Add To Cart
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        .full-screen-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
         }
-    </div>
-</div>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    .product-info {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        padding: 20px;
+        max-width: 400px;
+        z-index: 1;
+        border-radius: 10px;
+    }
+
+        .product-info.right {
+            right: 5%;
+            text-align: left;
+        }
+
+        .product-info.left {
+            left: 5%;
+            text-align: left;
+        }
+
+        .product-info h2 {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+        }
+
+        .product-info p {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .product-info .price {
+            font-size: 24px;
+            color: #ff9f00;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+    body {
+        margin: 0;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
+    }
+
+    .full-screen-section {
+        scroll-snap-align: start;
+    }
+</style>
+
+<div class="product-sections">
+    @{
+        var index = 0;
+    }
+
+    @foreach (var item in Model)
+    {
+        <div class="full-screen-section">
+            <img src="~/img/@item.ImageUrl" alt="@item.Name" />
+
+            <div class="product-info @(index % 2 == 0 ? "right" : "left")">
+                <h2>@item.Name</h2>
+                <p>@item.Summary</p>
+                <div class="price">@(item.Price.ToString("C", new CultureInfo("en-US")))</div>
+
+                <a asp-action="GetById" asp-controller="Product" asp-route-id="@item.Id" class="btn btn-warning mt-3">
+                    Show Details
+                </a>
+            </div>
+        </div>
+
+        index++;
+    }
+</div>

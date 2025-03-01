@@ -1,0 +1,59 @@
+﻿@model ProductCatolog_Core.Models.Offers
+
+@{
+    ViewData["Title"] = "Make an Offer";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3 class="mb-0"><i class="fa-solid fa-dollar-sign"></i> Make a Bulk Purchase Offer</h3>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted text-center">You have reviewed the product. Now, submit your wholesale price offer.</p>
+                    
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="OfferPrice" class="form-label fw-bold">Your Offer Price ($ per unit)</label>
+                            <input asp-for="OfferPrice" class="form-control" placeholder="Enter your price per unit" />
+                            <span asp-validation-for="OfferPrice" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="ProductCount" class="form-label fw-bold">Total Quantity</label>
+                            <input asp-for="ProductCount" class="form-control" placeholder="Enter the quantity you want to buy" />
+                            <span asp-validation-for="ProductCount" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa-solid fa-paper-plane"></i> Submit Offer
+                            </button>
+                            <a asp-action="Index" class="btn btn-info text-white">
+                                <i class="fa-solid fa-list"></i> View My Offers
+                            </a>
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="fa-solid fa-arrow-left"></i> Back to List
+                            </a>
+                        </div>
+                    </form>
+
+                    <hr class="my-4">
+
+                    <div class="text-center">
+                        <a asp-action="Index" class="btn btn-warning">
+                            <i class="fa-solid fa-folder-open"></i> Submit & Go to Offers
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,53 @@
+﻿@model ProductCatolog_Core.Models.Offers
+
+@{
+    ViewData["Title"] = "Edit";
+}
+        <div class="card-body">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="OfferPrice" class="form-label fw-bold">Offer Price</label>
+                    <input asp-for="OfferPrice" class="form-control" placeholder="Enter your offer price" />
+                    <span asp-validation-for="OfferPrice" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CounterPrice" class="form-label fw-bold">Counter Price</label>
+                    <input asp-for="CounterPrice" class="form-control" placeholder="Seller's counter price (if any)" />
+                    <span asp-validation-for="CounterPrice" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ProductCount" class="form-label fw-bold">Product Count</label>
+                    <input asp-for="ProductCount" class="form-control" placeholder="Seller's product count" />
+                    <span asp-validation-for="ProductCount" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Status" class="form-label fw-bold">Status</label>
+                    <select asp-for="Status" class="form-select">
+                        <option value="Active">Active</option>
+                        <option value="Passive">Passive</option>
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-warning fw-bold">Create Offer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

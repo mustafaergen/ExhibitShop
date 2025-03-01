@@ -33,7 +33,6 @@ namespace ProductCatalog_Web.Controllers
                     param.MaxPrice = decimal.MaxValue;
 
                 products = products.ByPrice(param.MinPrice, param.MaxPrice);
-
             return View(products);
         }
 

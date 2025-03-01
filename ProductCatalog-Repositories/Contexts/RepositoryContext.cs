@@ -21,6 +21,7 @@ namespace ProductCatalog_Repositories.Contexts
         public DbSet<Article> Articles { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Offers> Offers { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartLine> CartLines { get; set; }
         public DbSet<Questions> Questions { get; set; }

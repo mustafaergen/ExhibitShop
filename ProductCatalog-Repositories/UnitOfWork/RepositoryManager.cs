@@ -15,18 +15,21 @@ namespace ProductCatalog_Repositories.UnitOfWork
         private readonly IArticleRepository _articleRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IOrderRepository _orderRepository;
+        private readonly IOffersRepository _offersRepository;
         private readonly ICartRepository _cartRepository;
         private readonly IQuestionsRepository _questionsRepository;
         private readonly IQuestionTypeRepository _questionTypeRepository;
 
         public RepositoryManager
-            (RepositoryContext context, IProductRepository productRepository, IArticleRepository articleRepository, ICategoryRepository categoryRepository, IOrderRepository orderRepository, ICartRepository cartRepository, IQuestionsRepository questionsRepository, IQuestionTypeRepository questionTypeRepository)
+            (RepositoryContext context, IProductRepository productRepository, IArticleRepository articleRepository, ICategoryRepository categoryRepository, IOrderRepository orderRepository,
+        IOffersRepository offersRepository,ICartRepository cartRepository, IQuestionsRepository questionsRepository, IQuestionTypeRepository questionTypeRepository)
         {
             _context = context;
             _productRepository = productRepository;
             _articleRepository = articleRepository;
             _categoryRepository = categoryRepository;
             _orderRepository = orderRepository;
+            _offersRepository = offersRepository;
             _cartRepository = cartRepository;
             _questionsRepository = questionsRepository;
             _questionTypeRepository = questionTypeRepository;
@@ -36,7 +39,7 @@ namespace ProductCatalog_Repositories.UnitOfWork
         public IArticleRepository ArticleRepository => _articleRepository;
         public ICategoryRepository CategoryRepository => _categoryRepository;
         public IOrderRepository OrderRepository => _orderRepository;
-
+        public IOffersRepository OffersRepository=> _offersRepository;
         public ICartRepository CartRepository => _cartRepository;
 
         public IQuestionsRepository QuestionsRepository => _questionsRepository;

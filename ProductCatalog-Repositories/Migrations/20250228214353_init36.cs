@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProductCatalog_Repositories.Migrations
 {
-    public partial class init : Migration
+    public partial class init36 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -342,21 +342,51 @@ namespace ProductCatalog_Repositories.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Offers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OfferPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CounterPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    ProductCount = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Offers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Offers_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Offers_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1", "3c33b05d-f42b-4965-842c-2f1185a98855", "Admin", "ADMIN" },
-                    { "2", "8820bd84-4fcb-44c0-8bd6-0f70cce173b8", "Customer", "CUSTOMER" },
-                    { "3", "262b359c-f305-4fe3-b0b9-51b0af7bc105", "ContentManager", "CONTENTMANAGER" },
-                    { "4", "3aeb84ec-89b8-40c5-b3c6-88a701d4394e", "CustomerRelations", "CUSTOMERRELATIONS" }
+                    { "1", "68fef69a-7876-4097-8825-bf2b8e70eb8f", "Admin", "ADMIN" },
+                    { "2", "ba0e4816-86e7-4017-95bb-c712d86b0627", "Customer", "CUSTOMER" },
+                    { "3", "72f20add-06bc-451f-8994-be801032fdb2", "ContentManager", "CONTENTMANAGER" },
+                    { "4", "df00cf46-8427-45a9-852f-8116af8735b1", "CustomerRelations", "CUSTOMERRELATIONS" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 0, "d3e8771f-026c-40d0-9769-319d9980331e", "Customer", "admin@mail.com", true, "Admin1", "Admin1", false, null, "ADMIN@MAIL.COM", "ADMIN@MAIL.COM", "AQAAAAEAACcQAAAAEGtQvu2UNvO9wT319rEYhbrUdilTVYMQcwyMc3BuQbAY2xjlZA3FUb6ExJKZgQxXUg==", null, false, "c60682f7-14f8-418d-91af-fa658b4bd9fc", false, "admin@mail.com" });
+                values: new object[] { "1", 0, "04ca8ce6-0a1c-4337-a459-06c64f00375b", "Customer", "admin@mail.com", true, "Admin1", "Admin1", false, null, "ADMIN@MAIL.COM", "ADMIN@MAIL.COM", "AQAAAAEAACcQAAAAECq7bmJmFN4jZWUC+PODkCfB+SaUS2TDswkkFJNt56wqZVJuCz8RA78ctT3LZ5NVaQ==", null, false, "def83a23-5e2d-4298-b761-f978d77f655e", false, "admin@mail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -423,6 +453,16 @@ namespace ProductCatalog_Repositories.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Offers_ProductId",
+                table: "Offers",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Offers_UserId",
+                table: "Offers",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_UserId",
                 table: "Orders",
                 column: "UserId");
@@ -465,6 +505,9 @@ namespace ProductCatalog_Repositories.Migrations
 
             migrationBuilder.DropTable(
                 name: "CartLines");
+
+            migrationBuilder.DropTable(
+                name: "Offers");
 
             migrationBuilder.DropTable(
                 name: "Questions");
