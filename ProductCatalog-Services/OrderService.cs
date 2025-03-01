@@ -1,4 +1,5 @@
-﻿using ProductCatalog_Repositories.UnitOfWork;
+﻿using Microsoft.EntityFrameworkCore;
+using ProductCatalog_Repositories.UnitOfWork;
 using ProductCatalog_Services.Contracts;
 using ProductCatolog_Core.DTOs;
 using ProductCatolog_Core.Models;
@@ -52,6 +53,16 @@ namespace ProductCatalog_Services
         public IEnumerable<Order> GettAllOrders()
         {
            return _manager.OrderRepository.GettAllOrders();
+        }
+
+        public Order? GetOrderByOrderNumber(string orderNumber)
+        {
+            return _manager.OrderRepository.GetOrderByOrderNumber(orderNumber);
+        }
+
+        public string GenerateOrderNumber()
+        {
+            return _manager.OrderRepository.GenerateOrderNumber();
         }
     }
 }

@@ -16,5 +16,7 @@ namespace ProductCatolog_Core.Models
         public string? ImageUrl1 { get; set; } = "frst.png";
         public string? ImageUrl2 { get; set; } = "frst.png";
         public string? ImageUrl3 { get; set; } = "frst.png";
+        public string? UserId { get; set; }
+        public virtual Customer? Customer { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace ProductCatalog_Web.Controllers
 
         public IActionResult Index(RequestParameters param)
         {
-            var products = _serviceManager.ProductService.GetProductsByStatus(Status.Active);
+            var products = _serviceManager.ProductService.GetProductsByAvailable();
 
             if (param.CatId != null)
                 products = products.ByCatId(param.CatId);
@@ -33,7 +33,6 @@ namespace ProductCatalog_Web.Controllers
                     param.MaxPrice = decimal.MaxValue;
 
                 products = products.ByPrice(param.MinPrice, param.MaxPrice);
-
             return View(products);
         }
 

@@ -1,0 +1,69 @@
+﻿@using ProductCatolog_Core.Enums
+@model IEnumerable<ProductCatolog_Core.Models.Questions>
+
+@{
+    ViewData["Title"] = "Questions";
+}
+
+<h1 class="text-center my-4">Customer Questions</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Ask New Question</a>
+</p>
+
+<table class="table table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Question)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Answer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionType.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Question)
+                </td>
+                <td>
+                        <div class="alert alert-success">
+                            @Html.DisplayFor(modelItem => item.Answer)
+                        </div>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuestionType.Name)
+                </td>
+                <td>
+                    <span class="badge badge-pill badge-info">@Html.DisplayFor(modelItem => item.Status)</span>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (User.IsInRole("Customer"))
+{
+    <h3>Ask a New Question</h3>
+    <form asp-action="Create">
+        <div class="form-group">
+            <label for="Question">Your Question</label>
+            <textarea id="Question" name="Question" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="QuestionTypeId">Question Type</label>
+            <select id="QuestionTypeId" name="QuestionTypeId" class="form-control">
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Submit Question</button>
+    </form>
+}

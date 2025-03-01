@@ -13,6 +13,7 @@ namespace ProductCatalog_Services.Contracts
         IProductService ProductService { get; }
         ICategoryService CategoryService { get; }
         IOrderService OrderService { get; }
+        IOffersService OffersService { get; }
         IArticleService ArticlesService { get; }
         IEmailService EmailService { get; }
         ICartService CartService { get; }

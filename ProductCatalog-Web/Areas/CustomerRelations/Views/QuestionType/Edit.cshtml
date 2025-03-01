@@ -33,6 +33,8 @@
                     <div class="mb-3">
                         <label asp-for="Status" class="form-label fw-bold">Status</label>
                         <select asp-for="Status" class="form-select" asp-items="Html.GetEnumSelectList<Status>()"></select>
+                        <option value="Passive">Passive</option>
+                        <option value="Active">Active</option>
                     </div>
 
                     <div class="d-flex justify-content-between">

@@ -1,0 +1,52 @@
+﻿@using ProductCatolog_Core.Enums
+@model IEnumerable<ProductCatolog_Core.Models.Offers>
+
+@{
+    ViewData["Title"] = "Offers List";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold text-warning">Offers List</h2>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-striped table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.OfferPrice)</th>
+                        <th>@Html.DisplayNameFor(model => model.CounterPrice)</th>
+                        <th>@Html.DisplayNameFor(model => model.UserId)</th>
+                        <th>@Html.DisplayNameFor(model => model.Id)</th>
+                        <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
+                        <th>@Html.DisplayNameFor(model => model.Status)</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.OfferPrice</td>
+                            <td>@item.CounterPrice</td>
+                            <td>@item.UserId</td>
+                            <td>@item.Id</td>
+                            <td>@item.CreatedDate.ToString("yyyy-MM-dd")</td>
+                            <td>
+                                <span class="badge @(item.Status == Status.Active ? "bg-success" : item.Status == Status.Passive ? "bg-danger" : "bg-warning text-dark")">
+                                    @item.Status
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary me-1">Edit</a>
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info me-1">Details</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

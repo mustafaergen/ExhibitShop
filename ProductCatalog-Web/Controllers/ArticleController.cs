@@ -18,9 +18,12 @@ namespace ProductCatalog_Web.Controllers
         public IActionResult Index(Status? status)
         {
             var art = _serviceManager.ArticlesService.GetAllArticle();
-            if (status.HasValue)
-                art = art.Where(a => a.Status == status.Value).ToList();
-            ViewBag.ArticleCount = art.Count();
+            foreach (var article in art)
+            {
+                if ( article.Status == Status.Active)
+                    art = art.Where(a => a.Status == status.Value).ToList();
+                return View(art);
+            }
             return View(art);
         }
         [HttpGet]

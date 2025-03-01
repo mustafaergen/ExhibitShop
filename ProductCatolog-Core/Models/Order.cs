@@ -20,5 +20,7 @@ namespace ProductCatolog_Core.Models
         public OrderStatus OrderStatus { get; set; } = OrderStatus.OrderReceived;
         public string? UserId { get; set; }
         public virtual IdentityUser? User { get; set; }
+        public string? OrderNumber { get; set; }
+
     }
 }

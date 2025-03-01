@@ -16,6 +16,7 @@
                     <h5 class="text-muted">Order Information</h5>
                     <ul class="list-group mb-4">
                         <li class="list-group-item"><strong>Order No:</strong> @Model.Id</li>
+                        <li class="list-group-item"><strong>Order Number:</strong> @Model.OrderNumber</li>
                         <li class="list-group-item"><strong>Order Name:</strong> @Model.Name</li>
                         <li class="list-group-item">
                             <strong>Shipping Address:</strong><br>
@@ -35,7 +36,7 @@
                                 case OrderStatus.OrderCancelled:
                                     <span class="badge bg-danger">Order Cancelled</span>
                                     break;
-                                case OrderStatus.Proccessing:
+                                case OrderStatus.Processing:
                                     <span class="badge bg-warning text-dark">Processing</span>
                                     break;
                                 case OrderStatus.Shipped:

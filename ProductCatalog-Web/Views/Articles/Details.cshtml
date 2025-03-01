@@ -5,55 +5,66 @@
 }
 
 <div class="container mt-5">
-    <div class="row mb-4">
-        <div class="col-12">
-            <h1 class="display-3">@Model.Name</h1>
-            <p class="text-muted">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1 class="display-3 fw-bold text-dark">@Model.Name</h1>
+            <p class="text-muted fs-5">
                 <strong>Published on:</strong> @Model.CreatedDate.ToString("MMMM dd, yyyy")
             </p>
         </div>
     </div>
+
     @if (!string.IsNullOrEmpty(Model.ImageUrl1))
     {
-        <div class="row mb-4">
-            <div class="col-12">
-                <img src="~/img/@Model.ImageUrl1" alt="Product Image" class="img-thumbnail" style="width: 400px; height: 400px;" />
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-8">
+                <img src="~/img/@Model.ImageUrl1" alt="Blog Image" class="blog-img">
             </div>
         </div>
     }
-    <div class="row mb-4">
-        <div class="col-12">
-            <h3 class="text-primary"></h3>
+
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <h3 class="text-primary">Introduction</h3>
             <p>@Html.Raw(Model.Introduction)</p>
         </div>
     </div>
-    <div class="row mb-4">
-        @if (!string.IsNullOrEmpty(Model.ImageUrl2))
-        {
-            <div class="col-12 mb-3">
-                <img src="~/img/@Model.ImageUrl2" alt="Product Image" class="img-thumbnail" style="width: 300px; height: 300px;" />
+
+    @if (!string.IsNullOrEmpty(Model.ImageUrl2))
+    {
+        <div class="row justify-content-center my-4">
+            <div class="col-lg-6">
+                <img src="~/img/@Model.ImageUrl2" alt="Blog Image" class="blog-img-sm">
             </div>
-        }
-        <div class="col-12">
-            <h3 class="text-success"></h3>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <h3 class="text-success">Development</h3>
             <p>@Html.Raw(Model.Development)</p>
         </div>
     </div>
-    <div class="row mb-4">
-        @if (!string.IsNullOrEmpty(Model.ImageUrl3))
-        {
-            <div class="col-12 mb-3">
-                <img src="~/img/@Model.ImageUrl3" alt="Product Image" class="img-thumbnail" style="width: 300px; height: 300px;" />
+
+    @if (!string.IsNullOrEmpty(Model.ImageUrl3))
+    {
+        <div class="row justify-content-center my-4">
+            <div class="col-lg-6">
+                <img src="~/img/@Model.ImageUrl3" alt="Blog Image" class="blog-img-sm">
             </div>
-        }
-        <div class="col-12">
-            <h3 class="text-danger"></h3>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <h3 class="text-danger">Conclusion</h3>
             <p>@Html.Raw(Model.Conclusion)</p>
         </div>
     </div>
-    <div class="row mt-4">
-        <div class="col-12">
-            <a asp-action="Index" asp-controller="Articles" class="btn btn-secondary btn-lg">
+
+    <div class="row mt-5">
+        <div class="col text-center">
+            <a asp-action="Index" asp-controller="Articles" class="btn btn-dark btn-lg">
                 <i class="fas fa-arrow-left"></i> Back to Blogs
             </a>
         </div>
@@ -67,46 +78,59 @@
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: bold;
-            text-align: left;
         }
 
         h3 {
             font-size: 1.8rem;
-            font-weight: 500;
+            font-weight: 600;
             margin-top: 20px;
             margin-bottom: 15px;
-            text-align: left;
         }
 
         p {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #333;
-            margin-bottom: 20px;
-            text-align: left;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+            text-align: justify;
         }
 
-        .btn-secondary {
-            background-color: #6c757d;
-            color: white;
-        }
-
-            .btn-secondary:hover {
-                background-color: #5a6268;
-            }
-
-        img {
+        .blog-img {
             width: 100%;
             height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease-in-out;
         }
 
-        .row {
-            margin-bottom: 20px;
+            .blog-img:hover {
+                transform: scale(1.05);
+            }
+
+        .blog-img-sm {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
         }
+
+            .blog-img-sm:hover {
+                transform: scale(1.05);
+            }
+
+        .btn-dark {
+            background-color: #343a40;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+            .btn-dark:hover {
+                background-color: #23272b;
+            }
     </style>
 }
