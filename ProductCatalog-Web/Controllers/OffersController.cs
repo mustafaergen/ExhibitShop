@@ -31,9 +31,10 @@ namespace ProductCatalog_Web.Controllers
             //    offer.UserId = ;
             //    offer.Product = ViewBag.Product;
             //}
-            var product = _serviceManager.ProductService.GetProduct(id);
+
             _serviceManager.OffersService.CreateOffers(offer);
             return RedirectToAction("Index");
+
         }
         [HttpGet]
         public IActionResult Edit(int id)

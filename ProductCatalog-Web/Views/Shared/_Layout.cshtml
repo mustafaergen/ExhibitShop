@@ -60,7 +60,14 @@
                                     </a>
                                 </li>
                             }
-
+                            @if (User.IsInRole("ContentManager"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="ContentManager" asp-action="Index">
+                                        <i class="bi bi-folder"></i> Content Panel
+                                    </a>
+                                </li>
+                            }
                             <li class="nav-item">
                                 <a class="btn btn-outline-success ms-3" asp-area="" asp-controller="Cart" asp-action="Index">
                                     <i class="bi bi-cart3"></i> My Cart

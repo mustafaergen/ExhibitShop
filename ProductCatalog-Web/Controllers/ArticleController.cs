@@ -22,7 +22,6 @@ namespace ProductCatalog_Web.Controllers
             {
                 if ( article.Status == Status.Active)
                     art = art.Where(a => a.Status == status.Value).ToList();
-                ViewBag.ArticleCount = art.Count();
                 return View(art);
             }
             return View(art);
