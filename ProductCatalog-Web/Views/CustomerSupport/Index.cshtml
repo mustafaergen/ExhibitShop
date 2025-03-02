@@ -5,55 +5,7 @@
     ViewData["Title"] = "Customer Support";
     Layout = "_Layout";
 }
-
-<style>
-    .bg-orange {
-        background-color: #ff7f00 !important;
-        color: white;
-    }
-
-    .faq-container {
-        margin-top: 10px;
-    }
-
-    .faq-item {
-        border-bottom: 1px solid #ddd;
-        padding: 10px 0;
-        cursor: pointer;
-    }
-
-    .faq-question {
-        font-weight: bold;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .faq-answer {
-        display: none;
-        padding-top: 5px;
-        color: #333;
-    }
-
-    .contact-btn {
-        background-color: #ff7f00;
-        border: none;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 5px;
-        display: block;
-        margin: 20px auto 0;
-        text-align: center;
-        font-size: 16px;
-        font-weight: bold;
-        transition: background 0.3s ease;
-    }
-
-        .contact-btn:hover {
-            background-color: #e67300;
-            color: white;
-        }
-</style>
+<head><link rel="stylesheet" href="~/css/CustomerSupport/index.css" /></head>
 
 <div class="container mt-4">
     <div class="row">
@@ -112,25 +64,4 @@
     </div>
 </div>
 
-@section Scripts {
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll(".faq-question").forEach(item => {
-                item.addEventListener("click", function () {
-                    let answer = this.nextElementSibling;
-                    let icon = this.querySelector("i");
-
-                    if (answer.style.display === "block") {
-                        answer.style.display = "none";
-                        icon.classList.remove("fa-minus");
-                        icon.classList.add("fa-plus");
-                    } else {
-                        answer.style.display = "block";
-                        icon.classList.remove("fa-plus");
-                        icon.classList.add("fa-minus");
-                    }
-                });
-            });
-        });
-    </script>
-}
+<script src="~/js/CustomerSupport/index.js" asp-append-version="true"></script>

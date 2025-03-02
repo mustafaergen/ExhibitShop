@@ -63,16 +63,23 @@
 
                                 <hr>
                                 <h5 class="mt-4"><i class="bi bi-box-seam"></i> Order Items</h5>
-                                <ul class="list-group">
-                                    @foreach (var item in Model.Lines)
-                                    {
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            <img src="~/img/@item.Product.ImageUrl" alt="@item.Product.Name" class="img-thumbnail" style="max-width: 50px; height: auto;">
-                                            <span>@item.Product.Name</span>
-                                            <span class="badge bg-secondary">Qty: @item.Quantity</span>
-                                        </li>
-                                    }
-                                </ul>
+                                @if (Model.Lines != null && Model.Lines.Any())
+                                {
+                                    <ul class="list-group">
+                                        @foreach (var item in Model.Lines)
+                                        {
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <img src="~/img/@item.Product?.ImageUrl" alt="@item.Product?.Name" class="img-thumbnail" style="max-width: 50px; height: auto;">
+                                                <span>@item.Product?.Name</span>
+                                                <span class="badge bg-secondary">Qty: @item.Quantity</span>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <p class="text-muted">No items found in this order.</p>
+                                }
 
                                 <hr>
                                 <h5 class="mt-4"><i class="bi bi-info-circle"></i> Shipping Updates</h5>
@@ -110,49 +117,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const form = document.getElementById("orderSearchForm");
-        const orderNumberInput = document.getElementById("orderNumberInput");
-        const searchBtn = document.getElementById("searchBtn");
-        const loadingSpinner = document.getElementById("loadingSpinner");
-        const errorText = document.getElementById("errorText");
-
-        form.addEventListener("submit", function (event) {
-            if (orderNumberInput.value.trim() === "") {
-                event.preventDefault();
-                errorText.classList.remove("d-none");
-            } else {
-                errorText.classList.add("d-none");
-                searchBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Searching...';
-                searchBtn.disabled = true;
-                loadingSpinner.classList.remove("d-none");
-            }
-        });
-    });
-</script>
-
-<style>
-    .bg-gradient {
-        background: linear-gradient(135deg, #007bff, #0056b3);
-    }
-    .stylish-input-group {
-        display: flex;
-        align-items: center;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    .stylish-input-group input {
-        border-radius: 10px 0 0 10px;
-        border: none;
-        padding: 15px;
-        font-size: 18px;
-    }
-    .stylish-input-group button {
-        border-radius: 0 10px 10px 0;
-        border: none;
-        font-size: 18px;
-    }
-</style>

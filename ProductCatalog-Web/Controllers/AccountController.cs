@@ -12,6 +12,7 @@ namespace ProductCatalog_Web.Controllers
         private readonly SignInManager<Customer> _signInManager;
         private readonly IServiceManager _serviceManager;
 
+
         public AccountController(UserManager<Customer> userManager, SignInManager<Customer> signInManager, IServiceManager serviceManager)
         {
             _userManager = userManager;
@@ -220,8 +221,5 @@ namespace ProductCatalog_Web.Controllers
 
             return View(model);
         }
-
-
-
     }
 }

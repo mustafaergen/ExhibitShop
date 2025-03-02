@@ -1,0 +1,53 @@
+﻿.container {
+    max-width: 600px;
+}
+
+.card {
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn {
+    border-radius: 8px;
+    font-size: 1.1rem;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
+.btn-danger {
+    background-color: #dc3545;
+    border: none;
+}
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+.form-control {
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+}
+
+.form-label {
+    font-weight: 600;
+}
+
+.bg-light {
+    background-color: #f8f9fa !important;
+}
