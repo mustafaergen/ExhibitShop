@@ -4,7 +4,9 @@
 @{
     ViewData["Title"] = "Home";
 }
-
+<head>
+    <link rel="stylesheet" href="~/css/ContentManager/Product/index.css" asp-append-version="true" />
+</head>
 <h1 class="text-center my-5">Welcome to the Product Catalog!</h1>
 
 <div class="container">
@@ -47,34 +49,7 @@
                         </div>
                     </div>
                 }
-
             </div>
         </div>
-
     </div>
 </div>
-
-<style>
-    .sidebar {
-        background-color: #f8f9fa;
-        border-radius: 8px;
-    }
-
-    .alert-warning {
-        font-size: 1.2rem;
-        padding: 15px;
-        border-radius: 8px;
-        background-color: #fff3cd;
-        border: 1px solid #ffeeba;
-        color: #856404;
-    }
-
-    .product-card {
-        transition: transform 0.3s ease;
-    }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-</style>  

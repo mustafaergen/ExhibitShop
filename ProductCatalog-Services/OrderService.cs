@@ -57,7 +57,7 @@ namespace ProductCatalog_Services
 
         public Order? GetOrderByOrderNumber(string orderNumber)
         {
-            return _manager.OrderRepository.GetOrderByOrderNumber(orderNumber);
+            return _manager.OrderRepository.Orders.Include(o => o.Lines).ThenInclude(l => l.Product).FirstOrDefault(o => o.OrderNumber == orderNumber);
         }
 
         public string GenerateOrderNumber()

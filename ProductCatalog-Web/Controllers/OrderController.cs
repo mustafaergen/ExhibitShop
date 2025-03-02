@@ -22,9 +22,9 @@ namespace ProductCatalog_Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult CheckOut(Order order)
+        public async Task<IActionResult> CheckOut(Order order)
         {
-            var user = _serviceManager.UserManager.GetUserAsync(User).Result;
+            var user = await _serviceManager.UserManager.GetUserAsync(User);
             var cart = _serviceManager.CartService.GetCartByUserIdAsync(user.Id).Result;
 
             if (cart == null || cart.CartLines.Count == 0)
@@ -41,6 +41,9 @@ namespace ProductCatalog_Web.Controllers
             if (ModelState.IsValid)
             {
                 _serviceManager.OrderService.SaveOrder(order);
+                var subject = "[ExhibitShop] - Your Order Has Been Successfully Placed!";
+                var body = $"Dear {user.FirstName+" "+user.LastName},\n\nThank you for your order! Your order number is {order.OrderNumber}\n\n\n\n&copy; {DateTime.Now.Year} ExhibitShop. All Rights Reserved.";
+                await _serviceManager.EmailService.SendEmailAsync(user.Email, subject, body);
                 return RedirectToAction("Completed", new { OrderId = order.Id });
             }
 
@@ -75,9 +78,7 @@ namespace ProductCatalog_Web.Controllers
             {
                 return View();
             }
-
             var order = _serviceManager.OrderService.GetOrderByOrderNumber(orderNumber);
-
             return View(order);
         }
 

@@ -23,30 +23,15 @@
         @foreach (var item in Model)
         {
                 <tr>
-                    <!-- Offer Price - only viewable -->
                     <td>@item.OfferPrice</td>
-
-                    <!-- Counter Price - editable -->
                     <td>
                         <input type="number" class="form-control" value="@item.CounterPrice" data-id="@item.Id" id="counterPrice_@item.Id" />
                     </td>
-
-                    <!-- Product Count - only viewable -->
                     <td>@item.ProductCount</td>
-
-                    <!-- UserId - only viewable -->
                     <td>@item.UserId</td>
-
-                    <!-- Offer Id - only viewable -->
                     <td>@item.Id</td>
-
-                    <!-- Created Date - only viewable -->
                     <td>@item.CreatedDate.ToString("MM/dd/yyyy")</td>
-
-                    <!-- Status - only viewable -->
                     <td>@item.Status</td>
-
-                    <!-- Action buttons: Edit, Delete, Reject -->
                     <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                     @Html.ActionLink("Details", "Details", new { id = item.Id }) |
@@ -57,44 +42,5 @@
     </tbody>
 </table>
 
-<script>
-    // Function to handle Reject Offer button click
-    function rejectOffer(offerId) {
-        if (confirm('Are you sure you want to reject this offer?')) {
-            $.ajax({
-                url: '@Url.Action("RejectOffer", "Offers")', // Replace with your actual action for rejecting offers
-                type: 'POST',
-                data: { id: offerId },
-                success: function (response) {
-                    alert('Offer rejected successfully.');
-                    location.reload(); // Reload the page to reflect changes
-                },
-                error: function () {
-                    alert('An error occurred while rejecting the offer.');
-                }
-            });
-        }
-    }
-
-    // Function to update CounterPrice dynamically
-    $(document).on('change', 'input[id^="counterPrice_"]', function () {
-        var newCounterPrice = $(this).val();
-        var offerId = $(this).data('id');
-
-        $.ajax({
-            url: '@Url.Action("UpdateCounterPrice", "Offers")', // Replace with your actual action to update counter price
-            type: 'POST',
-            data: {
-                id: offerId,
-                counterPrice: newCounterPrice
-            },
-            success: function (response) {
-                alert('Counter Price updated successfully.');
-            },
-            error: function () {
-                alert('An error occurred while updating the counter price.');
-            }
-        });
-    });
-</script>
+<script src="~/js/ContentManager/Offers/index.js" asp-append-version="true"></script>
 
