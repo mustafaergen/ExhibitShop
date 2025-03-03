@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "All Products";
 }
+<head> <link href="~/css/Product/index.css" rel="stylesheet" asp-append-version="true" /></head>
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-2 position-fixed start-0 vh-100 bg-light p-3 border-end shadow-sm">
@@ -15,36 +16,38 @@
                     <div class="mb-2">
                         <label for="MinPrice" class="form-label">Minimum Price</label>
                         <input type="number" name="MinPrice" id="MinPrice" class="form-control"
-                        placeholder="Min Price" min="0" value="@Context.Request.Query["MinPrice"]">
+                               placeholder="Min Price" min="0" value="@Context.Request.Query["MinPrice"]">
                     </div>
                     <div class="mb-2">
                         <label for="MaxPrice" class="form-label">Maximum Price</label>
                         <input type="number" name="MaxPrice" id="MaxPrice" class="form-control"
-                        placeholder="Max Price" min="0" value="@Context.Request.Query["MaxPrice"]">
+                               placeholder="Max Price" min="0" value="@Context.Request.Query["MaxPrice"]">
                     </div>
                     <button type="submit" class="btn btn-success w-100">Apply</button>
                 </form>
             </div>
         </div>
-        <div class="mb-3">
-            @if (!string.IsNullOrEmpty(Context.Request.Query["MinPrice"]) || !string.IsNullOrEmpty(Context.Request.Query["MaxPrice"]))
-            {
-                <div class="alert alert-info">
-                    Filtered by Price:
-                    @if (!string.IsNullOrEmpty(Context.Request.Query["MinPrice"]))
-                    {
-                        <span>Min: @Context.Request.Query["MinPrice"]</span>
-                    }
-                    @if (!string.IsNullOrEmpty(Context.Request.Query["MaxPrice"]))
-                    {
-                        <span> Max: @Context.Request.Query["MaxPrice"]</span>
-                    }
-                </div>
-            }
-        </div>
+
         <div class="col-12 offset-lg-2">
-            <div class="row">
-                @if (Model is not null && Model.Count() > 0)
+            <div class="mb-3">
+                @if (!string.IsNullOrEmpty(Context.Request.Query["MinPrice"]) || !string.IsNullOrEmpty(Context.Request.Query["MaxPrice"]))
+                {
+                    <div class="alert alert-info">
+                        Filtered by Price:
+                        @if (!string.IsNullOrEmpty(Context.Request.Query["MinPrice"]))
+                        {
+                            <span>Min: @Context.Request.Query["MinPrice"]</span>
+                        }
+                        @if (!string.IsNullOrEmpty(Context.Request.Query["MaxPrice"]))
+                        {
+                            <span> Max: @Context.Request.Query["MaxPrice"]</span>
+                        }
+                    </div>
+                }
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                @if (Model is not null && Model.Any())
                 {
                     @foreach (var item in Model)
                     {
@@ -53,10 +56,11 @@
                 }
                 else
                 {
-                    <div class="alert alert-warning" role="alert">
+                    <div class="alert alert-warning text-center w-100" role="alert">
                         There is no product we can show you in this category.
                     </div>
                 }
             </div>
         </div>
     </div>
+</div>

@@ -5,64 +5,77 @@
     ViewData["Title"] = "Your Shopping Cart";
 }
 
-<h1>Your Cart</h1>
+<div class="container mt-4">
+    <h1 class="mb-4">Your Cart</h1>
 
-@if (Model.CartLines.Count == 0)
-{
-    <div class="alert alert-info">
-        Your cart is empty. Start shopping now!
-    </div>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var cartLine in Model.CartLines)
-            {
+    @if (Model.CartLines.Count == 0)
+    {
+        <div class="alert alert-info text-center">
+            Your cart is empty. Start shopping now!
+        </div>
+        <div class="text-center">
+            <a href="@Url.Action("Index", "Product")" class="btn btn-primary">Return to Shop</a>
+        </div>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead class="thead-dark">
                 <tr>
-                    <td>
-                        <img src="~/img/@cartLine.Product.ImageUrl" alt="@cartLine.Product.Name" width="100" />
-                        <strong>@cartLine.Product.Name</strong>
-                    </td>
-                    <td>
-                        <form asp-action="AddToCart" method="post" id="cartForm-@cartLine.ProductId">
-                            <input type="hidden" name="productId" value="@cartLine.ProductId" />
-                            <input type="number" name="quantity" value="@cartLine.Quantity" min="1" class="form-control" onchange="submitCartForm(@cartLine.ProductId)" />
-                        </form>
-                    </td>
-
-                    <td>@cartLine.Price.ToString("C", new CultureInfo("en-US"))</td>
-                    <td>
-                        <form asp-action="RemoveFromCart" method="post">
-                            <input type="hidden" name="productId" value="@cartLine.ProductId" />
-                            <button type="submit" class="btn btn-sm btn-danger">Remove</button>
-                        </form>
-                    </td>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Action</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var cartLine in Model.CartLines)
+                {
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <img src="~/img/@cartLine.Product.ImageUrl" alt="@cartLine.Product.Name" width="80" class="mr-3 rounded" />
+                                <strong>@cartLine.Product.Name</strong>
+                            </div>
+                        </td>
+                        <td>
+                            <form asp-action="AddToCart" method="post" id="cartForm-@cartLine.ProductId">
+                                <input type="hidden" name="productId" value="@cartLine.ProductId" />
+                                <input type="number" name="quantity" value="@cartLine.Quantity" min="1" class="form-control w-50" onchange="submitCartForm(@cartLine.ProductId)" />
+                            </form>
+                        </td>
+                        <td>@cartLine.Price.ToString("C", new CultureInfo("en-US"))</td>
+                        <td>
+                            <form asp-action="RemoveFromCart" method="post">
+                                <input type="hidden" name="productId" value="@cartLine.ProductId" />
+                                <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-    <div class="d-flex justify-content-between">
-        <strong>Total: @Model.CartLines.Sum(cl => cl.Price * cl.Quantity).ToString("C", new CultureInfo("en-US"))</strong>
-        <form asp-action="ClearCart" method="post">
-            <button type="submit" class="btn btn-sm btn-warning">Clear Cart</button>
-        </form>
-    </div>
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <strong class="h4">Total: @Model.CartLines.Sum(cl => cl.Price * cl.Quantity).ToString("C", new CultureInfo("en-US"))</strong>
+            <div>
+                <form asp-action="ClearCart" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-warning">Clear Cart</button>
+                </form>
+                <a href="@Url.Action("Index", "Product")" class="btn btn-secondary ml-2">Continue Shopping</a>
+            </div>
+        </div>
 
-    <a href="@Url.Action("Checkout", "Order")" class="btn btn-success mt-3">Proceed to Checkout</a>
-}
+        <div class="text-center mt-4">
+            <a href="@Url.Action("Checkout", "Order")" class="btn btn-success btn-lg">Proceed to Checkout</a>
+        </div>
+    }
+</div>
+
 <script>
     function submitCartForm(productId) {
         var form = document.getElementById('cartForm-' + productId);
         form.submit();
     }
 </script>
+

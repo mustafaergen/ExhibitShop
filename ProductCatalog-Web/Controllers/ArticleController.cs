@@ -15,16 +15,9 @@ namespace ProductCatalog_Web.Controllers
             _serviceManager = serviceManager;
         }
 
-        public IActionResult Index(Status? status)
+        public IActionResult Index()
         {
-            var art = _serviceManager.ArticlesService.GetAllArticle();
-            foreach (var article in art)
-            {
-                if ( article.Status == Status.Active)
-                    art = art.Where(a => a.Status == status.Value).ToList();
-                return View(art);
-            }
-            return View(art);
+            return View(_serviceManager.ArticlesService.GetAllArticleByStatus());
         }
         [HttpGet]
         public IActionResult Details(int id)

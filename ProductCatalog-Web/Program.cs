@@ -52,7 +52,9 @@ namespace ProductCatalog_Web
             builder.Services.AddScoped<ICartService, CartService>();
             builder.Services.AddScoped<IQuestionsService, QuestionsService>();
             builder.Services.AddScoped<IQuestionTypeService, QuestionTypeService>();
+            builder.Services.AddScoped<IWeatherService, WeatherService>();
 
+            builder.Services.AddHttpClient<IWeatherService, WeatherService>();
             builder.Services.AddAutoMapper(typeof(MappingProfile));
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options =>

@@ -5,6 +5,7 @@ using ProductCatalog_Services.Contracts;
 using ProductCatalog_Web.Models;
 using ProductCatolog_Core.Enums;
 using ProductCatolog_Core.Models;
+using ProductCatolog_Core.VMs;
 using System.Diagnostics;
 
 namespace ProductCatalog_Web.Controllers
@@ -13,19 +14,37 @@ namespace ProductCatalog_Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IServiceManager _serviceManager;
-        public HomeController(ILogger<HomeController> logger, IServiceManager serviceManager)
+        private readonly IWeatherService _weatherService;
+        public HomeController(ILogger<HomeController> logger, IServiceManager serviceManager, IWeatherService weatherService)
         {
             _logger = logger;
             _serviceManager = serviceManager;
+            _weatherService = weatherService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string city)
         {
-            ViewBag.Articles = GetArticles();
-            return View(_serviceManager.ProductService.GetProductsByStatus(Status.Featured));
+            var model = new HomePageVM
+            {
+                FeaturedProducts = _serviceManager.ProductService.GetProductsByStatus(Status.Featured),
+                Weather = new List<WeatherResponse>()
+            };
+
+            if (!string.IsNullOrEmpty(city))
+            {
+                model.Weather.Add(await _weatherService.GetWeatherAsync(city));
+            }
+            else
+            {
+                var defaultCities = new List<string> { "Istanbul", "Ankara", "Izmir", "Bursa", "Antalya" };
+                foreach (var defaultCity in defaultCities)
+                {
+                    model.Weather.Add(await _weatherService.GetWeatherAsync(defaultCity));
+                }
+            }
+
+            return View(model);
         }
-
-
         public IActionResult Privacy()
         {
             return View();
@@ -40,11 +59,11 @@ namespace ProductCatalog_Web.Controllers
         public IActionResult Detail(int id)
         {
             var pro = _serviceManager.ProductService.GetProduct(id);
-            if (pro is null) 
+            if (pro is null)
                 return NotFound();
 
             return View(pro);
-                
+
         }
         private SelectList GetArticles()
         {

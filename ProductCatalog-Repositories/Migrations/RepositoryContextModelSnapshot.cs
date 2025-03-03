@@ -52,28 +52,28 @@ namespace ProductCatalog_Repositories.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "a3a10fe5-e252-40d9-ad06-69408296d237",
+                            ConcurrencyStamp = "799a81e6-2674-48d1-a487-e0374c7731ec",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "ae7658b6-68b4-4fb7-af76-2ea0e51efae5",
+                            ConcurrencyStamp = "aef4f475-f9a0-48fc-8a38-7ae7a9ba33b1",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
                             Id = "3",
-                            ConcurrencyStamp = "897de6c8-f818-49c1-9d0d-8bb7a6920012",
+                            ConcurrencyStamp = "184d59f9-7676-4752-90d1-7cd3e6858aa7",
                             Name = "ContentManager",
                             NormalizedName = "CONTENTMANAGER"
                         },
                         new
                         {
                             Id = "4",
-                            ConcurrencyStamp = "b22d140c-3ded-4764-86cd-4e3215b988c9",
+                            ConcurrencyStamp = "67034421-7f15-42c9-9299-4267cd817202",
                             Name = "CustomerRelations",
                             NormalizedName = "CUSTOMERRELATIONS"
                         });
@@ -587,15 +587,15 @@ namespace ProductCatalog_Repositories.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fcb08c5f-064a-4e65-b86b-632e046d21a2",
+                            ConcurrencyStamp = "46f54c77-163c-492a-963d-e1c46532694b",
                             Email = "admin@mail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN@MAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIRFTvO9AyQf1HV5/t0oLr9P9Om8IUYFdVMOQIGfX4G03YbvVQk5C3FPT1V1a0yfnA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECF5/uPNzf3nAmd3qJtnLaGgZnp5xwX/F7mwbTcsqzV4U2eB/iKAXKi6/dC9cUyzWw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "84834ef6-d30a-4835-90a2-796b63af6118",
+                            SecurityStamp = "7a287a3f-109c-4d0a-9c90-63dc9ace233f",
                             TwoFactorEnabled = false,
                             UserName = "admin@mail.com",
                             FirstName = "Admin1",

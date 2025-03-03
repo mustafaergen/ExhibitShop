@@ -1,31 +1,53 @@
 ﻿@using System.Globalization
-@model IEnumerable<ProductCatolog_Core.Models.Product>
+@model ProductCatolog_Core.VMs.HomePageVM
 
 @{
     ViewData["Title"] = "Product Catalog";
 }
 
-<head><link rel="stylesheet" href="~/css/Home/index.css"asp-append-version="true" /></head>
+<head>
+    <link rel="stylesheet" href="~/css/Home/index.css" asp-append-version="true" />
+</head>
 
-<div class="catalog-container">
-    @foreach (var item in Model)
-    {
-        <div class="product-card">
-            <div class="product-images">
-                <img src="@Url.Content("~/img/" + item.ImageUrl)" alt="@item.Name" />
-            </div>
-            <div class="product-info">
-                <h2>@item.Name</h2>
-                <p>@item.Summary</p>
-                <div class="price">
-                    <span class="currency">@item.Price.ToString("C", new CultureInfo("en-US"))[0]</span>
-                    <span class="amount">@item.Price.ToString("C", new CultureInfo("en-US")).Substring(1)</span>
+<div class="content-container">
+    <div class="catalog-section">
+        <h2>Featured Products</h2>
+        <div class="catalog-container">
+            @foreach (var item in Model.FeaturedProducts)
+            {
+                <div class="product-card">
+                    <div class="product-images">
+                        <img src="@Url.Content("~/img/" + item.ImageUrl)" alt="@item.Name" />
+                    </div>
+                    <div class="product-info">
+                        <h2>@item.Name</h2>
+                        <div class="price">
+                            <span class="currency">@item.Price.ToString("C", new CultureInfo("en-US"))[0]</span>
+                            <span class="amount">@item.Price.ToString("C", new CultureInfo("en-US")).Substring(1)</span>
+                        </div>
+                        <a asp-action="GetById" asp-controller="Product" asp-route-id="@item.Id" class="btn-custom">
+                            Show Details
+                        </a>
+                    </div>
                 </div>
-                <a asp-action="GetById" asp-controller="Product" asp-route-id="@item.Id" class="btn-custom">
-                    Show Details
-                </a>
-            </div>
+            }
         </div>
-    }
-</div>
+    </div>
 
+    <div class="weather-container">
+        @foreach (var city in new List<string> { "Istanbul", "Ankara", "Izmir", "Bursa", "Antalya", "Kocaeli","Konya" })
+        {
+            <div class="weather-card">
+                <div class="weather-icon">
+                    <img id="weatherIcon_@city" src="" alt="Weather Icon" />
+                </div>
+                <div class="weather-info">
+                    <h2 id="weatherCity_@city">@city</h2>
+                    <p class="temperature" id="weatherTemp_@city">-- °C</p>
+                    <p class="description" id="weatherDesc_@city">Yükleniyor...</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script src="~/js/site.js" asp-append-version="true"></script>
