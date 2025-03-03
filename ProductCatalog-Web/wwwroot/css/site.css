@@ -12,8 +12,3 @@ html {
   position: relative;
   min-height: 100%;
 }
-
-body {
-    background: linear-gradient(to right, #007bff, #0056b3);
-    color: white;
-}
