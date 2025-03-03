@@ -1,32 +1,17 @@
-﻿
-body {
+﻿body {
     margin: 0;
-    overflow-y: scroll;
-    scroll-snap-type: y mandatory;
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
 }
 
-.price {
-    font-size: 22px;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-    .price .amount {
-        color: forestgreen;
-    }
-
-    .price .currency {
-        color: forestgreen;
-        font-weight: bold;
-    }
-
-
+/* Ürün Kataloğu */
 .catalog-container {
     max-width: 1200px;
     margin: auto;
     padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Satırda 2 ürün */
+    gap: 20px;
 }
 
 .product-card {
@@ -34,62 +19,152 @@ body {
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     overflow: hidden;
-    margin-bottom: 30px;
+    padding: 15px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
 }
 
-.product-images {
-    flex: 1;
-    overflow: hidden;
-    position: relative;
+.product-images img {
+    width: 100%;
+    max-height: 180px;
+    object-fit: contain;
+    background-color: white;
 }
 
-    .product-images img {
-        width: 100%;
-        height: auto;
-        object-fit: contain;
-        background-color: white;
-        display: block;
-    }
-
-.product-info {
-    flex: 1;
-    padding: 20px;
+.product-info h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0;
 }
 
-    .product-info h2 {
-        font-size: 28px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
+.product-info p {
+    font-size: 14px;
+    color: #555;
+}
 
-    .product-info p {
-        font-size: 16px;
-        margin-bottom: 5px;
-        color: #555;
-    }
-
-    .product-info .price {
-        font-size: 22px;
-        color: #ff9f00;
-        font-weight: bold;
-        margin-top: 10px;
-    }
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    color: forestgreen;
+    margin-top: 8px;
+}
 
 .btn-custom {
     display: inline-block;
     background-color: #007bff;
     color: white;
-    padding: 10px 20px;
+    padding: 8px 15px;
     text-decoration: none;
     font-weight: bold;
     border-radius: 5px;
     transition: 0.3s;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
     .btn-custom:hover {
         background-color: #0056b3;
     }
+
+/* Hava Durumu Bölümü */
+.weather-section {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    text-align: center;
+}
+
+.weather-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 15px;
+    padding: 15px;
+    background-color: #e3f2fd;
+    border-radius: 12px;
+    overflow-x: auto;
+    white-space: nowrap;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: #007bff #e3f2fd;
+}
+
+    .weather-container::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .weather-container::-webkit-scrollbar-thumb {
+        background: #007bff;
+        border-radius: 10px;
+    }
+
+    .weather-container::-webkit-scrollbar-track {
+        background: #e3f2fd;
+    }
+
+.weather-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    min-width: 200px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    scroll-snap-align: center;
+}
+
+.weather-icon img {
+    width: 80px;
+    height: 80px;
+}
+
+.weather-info h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.weather-info .temperature {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff5722;
+}
+
+.weather-info .description {
+    font-size: 14px;
+    color: #666;
+}
+
+.weather-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Mobil Uyum */
+@media (max-width: 768px) {
+    .catalog-container {
+        grid-template-columns: 1fr; /* Küçük ekranlarda tek sütun */
+    }
+
+    .product-card {
+        padding: 10px;
+    }
+
+    .product-images img {
+        max-height: 150px;
+    }
+
+    .product-info h2 {
+        font-size: 18px;
+    }
+
+    .btn-custom {
+        padding: 6px 12px;
+    }
+}

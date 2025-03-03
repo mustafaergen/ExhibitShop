@@ -12,6 +12,7 @@ namespace ProductCatalog_Services.Contracts
     public interface IArticleService
     {
         IEnumerable<Article> GetAllArticle();
+        IEnumerable<Article> GetAllArticleByStatus();
         Article GetArticle(int id);
         void CreateArticle(Article article);
         void UpdateArticle(Article article);

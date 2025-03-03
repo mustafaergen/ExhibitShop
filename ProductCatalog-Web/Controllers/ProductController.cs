@@ -35,7 +35,7 @@ namespace ProductCatalog_Web.Controllers
                 products = products.ByPrice(param.MinPrice, param.MaxPrice);
             return View(products);
         }
-
+        [Route("Product/Detail")]
         [HttpGet]
         public IActionResult GetById(int id)
         {
@@ -44,5 +44,6 @@ namespace ProductCatalog_Web.Controllers
                 return View(model);
             return RedirectToPage("/Error");
         }
+
     }
 }

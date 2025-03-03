@@ -1,0 +1,127 @@
+﻿body {
+    background: linear-gradient(135deg, #0A1931, #091021);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    padding: 20px;
+}
+h5.text-center{
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 20px;
+}
+.container {
+    max-width: 800px;
+    width: 100%;
+}
+
+.card {
+    width: 100%;
+    max-width: 700px;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    background: #112D4E;
+    color: white;
+    padding: 25px;
+    position: relative;
+    min-height: 600px;
+}
+.card-header {
+    background: #1B3B6F;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    font-size: 1.7rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.form-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+    .form-group label {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #B0C4DE;
+        width: 40%;
+        text-align: left;
+    }
+    .form-group .form-control {
+        width: 60%;
+        border-radius: 10px;
+        padding: 12px;
+        font-size: 1.1rem;
+        border: 2px solid #1B3B6F;
+        background: #1E3A5F;
+        color: white;
+    }
+
+        .form-group .form-control:focus {
+            border-color: #00A8E8;
+            box-shadow: 0 0 10px rgba(0, 168, 232, 0.6);
+        }
+
+.form-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+
+    .btn-secondary:hover {
+        background-color: #545b62;
+    }
+
+.success-message {
+    background: #28A745;
+    color: white;
+    padding: 15px 20px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin-bottom: 20px;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+.success-message.fade-out {
+    opacity: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    transition: opacity 0.5s ease-in-out, height 0.5s ease-in-out, margin 0.5s ease-in-out;
+}

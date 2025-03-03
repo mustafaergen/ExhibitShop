@@ -376,16 +376,16 @@ namespace ProductCatalog_Repositories.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1", "a3a10fe5-e252-40d9-ad06-69408296d237", "Admin", "ADMIN" },
-                    { "2", "ae7658b6-68b4-4fb7-af76-2ea0e51efae5", "Customer", "CUSTOMER" },
-                    { "3", "897de6c8-f818-49c1-9d0d-8bb7a6920012", "ContentManager", "CONTENTMANAGER" },
-                    { "4", "b22d140c-3ded-4764-86cd-4e3215b988c9", "CustomerRelations", "CUSTOMERRELATIONS" }
+                    { "1", "799a81e6-2674-48d1-a487-e0374c7731ec", "Admin", "ADMIN" },
+                    { "2", "aef4f475-f9a0-48fc-8a38-7ae7a9ba33b1", "Customer", "CUSTOMER" },
+                    { "3", "184d59f9-7676-4752-90d1-7cd3e6858aa7", "ContentManager", "CONTENTMANAGER" },
+                    { "4", "67034421-7f15-42c9-9299-4267cd817202", "CustomerRelations", "CUSTOMERRELATIONS" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 0, "fcb08c5f-064a-4e65-b86b-632e046d21a2", "Customer", "admin@mail.com", true, "Admin1", "Admin1", false, null, "ADMIN@MAIL.COM", "ADMIN@MAIL.COM", "AQAAAAEAACcQAAAAEIRFTvO9AyQf1HV5/t0oLr9P9Om8IUYFdVMOQIGfX4G03YbvVQk5C3FPT1V1a0yfnA==", null, false, "84834ef6-d30a-4835-90a2-796b63af6118", false, "admin@mail.com" });
+                values: new object[] { "1", 0, "46f54c77-163c-492a-963d-e1c46532694b", "Customer", "admin@mail.com", true, "Admin1", "Admin1", false, null, "ADMIN@MAIL.COM", "ADMIN@MAIL.COM", "AQAAAAEAACcQAAAAECF5/uPNzf3nAmd3qJtnLaGgZnp5xwX/F7mwbTcsqzV4U2eB/iKAXKi6/dC9cUyzWw==", null, false, "7a287a3f-109c-4d0a-9c90-63dc9ace233f", false, "admin@mail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

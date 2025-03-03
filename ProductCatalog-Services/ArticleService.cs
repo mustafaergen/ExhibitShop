@@ -42,6 +42,11 @@ namespace ProductCatalog_Services
             return _manager.ArticleRepository.GetAllArticle();
         }
 
+        public IEnumerable<Article> GetAllArticleByStatus()
+        {
+            return _manager.ArticleRepository.GetAllArticle().Where(x => x.Status == Status.Active);
+        }
+
         public Article GetArticle(int id)
         {
             return _manager.ArticleRepository.FindById(id);
