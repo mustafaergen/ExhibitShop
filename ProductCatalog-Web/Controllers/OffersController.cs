@@ -12,11 +12,17 @@ namespace ProductCatalog_Web.Controllers
             _serviceManager = serviceManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var off = _serviceManager.OffersService.GetOffers();
-            ViewBag.OffersCount = off.Count();
-            return View(off);
+            var user = await _serviceManager.UserManager.GetUserAsync(User);
+            if (user is null)
+                return RedirectToAction("Login","Account");
+            else
+            {
+                var off = _serviceManager.OffersService.GetOffers();
+                ViewBag.OffersCount = off.Count();
+                return View(off);
+            }
         }
         [HttpGet]
         public IActionResult Create(int id)
@@ -32,7 +38,6 @@ namespace ProductCatalog_Web.Controllers
             //    offer.UserId = ;
             //    offer.Product = ViewBag.Product;
             //}
-
             _serviceManager.OffersService.CreateOffers(offer);
             return RedirectToAction("Index");
 

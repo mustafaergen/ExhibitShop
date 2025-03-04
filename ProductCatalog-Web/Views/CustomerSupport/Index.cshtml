@@ -5,7 +5,7 @@
     ViewData["Title"] = "Customer Support";
     Layout = "_Layout";
 }
-<head><link rel="stylesheet" href="~/css/CustomerSupport/index.css" /></head>
+<head><link href="~/css/CustomerSupport/index.css" rel="stylesheet" asp-append-version="true" /></head>
 
 <div class="container mt-4">
     <div class="row">
@@ -18,12 +18,13 @@
                 @foreach (var type in ViewBag.QuestionType as SelectList)
                 {
                     <a asp-controller="CustomerSupport" asp-action="Index" asp-route-id="@type.Value"
-                       class="list-group-item list-group-item-action @(Context.Request.Query["id"] == type.Value ? "bg-orange text-white" : "")">
+                       class="list-group-item list-group-item-action @(ViewBag.SelectedId == type.Value ? "bg-orange text-white" : "")">
                         @type.Text
                     </a>
                 }
             </div>
         </div>
+
         <div class="col-md-9">
             <div class="card shadow">
                 <div class="card-header bg-orange text-white">
@@ -33,10 +34,8 @@
                     @if (Model != null && Model.Any())
                     {
                         <div class="faq-container">
-                            @foreach (var question in Model)
+                            @foreach (var question in Model.Where(q => q.QuestionStatus == QuestionStatus.CustomerRelations))
                             {
-                                @if(question.QuestionStatus == QuestionStatus.CustomerRelations)
-                                {
                                 <div class="faq-item">
                                     <div class="faq-question" data-question-id="@question.Id">
                                         @question.Question
@@ -46,7 +45,6 @@
                                         @question.Answer
                                     </div>
                                 </div>
-                                }
                             }
                         </div>
                     }
