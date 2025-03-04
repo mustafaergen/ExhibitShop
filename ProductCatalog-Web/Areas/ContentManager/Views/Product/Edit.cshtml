@@ -15,31 +15,31 @@
                     <form asp-action="Edit" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
 
-                        <div class="form-group mb-3 text-center">
+                        <div class="form-group mb-4 text-center">
                             <label class="form-label fw-bold text-dark">
                                 <i class="fas fa-image"></i> Product Image
                             </label>
-                            <div class="mb-2">
-                                @if (Model.ImageUrl != null)
+                            <div class="mb-3">
+                                @if (!string.IsNullOrEmpty(Model.ImageUrl))
                                 {
-                                    <img src="~/img/@Model.ImageUrl" alt="Product Image" class="img-fluid" style="max-width: 200px; border-radius: 8px;">
+                                    <img src="~/img/@Model.ImageUrl" alt="Product Image" class="img-thumbnail" style="max-width: 250px; border-radius: 8px;">
                                 }
                                 else
                                 {
-                                    <span>No image uploaded</span>
+                                    <span class="text-muted">No image uploaded</span>
                                 }
                             </div>
-                            <label asp-for="ImageUrl" class="form-label text-dark">
-                                <i class="fas fa-upload"></i> Upload New Image
-                            </label>
-                            <input type="file" name="file" class="form-control form-control-lg" />
+                            <div class="input-group">
+                                <input type="file" name="file" class="form-control" />
+                            </div>
                             <span asp-validation-for="ImageUrl" class="text-danger"></span>
                         </div>
+
                         <div class="form-group mb-3">
                             <label asp-for="Name" class="form-label fw-bold text-dark">
                                 <i class="fas fa-tag"></i> Product Name
                             </label>
-                            <input asp-for="Name" class="form-control form-control-lg" placeholder="Enter product name..." />
+                            <input asp-for="Name" class="form-control" placeholder="Enter product name..." />
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
 
@@ -47,7 +47,7 @@
                             <label asp-for="Price" class="form-label fw-bold text-dark">
                                 <i class="fas fa-dollar-sign"></i> Price
                             </label>
-                            <input asp-for="Price" class="form-control form-control-lg" placeholder="Enter price..." />
+                            <input asp-for="Price" type="number" class="form-control" placeholder="Enter price..." step="0.01" />
                             <span asp-validation-for="Price" class="text-danger"></span>
                         </div>
 
@@ -55,7 +55,7 @@
                             <label asp-for="Summary" class="form-label fw-bold text-dark">
                                 <i class="fas fa-info-circle"></i> Summary
                             </label>
-                            <textarea asp-for="Summary" class="form-control form-control-lg" rows="4" placeholder="Enter summary..."></textarea>
+                            <textarea asp-for="Summary" class="form-control" rows="4" placeholder="Enter summary..."></textarea>
                             <span asp-validation-for="Summary" class="text-danger"></span>
                         </div>
 
@@ -63,15 +63,17 @@
                             <label asp-for="CategoryId" class="form-label fw-bold text-dark">
                                 <i class="fas fa-list"></i> Choose Category
                             </label>
-                            <select class="form-select form-select-lg" asp-for="CategoryId" asp-items="ViewBag.Categories">
+                            <select class="form-select" asp-for="CategoryId" asp-items="ViewBag.Categories">
+                                <option value="">-- Select a category --</option>
                             </select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
                         </div>
 
                         <div class="form-group mb-3">
                             <label asp-for="Status" class="form-label fw-bold text-dark">
                                 <i class="fas fa-toggle-on"></i> Status
                             </label>
-                            <select asp-for="Status" class="form-select form-select-lg">
+                            <select asp-for="Status" class="form-select">
                                 <option value="Active">Active</option>
                                 <option value="Passive">Passive</option>
                             </select>

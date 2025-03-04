@@ -1,57 +1,51 @@
-﻿
-body, html {
-    height: 100%;
-    margin: 0;
-    font-family: Arial, sans-serif;
+﻿body {
+    background-color: #F8F9FA; 
+    color: #333 !important; 
 }
 
-.sidebar {
-    width: 250px;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background: #2C3E50;
-    padding-top: 20px;
+.list-group-item {
+    color: #333 !important; 
 }
 
-    .sidebar a {
-        color: #ECF0F1;
-        padding: 15px;
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        transition: 0.3s;
+    .list-group-item.bg-orange {
+        background-color: #FF7F50 !important; 
+        color: #FFFFFF !important; 
     }
 
-        .sidebar a:hover {
-            background: #1A252F;
-        }
-
-    .sidebar .sidebar-header {
-        text-align: center;
-        padding: 15px;
-        color: #ECF0F1;
-        font-size: 18px;
-    }
-
-.content {
-    margin-left: 250px;
-    padding: 20px;
-    min-height: 100vh;
-    background: #F8F9FA;
+.card-header.bg-orange {
+    background-color: #FF7F50 !important; 
+    color: #FFFFFF !important; 
+    font-weight: bold;
 }
 
-.navbar {
-    background: #FFFFFF;
-    border-bottom: 1px solid #DDD;
+.list-group-item-action {
+    color: #333 !important;
 }
 
-    .navbar .nav-item .nav-link {
-        color: #333;
-        font-weight: 500;
+    .list-group-item-action:hover {
+        background-color: #E65C00 !important;
+        color: #FFFFFF !important;
     }
 
-        .navbar .nav-item .nav-link:hover {
-            color: #007BFF;
-        }
+.faq-question {
+    font-weight: bold;
+    color: #2C3E50 !important; 
+}
+
+.faq-answer {
+    color: #555 !important; 
+}
+.contact-btn {
+    background-color: #FF7F50;
+    color: #FFFFFF !important;
+    padding: 10px 15px;
+    display: inline-block;
+    margin-top: 20px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+    .contact-btn:hover {
+        background-color: #E65C00 !important;
+        color: #FFFFFF !important;
+    }
