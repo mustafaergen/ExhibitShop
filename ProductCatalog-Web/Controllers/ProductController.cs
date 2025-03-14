@@ -15,7 +15,6 @@ namespace ProductCatalog_Web.Controllers
         {
             _serviceManager = manager;
         }
-
         public IActionResult Index(RequestParameters param)
         {
             var products = _serviceManager.ProductService.GetProductsByAvailable();
