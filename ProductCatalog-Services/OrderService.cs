@@ -64,5 +64,23 @@ namespace ProductCatalog_Services
         {
             return _manager.OrderRepository.GenerateOrderNumber();
         }
+
+        public void UpdateOrder(Order order)
+        {
+            var existingOrder = _manager.OrderRepository.FindById(order.Id);
+            if(existingOrder != null)
+            {
+                existingOrder.Line1 = order.Line1;
+                existingOrder.Line2 = order.Line2;
+                existingOrder.City = order.City;
+                existingOrder.OrderStatus = order.OrderStatus;
+                _manager.OrderRepository.Update(existingOrder);
+                _manager.Save();
+            }
+            else
+            {
+                throw new Exception("Order is not found");
+            }
+        }
     }
 }

@@ -31,6 +31,10 @@ namespace ProductCatalog_Repositories.Migrations
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -241,12 +245,18 @@ namespace ProductCatalog_Repositories.Migrations
                     OrderStatus = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     OrderNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_AspNetUsers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Orders_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -376,16 +386,16 @@ namespace ProductCatalog_Repositories.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1", "799a81e6-2674-48d1-a487-e0374c7731ec", "Admin", "ADMIN" },
-                    { "2", "aef4f475-f9a0-48fc-8a38-7ae7a9ba33b1", "Customer", "CUSTOMER" },
-                    { "3", "184d59f9-7676-4752-90d1-7cd3e6858aa7", "ContentManager", "CONTENTMANAGER" },
-                    { "4", "67034421-7f15-42c9-9299-4267cd817202", "CustomerRelations", "CUSTOMERRELATIONS" }
+                    { "1", "bb3b97cc-84ce-41ee-963d-290c923287a4", "Admin", "ADMIN" },
+                    { "2", "51643e2b-d81f-43d4-a41e-347b5998a1d9", "Customer", "CUSTOMER" },
+                    { "3", "368fe532-47e9-4fc7-bca7-0adc04dfcab6", "ContentManager", "CONTENTMANAGER" },
+                    { "4", "f69f9564-ccec-404e-aa05-1ebf8c262777", "CustomerRelations", "CUSTOMERRELATIONS" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 0, "46f54c77-163c-492a-963d-e1c46532694b", "Customer", "admin@mail.com", true, "Admin1", "Admin1", false, null, "ADMIN@MAIL.COM", "ADMIN@MAIL.COM", "AQAAAAEAACcQAAAAECF5/uPNzf3nAmd3qJtnLaGgZnp5xwX/F7mwbTcsqzV4U2eB/iKAXKi6/dC9cUyzWw==", null, false, "7a287a3f-109c-4d0a-9c90-63dc9ace233f", false, "admin@mail.com" });
+                columns: new[] { "Id", "AccessFailedCount", "Address", "City", "ConcurrencyStamp", "Country", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PostalCode", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "1", 0, null, null, "341d0562-eafb-4a90-bd2a-79eda3f20cf0", null, "Customer", "admin@mail.com", true, "Admin1", "Admin1", false, null, "ADMIN@MAIL.COM", "ADMIN@MAIL.COM", "AQAAAAEAACcQAAAAEAfsTXNtWmXWYzFCahnFu3y/R7P4oI32bOKRlhdAERUaeQyuZpa7Uy76rK3UNTbGCg==", null, false, null, "f28ea346-58ce-4933-9670-60eaafda8683", false, "admin@mail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -460,6 +470,11 @@ namespace ProductCatalog_Repositories.Migrations
                 name: "IX_Offers_UserId",
                 table: "Offers",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_CustomerId",
+                table: "Orders",
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_UserId",

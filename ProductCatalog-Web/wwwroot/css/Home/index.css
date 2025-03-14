@@ -4,13 +4,12 @@
     background-color: #f4f4f4;
 }
 
-/* Ürün Kataloğu */
 .catalog-container {
     max-width: 1200px;
     margin: auto;
     padding: 20px;
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Satırda 2 ürün */
+    grid-template-columns: repeat(2, 1fr); 
     gap: 20px;
 }
 
@@ -67,7 +66,6 @@
         background-color: #0056b3;
     }
 
-/* Hava Durumu Bölümü */
 .weather-section {
     background: #ffffff;
     padding: 20px;
@@ -146,10 +144,9 @@
     display: none;
 }
 
-/* Mobil Uyum */
 @media (max-width: 768px) {
     .catalog-container {
-        grid-template-columns: 1fr; /* Küçük ekranlarda tek sütun */
+        grid-template-columns: 1fr; 
     }
 
     .product-card {

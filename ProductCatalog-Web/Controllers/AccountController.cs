@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProductCatalog_Services.Contracts;
 using ProductCatolog_Core.Models;
 using ProductCatolog_Core.VMs;
+using System.Diagnostics.Metrics;
 
 namespace ProductCatalog_Web.Controllers
 {
@@ -116,7 +117,12 @@ namespace ProductCatalog_Web.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
-                UserName = user.UserName
+                UserName = user.UserName,
+                Address = user.Address,
+                City = user.City,
+                Country = user.Country,
+                PostalCode = user.PostalCode,
+                PhoneNumber = user.PhoneNumber,
             };
             return View(model);
         }
@@ -132,6 +138,11 @@ namespace ProductCatalog_Web.Controllers
             user.LastName = model.LastName;
             user.Email = model.Email;
             user.UserName = model.UserName;
+            user.PhoneNumber = model.PhoneNumber;
+            user.Address = model.Address;
+            user.City = model.City;
+            user.Country = model.City;
+            user.PostalCode = model.PostalCode;
             var result = await _userManager.UpdateAsync(user);
             if (!result.Succeeded)
             {

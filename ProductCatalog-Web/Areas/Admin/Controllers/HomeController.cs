@@ -28,20 +28,29 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            ViewBag.UserCount = _userManager.Users.Count();
-            ViewBag.ProductCount = GetProductsCount().Count();
-            ViewBag.CategoryCount = GetCategoriesCount().Count();
-            ViewBag.OrderCount = GetOrderCountList().Count();
-            ViewBag.ArticleCount = GetArticlesCount().Count();
+            ViewBag.UserCount = await _userManager.Users.CountAsync();
+            ViewBag.ProductCount = _serviceManager.ProductService.GetAllProducts().Count();
+            ViewBag.CategoryCount = _serviceManager.CategoryService.GetCategories().Count();
+            ViewBag.OrderCount = _serviceManager.OrderService.GettAllOrders().Count();
+            ViewBag.ArticleCount = _serviceManager.ArticlesService.GetAllArticle().Count();
+
+            ViewBag.CategoryList = _serviceManager.CategoryService.GetCategories();
+            ViewBag.OrderList = _serviceManager.OrderService.GettAllOrders();
+            ViewBag.ProductList = _serviceManager.ProductService.GetAllProducts();
+            ViewBag.ArticleList = _serviceManager.ArticlesService.GetAllArticle();
+            ViewBag.UserList = await _userManager.Users.ToListAsync();
+
             return View();
         }
+
+
 
         [HttpGet]
         public async Task<IActionResult> RoleManager(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
 
-            var allRoles = _roleManager.Roles.Select(r => r.Name).ToList();
+            var allRoles = _roleManager.Roles.Select(r => r.Name);
             var userRoles = await _userManager.GetRolesAsync(user);
 
             var model = new ManagerUserRoleVM

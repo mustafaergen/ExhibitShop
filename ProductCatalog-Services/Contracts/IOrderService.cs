@@ -16,6 +16,7 @@ namespace ProductCatalog_Services.Contracts
         IEnumerable<Order> GettAllOrders();
         Order? GetOneOrder(int id);
         Order? GetOrderByOrderNumber(string orderNumber);
+        void UpdateOrder(Order order);
         void Complete(int id);
         void SaveOrder(Order order);
         int NumberOfInProcess { get; }

@@ -1,4 +1,6 @@
-﻿
+﻿body {
+    background: linear-gradient(to right, #2c3e50, #4ca1af);
+}
 #wrapper {
     display: flex;
 }
@@ -61,3 +63,30 @@
     margin-left: 10px;
     cursor: pointer;
 }
+
+
+.dashboard-card {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+    .dashboard-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+    }
+
+.dashboard-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.dashboard-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+
