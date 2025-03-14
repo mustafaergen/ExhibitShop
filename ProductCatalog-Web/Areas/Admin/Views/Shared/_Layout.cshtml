@@ -30,6 +30,11 @@
                     </a>
                 </li>
                 <li>
+                    <a asp-area="Admin" asp-controller="Order" asp-action="Index">
+                        <i class="fa-solid fa-clipboard-list"></i> Orders
+                    </a>
+                </li>
+                <li>
                     <a asp-area="Admin" asp-controller="Articles" asp-action="Index">
                         <i class="fa-solid fa-newspaper"></i> Articles
                     </a>
@@ -94,13 +99,6 @@
             </div>
         </div>
     </div>
-
-    <footer class="footer bg-light text-center py-3">
-        <div class="container">
-            &copy; 2025 - ProductCatalog_Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/Admin/Layout/admin.js" asp-append-version="true"></script>

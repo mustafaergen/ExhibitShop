@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="User Profile Update" />
-    <title>Profile Update - Admin Panel</title>
+    <title>Profile Update</title>
     <link href="~/css/Account/MyAccount.css" rel="stylesheet" asp-append-version="true" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
@@ -31,50 +31,89 @@
                             </div>
                         }
                         <form method="post">
-                            <div class="form-group">
-                                <label for="FirstName"><i class="fas fa-user"></i> First Name</label>
-                                <input asp-for="FirstName" class="form-control" placeholder="First Name" />
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="FirstName"><i class="fas fa-user"></i> First Name</label>
+                                    <input asp-for="FirstName" class="form-control" placeholder="First Name" />
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="LastName"><i class="fas fa-user"></i> Last Name</label>
+                                    <input asp-for="LastName" class="form-control" placeholder="Last Name" />
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="LastName"><i class="fas fa-user"></i> Last Name</label>
-                                <input asp-for="LastName" class="form-control" placeholder="Last Name" />
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="E-Mail"><i class="fas fa-envelope"></i> E-Mail</label>
+                                    <input asp-for="Email" class="form-control" placeholder="E-Mail" />
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="UserName"><i class="fas fa-user-tag"></i> Username</label>
+                                    <input asp-for="UserName" class="form-control" placeholder="Username" />
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="Email"><i class="fas fa-envelope"></i> Email</label>
-                                <input asp-for="Email" class="form-control" placeholder="Email" />
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="Address"><i class="fas fa-map-marker-alt"></i> Address</label>
+                                    <input asp-for="Address" class="form-control" placeholder="Address" />
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="City"><i class="fas fa-city"></i> City</label>
+                                    <input asp-for="City" class="form-control" placeholder="City" />
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="UserName"><i class="fas fa-user-tag"></i> Username</label>
-                                <input asp-for="UserName" class="form-control" placeholder="Username" />
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="Country"><i class="fas fa-globe"></i> Country</label>
+                                    <input asp-for="Country" class="form-control" placeholder="Country" />
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="Postal Code"><i class="fas fa-envelope"></i> Postal Code</label>
+                                    <input asp-for="PostalCode" class="form-control" placeholder="Postal Code" />
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="PhoneNumber"><i class="fas fa-mobile-alt"></i> Phone Number</label>
+                                    <input asp-for="PhoneNumber" id="PhoneNumber" type="tel" class="form-control" placeholder="Phone Number" />
+                                </div>
                             </div>
 
                             <hr />
 
                             <h5 class="text-center"><i class="fas fa-lock"></i> Change Password</h5>
 
-                            <div class="form-group">
-                                <label for="CurrentPassword"><i class="fas fa-key"></i> Current Password</label>
-                                <input asp-for="CurrentPassword" type="password" class="form-control" placeholder="Current Password" />
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="CurrentPassword"><i class="fas fa-key"></i> Current Password</label>
+                                    <input asp-for="CurrentPassword" type="password" class="form-control" placeholder="Current Password" />
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="NewPassword"><i class="fas fa-lock"></i> New Password</label>
+                                    <input asp-for="NewPassword" type="password" class="form-control" placeholder="New Password" />
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="NewPassword"><i class="fas fa-lock"></i> New Password</label>
-                                <input asp-for="NewPassword" type="password" class="form-control" placeholder="New Password" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="ConfirmNewPassword"><i class="fas fa-lock"></i> Confirm New Password</label>
-                                <input asp-for="ConfirmNewPassword" type="password" class="form-control" placeholder="Confirm New Password" />
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="ConfirmNewPassword"><i class="fas fa-lock"></i> Confirm New Password</label>
+                                    <input asp-for="ConfirmNewPassword" type="password" class="form-control" placeholder="Confirm New Password" />
+                                </div>
                             </div>
 
                             <div class="form-footer">
-                                <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-secondary">
+                                <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-back">
                                     <i class="fas fa-arrow-left"></i> Back to Dashboard
                                 </a>
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" style="font-weight:bold" class="btn btn-primary">
                                     <i class="fas fa-save"></i> Update
                                 </button>
                             </div>

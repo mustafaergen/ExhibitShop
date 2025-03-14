@@ -2,79 +2,32 @@
     ViewData["Title"] = "Admin Dashboard";
 }
 
-<h1 class="text-center my-4">Admin Dashboard</h1>
+<head>
+    <link href="~/css/Admin/Layout/admin.css" rel="stylesheet" />
+</head>
 
-<div class="row">
-    <div class="col-md-3">
-        <a asp-controller="Product" asp-action="Index" class="text-white text-decoration-none">
-            <div class="card bg-success mb-4 shadow-lg">
-                <div class="card-header text-center">
-                    <h5 class="card-title"><i class="fas fa-box"></i> Products</h5>
-                </div>
-                <div class="card-body text-center">
-                    <h3><b>@ViewBag.ProductCount</b></h3>
-                    <p>Total Products</p>
-                </div>
+<div class="container">
+    <div class="row g-4">
+        @foreach (var item in new[] {
+        new { Controller = "Product", Action = "Index", Icon = "fas fa-box", Title = "Products", Count = ViewBag.ProductCount },
+        new { Controller = "Category", Action = "Index", Icon = "fas fa-tags", Title = "Categories", Count = ViewBag.CategoryCount },
+        new { Controller = "Articles", Action = "Index", Icon = "fas fa-file-alt", Title = "Articles", Count = ViewBag.ArticleCount },
+        new { Controller = "Home", Action = "GetCustomers", Icon = "fas fa-users", Title = "Users", Count = ViewBag.UserCount },
+        new { Controller = "Order", Action = "Index", Icon = "fas fa-shopping-cart", Title = "Orders", Count = ViewBag.OrderCount }
+        })
+        {
+            <div class="col-md-4">
+                <a asp-controller="@item.Controller" asp-action="@item.Action" class="text-decoration-none text-white">
+                    <div class="dashboard-card">
+                        <i class="@item.Icon dashboard-icon"></i>
+                        <div class="dashboard-title">@item.Title</div>
+                        <h3><b>@item.Count</b></h3>
+                        <p>Total @item.Title</p>
+                    </div>
+                </a>
             </div>
-        </a>
+        }
     </div>
-
-    <div class="col-md-3">
-        <a asp-controller="Category" asp-action="Index" class="text-white text-decoration-none">
-            <div class="card bg-warning mb-4 shadow-lg">
-                <div class="card-header text-center">
-                    <h5 class="card-title"><i class="fas fa-tags"></i> Categories</h5>
-                </div>
-                <div class="card-body text-center">
-                    <h3><b>@ViewBag.CategoryCount</b></h3>
-                    <p>Total Categories</p>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="col-md-3">
-        <a asp-controller="Articles" class="text-white text-decoration-none">
-            <div class="card bg-success mb-4 shadow-lg">
-                <div class="card-header text-center">
-                    <h5 class="card-title"><i class="fas fa-file-alt"></i> Articles</h5>
-                </div>
-                <div class="card-body text-center">
-                    <h3><b>@ViewBag.ArticleCount</b></h3>
-                    <p>Total Articles</p>
-                </div>
-            </div>
-        </a>
-    </div>
-
-
-    <div class="col-md-3">
-        <a asp-controller="Home" asp-action="GetCustomers" class="text-white text-decoration-none">
-            <div class="card bg-primary mb-4 shadow-lg">
-                <div class="card-header text-center">
-                    <h5 class="card-title"><i class="fas fa-users"></i> Users</h5>
-                </div>
-                <div class="card-body text-center">
-                    <h3><b>@ViewBag.UserCount</b></h3>
-                    <p>Total Users</p>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="col-md-3">
-        <a asp-controller="Order" asp-action="Index" class="text-white text-decoration-none">
-            <div class="card bg-danger mb-4 shadow-lg">
-                <div class="card-header text-center">
-                    <h5 class="card-title"><i class="fas fa-shopping-cart"></i> Orders</h5>
-                </div>
-                <div class="card-body text-center">
-                    <h3><b>@ViewBag.OrderCount</b></h3>
-                    <p>Total Orders</p>
-                </div>
-            </div>
-        </a>
-    </div> 
 </div>
 
 @section Scripts {

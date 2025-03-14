@@ -52,28 +52,28 @@ namespace ProductCatalog_Repositories.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "799a81e6-2674-48d1-a487-e0374c7731ec",
+                            ConcurrencyStamp = "bb3b97cc-84ce-41ee-963d-290c923287a4",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "aef4f475-f9a0-48fc-8a38-7ae7a9ba33b1",
+                            ConcurrencyStamp = "51643e2b-d81f-43d4-a41e-347b5998a1d9",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
                             Id = "3",
-                            ConcurrencyStamp = "184d59f9-7676-4752-90d1-7cd3e6858aa7",
+                            ConcurrencyStamp = "368fe532-47e9-4fc7-bca7-0adc04dfcab6",
                             Name = "ContentManager",
                             NormalizedName = "CONTENTMANAGER"
                         },
                         new
                         {
                             Id = "4",
-                            ConcurrencyStamp = "67034421-7f15-42c9-9299-4267cd817202",
+                            ConcurrencyStamp = "f69f9564-ccec-404e-aa05-1ebf8c262777",
                             Name = "CustomerRelations",
                             NormalizedName = "CUSTOMERRELATIONS"
                         });
@@ -441,6 +441,9 @@ namespace ProductCatalog_Repositories.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CustomerId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Line1")
                         .HasColumnType("nvarchar(max)");
 
@@ -463,6 +466,8 @@ namespace ProductCatalog_Repositories.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("UserId");
 
@@ -572,12 +577,24 @@ namespace ProductCatalog_Repositories.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Customer");
@@ -587,15 +604,15 @@ namespace ProductCatalog_Repositories.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "46f54c77-163c-492a-963d-e1c46532694b",
+                            ConcurrencyStamp = "341d0562-eafb-4a90-bd2a-79eda3f20cf0",
                             Email = "admin@mail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN@MAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECF5/uPNzf3nAmd3qJtnLaGgZnp5xwX/F7mwbTcsqzV4U2eB/iKAXKi6/dC9cUyzWw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAfsTXNtWmXWYzFCahnFu3y/R7P4oI32bOKRlhdAERUaeQyuZpa7Uy76rK3UNTbGCg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7a287a3f-109c-4d0a-9c90-63dc9ace233f",
+                            SecurityStamp = "f28ea346-58ce-4933-9670-60eaafda8683",
                             TwoFactorEnabled = false,
                             UserName = "admin@mail.com",
                             FirstName = "Admin1",
@@ -704,6 +721,10 @@ namespace ProductCatalog_Repositories.Migrations
 
             modelBuilder.Entity("ProductCatolog_Core.Models.Order", b =>
                 {
+                    b.HasOne("ProductCatolog_Core.Models.Customer", null)
+                        .WithMany("Orders")
+                        .HasForeignKey("CustomerId");
+
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -761,6 +782,8 @@ namespace ProductCatalog_Repositories.Migrations
             modelBuilder.Entity("ProductCatolog_Core.Models.Customer", b =>
                 {
                     b.Navigation("Articles");
+
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }
