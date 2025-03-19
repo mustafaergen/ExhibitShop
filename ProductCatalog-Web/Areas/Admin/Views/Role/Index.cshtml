@@ -1,32 +1,33 @@
 ﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
+<head><link href="~/css/Admin/Role/index.css" rel="stylesheet" asp-append-version="true" /></head>
+<div class="container mt-5">
+    <h1 class="text-center text-primary mb-4">Manage Roles</h1>
 
-<h1>Manage Roles</h1>
+    <div class="text-center mb-4">
+        <a asp-action="CreateRole" asp-controller="Role" class="btn btn-success btn-lg">Create New Role</a>
+    </div>
 
-<div>
-    <a asp-action="CreateRole" asp-controller="Role" class="btn btn-success">Create New Role</a>
-</div>
-<br />
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Role Name</th>
-            <th class="text-center">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var role in Model)
-        {
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="thead-dark">
             <tr>
-                <td>@role.Name</td>
-                <td class="text-center">
-                    <a asp-action="EditRole" asp-controller="Role" asp-route-id="@role.Id" class="btn btn-warning btn-sm">Edit</a>
-                    <a asp-action="DeleteRole" asp-controller="Role" asp-route-id="@role.Id" class="btn btn-danger btn-sm ml-2">Delete</a>
-                </td>
+                <th>Role Name</th>
+                <th class="text-center">Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
-
-<div>
-    <a asp-action="GetCustomers" asp-controller="Home" class="btn btn-primary">Back to List</a>
+        </thead>
+        <tbody>
+            @foreach (var role in Model)
+            {
+                <tr>
+                    <td>@role.Name</td>
+                    <td class="text-center">
+                        <a asp-action="EditRole" asp-controller="Role" asp-route-id="@role.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="DeleteRole" asp-controller="Role" asp-route-id="@role.Id" class="btn btn-danger btn-sm ml-2">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-center mt-4">
+        <a asp-action="GetCustomers" asp-controller="Home" class="btn btn-primary btn-lg">Back to List</a>
+    </div>
 </div>

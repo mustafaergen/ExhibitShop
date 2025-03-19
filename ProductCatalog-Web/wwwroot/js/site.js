@@ -30,3 +30,4 @@ document.addEventListener("DOMContentLoaded", () => {
     cityElements.forEach(cityEl => getWeather(cityEl.textContent.trim()));
 });
 
+

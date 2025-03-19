@@ -3,19 +3,18 @@
 @{
     ViewData["Title"] = "RoleManager";
 }
-
-
+<head><link rel="stylesheet" href="~/css/Admin/Home/roleManager.css" asp-append-version="true"/></head>
 
 <div class="container mt-5">
-    <h1 class="text-center text-primary mb-4">Manage Roles For User</h1>
+    <h1 class="text-center mb-4">Manage Roles For User</h1>
     <hr />
 
     <form asp-action="RoleManager" method="post">
         <input type="hidden" asp-for="UserId" />
 
         <div class="my-3 text-center">
-            <span class="fw-bold fs-4 text-dark">User Id: <span class="text-primary">@Model.UserId</span></span><br />
-            <span class="fw-bold fs-4 text-dark">User Name: <span class="text-primary">@Model.UserName</span></span>
+            <span class="fw-bold fs-4 text-dark">User Id: <span class="">@Model.UserId</span></span><br />
+            <span class="fw-bold fs-4 text-dark">User Name: <span class="">@Model.UserName</span></span>
         </div>
 
         <hr />
@@ -39,14 +38,13 @@
                 }
             </tbody>
         </table>
-
         <div class="d-flex justify-content-between mt-4">
             <button type="submit" class="btn btn-success btn-lg w-45">
                 <i class="bi bi-save"></i> Save Changes
             </button>
-            <button type="submit" asp-action="GetCustomers" class="btn btn-outline-secondary btn-lg w-45">
+            <a asp-action="GetCustomers" class="btn btn-outline-secondary btn-lg w-45">
                 <i class="bi bi-arrow-left-circle"></i> Back to Customers
-            </button>
+            </a>
         </div>
     </form>
 </div>

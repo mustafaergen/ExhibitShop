@@ -1,109 +1,90 @@
 ﻿@using ProductCatolog_Core.Enums
-
 @model IEnumerable<ProductCatolog_Core.Models.Article>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Articles";
 }
 
-<h1>Blogs Controller</h1>
+<h1 class="text-center mb-4"style="color:white;"><i class="fas fa-newspaper"></i> Articles</h1>
 
-<div class="form-group mb-3">
-    <div class="row">
-        <div class="col">
-            <form asp-action="Index" method="get">
-                <input type="hidden" name="status"  value="@Status.Request"  />
-                <input type="submit" value="Show Request Articles" class="btn btn-success w-100" />
-            </form>
-        </div>
-        <div class="col">
-            <form asp-action="Index" method="get">
-                <input type="submit" value="Show All Articles" class="btn btn-primary w-100" />
-            </form>
-        </div>
+<div class="row mb-3">
+    <div class="col-md-6">
+        <form asp-action="Index" method="get">
+            <input type="hidden" name="status" value="@Status.Request" />
+            <button type="submit" class="btn w-100 " style="background-color: green; color: white;">
+                <i class="fas fa-eye"></i> Show Request Articles
+            </button>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <form asp-action="Index" method="get">
+            <button type="submit" class="btn w-100 " style="background-color: blue; color: white;">
+                <i class="fas fa-list"></i> Show All Articles
+            </button>
+        </form>
     </div>
 </div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Introduction)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Development)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Conclusion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl2)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl3)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                 <td style="white-space: normal; word-break: break-word; max-width: 100%;">
-                      <div style="max-width: 1500000px; max-height: 300px; overflow: auto; padding: 10px; border: 1px solid #ccc;">
-                        @Html.Raw(item.Introduction)
-                      </div>
-                </td>
-                <td style="white-space: normal; word-break: break-word; max-width: 100%;">
-                    <div style="max-width: 1500000px; max-height: 300px; overflow: auto; padding: 10px; border: 1px solid #ccc;">
-                        @Html.Raw(item.Development)
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm text-center">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">
+                        <i class="fas fa-file-alt"></i> @item.Name
+                    </h5>
+                    <p class="text-muted"><i class="fas fa-calendar-alt"></i> @item.CreatedDate.ToShortDateString()</p>
+                    <p><span class="badge bg-info">@item.Status</span></p>
+
+                    @if (!string.IsNullOrEmpty(item.ImageUrl1))
+                    {
+                        <img src="~/img/@item.ImageUrl1" class="img-fluid rounded mx-auto d-block" style="max-height: 150px;" alt="Article Image">
+                    }
+
+                    <button class="btn btn-outline-secondary btn-sm mt-3 toggle-details">
+                        <i class="fas fa-chevron-down"></i> View Details
+                    </button>
+
+                    <div class="article-details mt-3" style="display: none;">
+                        <div class="border p-2 rounded bg-light">
+                            <h6 class="fw-bold">Introduction</h6>
+                            <p>@Html.Raw(item.Introduction)</p>
+                        </div>
+                        <div class="border p-2 rounded bg-light mt-2">
+                            <h6 class="fw-bold">Development</h6>
+                            <p>@Html.Raw(item.Development)</p>
+                        </div>
+                        <div class="border p-2 rounded bg-light mt-2">
+                            <h6 class="fw-bold">Conclusion</h6>
+                            <p>@Html.Raw(item.Conclusion)</p>
+                        </div>
                     </div>
-                </td>
-                <td style="white-space: normal; word-break: break-word; max-width: 100%;">
-                    <div style="max-width: 1500000px; max-height: 300px; overflow: auto; padding: 10px; border: 1px solid #ccc;">
-                        @Html.Raw(item.Conclusion)
-                    </div>
-                </td>
-                <td>
-                    <img src="~/img/@item.ImageUrl1" alt="Image1" class="img-fluid" />
-                </td>
-                <td>
-                    <img src="~/img/@item.ImageUrl2" alt="Image1" class="img-fluid" />
-                </td>
-                <td>
-                    <img src="~/img/@item.ImageUrl3" alt="Image1" class="img-fluid" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) 
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                </div>
+
+                <div class="card-footer d-flex justify-content-between">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash-alt"></i> Delete
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('.toggle-details').forEach(button => {
+            button.addEventListener('click', function () {
+                let content = this.nextElementSibling;
+                content.style.display = content.style.display === "none" ? "block" : "none";
+                this.innerHTML = content.style.display === "none"
+                    ? '<i class="fas fa-chevron-down"></i> View Details'
+                    : '<i class="fas fa-chevron-up"></i> Hide Details';
+            });
+        });
+    </script>
+}

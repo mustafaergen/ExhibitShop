@@ -5,20 +5,22 @@
 }
 <head>
     <link href="~/css/Order/index.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@6.0.0/css/all.min.css" rel="stylesheet" />
 </head>
 
-<h1 class="mb-4 text-white">Orders</h1>
+<h1 class="mb-4 text-white text-center">Orders</h1>
 
 <div class="table-container">
-    <table class="table table-hover table-bordered table-striped">
-        <thead>
+    <table class="table table-hover table-bordered table-striped shadow-sm rounded text-white">
+        <thead class="thead-dark">
             <tr>
-                <th>Customer Name</th>
-                <th>Order Name</th>
-                <th>City</th>
-                <th>Status</th>
-                <th>Date</th>
-                <th>Actions</th>
+                <th class="text-center">Customer Name</th>
+                <th class="text-center">Order Name</th>
+                <th class="text-center">City</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">Date</th>
+                <th class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -26,9 +28,10 @@
             {
                 <tr>
 
-                    <td>@Html.DisplayFor(modelItem => item.OrderName)</td>
-                    <td>@Html.DisplayFor(modelItem => item.City)</td>
-                    <td>
+                    <td style="color:bisque;font-weight:bold" class="text-center">@Html.DisplayFor(modelItem => item.UserName)</td>
+                    <td style="color:bisque;font-weight:bold" class="text-center">@Html.DisplayFor(modelItem => item.OrderName)</td>
+                    <td style="color:bisque;font-weight:bold" class="text-center">@Html.DisplayFor(modelItem => item.City)</td>
+                    <td class="text-center">
                         @switch (item.OrderStatus)
                         {
                             case OrderStatus.OrderReceived:
@@ -57,8 +60,8 @@
                                 break;
                         }
                     </td>
-                    <td>@Html.DisplayFor(modelItem => item.OrderDate)</td>
-                    <td>
+                    <td style="color:bisque;font-weight:bold" class="text-center">@Html.DisplayFor(modelItem => item.OrderDate)</td>
+                    <td class="text-center">
                         <a asp-action="Detail" asp-route-OrderId="@item.OrderId" class="btn btn-sm btn-info me-2" title="View Details">
                             <i class="fas fa-eye"></i> View
                         </a>
@@ -76,18 +79,17 @@
 </div>
 
 <script>
-
     document.querySelectorAll('.table th').forEach((th, index) => {
-        th.addEventListener('click', () => {
-            const rows = Array.from(document.querySelectorAll('.table tbody tr'));
-            const isAscending = th.classList.contains('asc');
-            rows.sort((a, b) => {
-                const aText = a.children[index].textContent.trim();
-                const bText = b.children[index].textContent.trim();
-                return isAscending ? aText.localeCompare(bText) : bText.localeCompare(aText);
+    th.addEventListener('click', () => {
+        const rows = Array.from(document.querySelectorAll('.table tbody tr'));
+        const isAscending = th.classList.contains('asc');
+        rows.sort((a, b) => {
+            const aText = a.children[index].textContent.trim();
+            const bText = b.children[index].textContent.trim();
+            return isAscending ? aText.localeCompare(bText) : bText.localeCompare(aText);
             });
-            rows.forEach(row => document.querySelector('.table tbody').appendChild(row));
-            th.classList.toggle('asc', !isAscending);
+        rows.forEach(row => document.querySelector('.table tbody').appendChild(row));
+        th.classList.toggle('asc', !isAscending);
         });
     });
 </script>
