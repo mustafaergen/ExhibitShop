@@ -18,10 +18,10 @@
             <table class="table table-hover table-bordered align-middle">
                 <thead class="table-primary">
                     <tr class="text-center">
+                        <th>ID</th>
                         <th>Question</th>
                         <th>Answer</th>
                         <th>Question Type</th>
-                        <th>ID</th>
                         <th>Created Date</th>
                         <th>Question Status</th>
                         <th>Status</th>
@@ -32,10 +32,10 @@
                     @foreach (var item in Model)
                     {
                         <tr class="text-center">
+                            <td>@Html.DisplayFor(modelItem => item.Id)</td>
                             <td>@Html.DisplayFor(modelItem => item.Question)</td>
                             <td>@Html.DisplayFor(modelItem => item.Answer)</td>
                             <td>@item.QuestionType.Name</td>
-                            <td>@Html.DisplayFor(modelItem => item.Id)</td>
                             <td>@Html.DisplayFor(modelItem => item.CreatedDate)</td>
                             <td>@Html.DisplayFor(modelItem => item.QuestionStatus)</td>
                             <td>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ProductCatalog_Services.Contracts;
+using ProductCatolog_Core.Enums;
 using ProductCatolog_Core.Models;
 using ProductCatolog_Core.VMs;
 using System.Diagnostics.Metrics;
@@ -12,7 +13,6 @@ namespace ProductCatalog_Web.Controllers
         private readonly UserManager<Customer> _userManager;
         private readonly SignInManager<Customer> _signInManager;
         private readonly IServiceManager _serviceManager;
-
 
         public AccountController(UserManager<Customer> userManager, SignInManager<Customer> signInManager, IServiceManager serviceManager)
         {
@@ -32,19 +32,31 @@ namespace ProductCatalog_Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new Customer() { FirstName = model.FirstName, LastName = model.LastName, UserName = model.Email, Email = model.Email };
+                var user = new Customer
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    UserName = model.Email,
+                    Email = model.Email
+                };
+
                 var result = await _userManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
-                    var result2 = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
-                    if (result2.Succeeded)
+                    var newActivity = new Activities
                     {
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "\r\nFailed to log in!");
-                    }
+                        UserId = user.Id,
+                        ActivityDescription = $"{user.Email} registered successfully.",
+                        CreatedAt = DateTime.Now,
+                        ActivityStatus = ActivityStatus.UserActivity
+                    };
+
+                    await _serviceManager.ActivityService.AddActivity(newActivity);
+
+                    await _signInManager.SignInAsync(user, false);
+
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -54,6 +66,7 @@ namespace ProductCatalog_Web.Controllers
                     }
                 }
             }
+
             return View(model);
         }
 
@@ -86,11 +99,10 @@ namespace ProductCatalog_Web.Controllers
                     }
                 }
 
-                ModelState.AddModelError("", "\r\nInvalid login information!");
+                ModelState.AddModelError("", "Invalid login information!");
             }
             return View(model);
         }
-
 
         [HttpGet]
         public async Task<IActionResult> Logout()
@@ -99,11 +111,13 @@ namespace ProductCatalog_Web.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
         }
+
         [HttpGet]
         public IActionResult AccessDenied()
         {
             return View();
         }
+
         [HttpGet]
         public async Task<IActionResult> MyAccount()
         {
@@ -126,6 +140,7 @@ namespace ProductCatalog_Web.Controllers
             };
             return View(model);
         }
+
         [HttpPost]
         public async Task<IActionResult> MyAccount(ProfileVM model)
         {
@@ -167,13 +182,15 @@ namespace ProductCatalog_Web.Controllers
             TempData["SuccessMessage"] = "Profile updated successfully!";
             return RedirectToAction("MyAccount");
         }
+
         [HttpGet]
         public IActionResult ResetPassword()
         {
             return View();
         }
+
         [HttpPost]
-        [ValidateAntiForgeryToken] 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetPassword(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
@@ -191,6 +208,7 @@ namespace ProductCatalog_Web.Controllers
 
             return View();
         }
+
         [HttpGet]
         public IActionResult ResetPasswordConfirm(string token, string email)
         {
@@ -202,6 +220,7 @@ namespace ProductCatalog_Web.Controllers
             var model = new ResetPasswordVM { Token = token, Email = email };
             return View(model);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetPasswordConfirm(ResetPasswordVM model)

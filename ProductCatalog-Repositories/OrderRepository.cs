@@ -90,5 +90,10 @@ namespace ProductCatalog_Repositories
         {
             return _context.Orders.FirstOrDefault(x => x.OrderNumber == orderNumber);
         }
+
+        public async Task<IEnumerable<Order>> GettAllOrdersAsync()
+        {
+            return await _context.Orders.ToListAsync();
+        }
     }
 }

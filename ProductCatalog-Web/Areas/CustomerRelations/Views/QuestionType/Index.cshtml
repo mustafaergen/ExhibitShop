@@ -15,8 +15,8 @@
         <table class="table table-hover table-bordered shadow-sm">
             <thead class="table-primary">
                 <tr>
-                    <th>Name</th>
                     <th>ID</th>
+                    <th>Name</th>
                     <th>Created Date</th>
                     <th>Status</th>
                     <th class="text-center">Actions</th>
@@ -26,8 +26,8 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
                         <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
                         <td>@Html.DisplayFor(modelItem => item.CreatedDate)</td>
                         <td>
                             @if (item.Status == Status.Active)

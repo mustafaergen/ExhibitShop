@@ -1,69 +1,88 @@
 ﻿@{
-    ViewData["Title"] = "Dashboard";
+    var orderActivities = ViewBag.OrderActivity as List<ProductCatolog_Core.Models.Activities>;
+    var userActivities = ViewBag.UserActivity as List<ProductCatolog_Core.Models.Activities>;
 }
-
-<div class="container mt-4">
-    <div class="row g-4">
-        <div class="col-md-3">
-            <div class="card shadow-sm text-center p-3 bg-primary text-white">
-                <i class="fas fa-users fa-3x"></i>
-                <h5 class="mt-2">Total Customers</h5>
-                <h3>1,250</h3>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm text-center p-3 bg-warning text-white">
-                <i class="fas fa-ticket-alt fa-3x"></i>
-                <h5 class="mt-2">Open Tickets</h5>
-                <h3>85</h3>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm text-center p-3 bg-success text-white">
-                <i class="fas fa-question-circle fa-3x"></i>
-                <h5 class="mt-2">FAQs</h5>
-                <h3>120</h3>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm text-center p-3 bg-danger text-white">
-                <i class="fas fa-exclamation-circle fa-3x"></i>
-                <h5 class="mt-2">Urgent Issues</h5>
-                <h3>12</h3>
+<head><link rel="stylesheet" href="~/css/CustomerRelations/Home/index.css" /></head>
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="custom-card custom-card-primary">
+            <div class="card-content">
+                <div class="card-icon">
+                    <i class="fas fa-users fa-4x"></i>
+                </div>
+                <h5>Total Customers</h5>
+                <h3>@ViewBag.UserCount</h3>
             </div>
         </div>
     </div>
-
-    <div class="row mt-4">
-        <div class="col-md-6">
-            <div class="card shadow-sm p-3">
-                <h5 class="card-title"><i class="fas fa-chart-bar"></i> Ticket Status Overview</h5>
-                <canvas id="ticketChart"></canvas>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card shadow-sm p-3">
-                <h5 class="card-title"><i class="fas fa-chart-pie"></i> Customer Demographics</h5>
-                <canvas id="customerChart"></canvas>
+    <div class="col-md-4">
+        <div class="custom-card custom-card-warning">
+            <div class="card-content">
+                <div class="card-icon">
+                    <i class="fas fa-question fa-4x"></i>
+                </div>
+                <h5>FAQs</h5>
+                <h3>@ViewBag.QuestionCount</h3>
             </div>
         </div>
     </div>
-
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <div class="card shadow-sm p-3">
-                <h5><i class="fas fa-history"></i> Recent Activities</h5>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">John Doe opened a new support ticket.</li>
-                    <li class="list-group-item">Alice updated the FAQ section.</li>
-                    <li class="list-group-item">Mark resolved a customer complaint.</li>
-                </ul>
+    <div class="col-md-4">
+        <div class="custom-card custom-card-success">
+            <div class="card-content">
+                <div class="card-icon">
+                    <i class="fas fa-dollar-sign fa-4x"></i>
+                </div>
+                <h5>Total Earnings</h5>
+                <h3>@ViewBag.TotalEarnings.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))</h3>
             </div>
         </div>
     </div>
 </div>
 
-@section Scripts {
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="~/js/customerRelations.js" asp-append-version="true"></script>
-}
+
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card shadow-sm p-3">
+            <h5><i class="fas fa-history"></i> Customer Order Activities</h5>
+            <ul class="list-group list-group-flush">
+                @if (orderActivities != null && orderActivities.Any())
+                {
+                    @foreach (var activity in orderActivities)
+                    {
+                        <li class="list-group-item">
+                            <strong>@activity.CreatedAt.ToString("dd.MM.yyyy HH:mm")</strong> - @activity.ActivityDescription
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="list-group-item text-muted">No recent order activities.</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card shadow-sm p-3">
+            <h5><i class="fas fa-user-clock"></i> Recent User Activities</h5>
+            <ul class="list-group list-group-flush">
+                @if (userActivities != null && userActivities.Any())
+                {
+                    @foreach (var activity in userActivities)
+                    {
+                        <li class="list-group-item">
+                            <strong>@activity.CreatedAt.ToString("dd.MM.yyyy HH:mm")</strong> - @activity.ActivityDescription
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="list-group-item text-muted">No recent user activities.</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

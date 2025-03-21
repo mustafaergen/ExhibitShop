@@ -20,6 +20,7 @@ namespace ProductCatalog_Services.Contracts
         UserManager<Customer> UserManager { get; }
         IQuestionsService QuestionsService { get; }
         IQuestionTypeService QuestionTypeService { get; }
+        IActivityService ActivityService { get; }
 
     }
 }

@@ -4,7 +4,6 @@
 @{
     ViewData["Title"] = "Questions";
 }
-
 <h1 class="text-center my-4">Customer Questions</h1>
 
 <p>
@@ -36,9 +35,18 @@
                     @Html.DisplayFor(modelItem => item.Question)
                 </td>
                 <td>
+                    @if (string.IsNullOrEmpty(item.Answer))
+                    {
+                        <div class="alert alert-warning">
+                            <strong>No answer available yet.</strong>
+                        </div>
+                    }
+                    else
+                    {
                         <div class="alert alert-success">
                             @Html.DisplayFor(modelItem => item.Answer)
                         </div>
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.QuestionType.Name)
@@ -56,14 +64,20 @@
     <h3>Ask a New Question</h3>
     <form asp-action="Create">
         <div class="form-group">
-            <label for="Question">Your Question</label>
+            <label for="Question" class="font-weight-bold">Your Question</label>
             <textarea id="Question" name="Question" class="form-control" rows="3"></textarea>
         </div>
         <div class="form-group">
-            <label for="QuestionTypeId">Question Type</label>
+            <label for="QuestionTypeId" class="font-weight-bold">Question Type</label>
             <select id="QuestionTypeId" name="QuestionTypeId" class="form-control">
+                <option value="">Select Question Type</option>
+                @foreach (var type in ViewBag.QuestionTypes)
+                {
+                    <option value="@type.Value">@type.Text</option>
+                }
             </select>
         </div>
         <button type="submit" class="btn btn-success">Submit Question</button>
     </form>
 }
+

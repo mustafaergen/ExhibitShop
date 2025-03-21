@@ -21,5 +21,6 @@ namespace ProductCatalog_Services.Contracts
         void SaveOrder(Order order);
         int NumberOfInProcess { get; }
         string GenerateOrderNumber();
+        Task<double> CalculateTotalEarningsAsync();
     }
 }

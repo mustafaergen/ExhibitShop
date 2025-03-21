@@ -47,5 +47,6 @@ namespace ProductCatalog_Services
         {
             return _manager.CartRepository.UpdateAsync(cart);
         }
+
     }
 }

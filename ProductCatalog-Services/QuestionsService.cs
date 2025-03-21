@@ -44,6 +44,7 @@ namespace ProductCatalog_Services
 
         public Questions GetQuestionsById(int id)
         {
+
             var question = _manager.QuestionsRepository.FindById(id);
             if (question == null)
             {

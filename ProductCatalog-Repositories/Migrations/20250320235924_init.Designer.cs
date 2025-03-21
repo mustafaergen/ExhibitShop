@@ -12,7 +12,7 @@ using ProductCatalog_Repositories.Contexts;
 namespace ProductCatalog_Repositories.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20250314212246_init")]
+    [Migration("20250320235924_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,28 +54,28 @@ namespace ProductCatalog_Repositories.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "bb3b97cc-84ce-41ee-963d-290c923287a4",
+                            ConcurrencyStamp = "28bc68ed-4062-4f00-bf64-1cda3be69e93",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "51643e2b-d81f-43d4-a41e-347b5998a1d9",
+                            ConcurrencyStamp = "9ac08bad-3cd8-433c-9e0e-681f32ec01f1",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
                             Id = "3",
-                            ConcurrencyStamp = "368fe532-47e9-4fc7-bca7-0adc04dfcab6",
+                            ConcurrencyStamp = "90d726e3-25c7-414f-ae10-086af5a89cae",
                             Name = "ContentManager",
                             NormalizedName = "CONTENTMANAGER"
                         },
                         new
                         {
                             Id = "4",
-                            ConcurrencyStamp = "f69f9564-ccec-404e-aa05-1ebf8c262777",
+                            ConcurrencyStamp = "ff5f3979-f2ed-49b4-a313-8401fa50b1cc",
                             Name = "CustomerRelations",
                             NormalizedName = "CUSTOMERRELATIONS"
                         });
@@ -263,6 +263,33 @@ namespace ProductCatalog_Repositories.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("ProductCatolog_Core.Models.Activities", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ActivityDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ActivityStatus")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Activities");
                 });
 
             modelBuilder.Entity("ProductCatolog_Core.Models.Article", b =>
@@ -528,7 +555,6 @@ namespace ProductCatalog_Repositories.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Question")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("QuestionStatus")
@@ -606,15 +632,15 @@ namespace ProductCatalog_Repositories.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "341d0562-eafb-4a90-bd2a-79eda3f20cf0",
+                            ConcurrencyStamp = "42e8280f-7943-46b9-bebe-579c22c29937",
                             Email = "admin@mail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN@MAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAfsTXNtWmXWYzFCahnFu3y/R7P4oI32bOKRlhdAERUaeQyuZpa7Uy76rK3UNTbGCg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEB5uIuiZj4bFQEtiKFU8PuQC/xKfOV81fSTurtI5t0GGXn24Ukekr5wPebf2gOuNhQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f28ea346-58ce-4933-9670-60eaafda8683",
+                            SecurityStamp = "e19ec9d9-e81c-48da-a9bb-fd69bc75ff51",
                             TwoFactorEnabled = false,
                             UserName = "admin@mail.com",
                             FirstName = "Admin1",

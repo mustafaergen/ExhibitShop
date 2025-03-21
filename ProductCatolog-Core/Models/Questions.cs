@@ -8,7 +8,7 @@ namespace ProductCatolog_Core.Models
 {
     public class Questions : BaseEntity
     {
-        public string Question { get; set; } 
+        public string? Question { get; set; } 
         public string? Answer { get; set; }
         public QuestionStatus QuestionStatus { get; set; } = QuestionStatus.Customer;
         public int? QuestionTypeId { get; set; }

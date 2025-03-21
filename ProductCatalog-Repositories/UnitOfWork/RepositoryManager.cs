@@ -19,10 +19,11 @@ namespace ProductCatalog_Repositories.UnitOfWork
         private readonly ICartRepository _cartRepository;
         private readonly IQuestionsRepository _questionsRepository;
         private readonly IQuestionTypeRepository _questionTypeRepository;
+        private readonly IActivityRepository _activityRepository;
 
         public RepositoryManager
             (RepositoryContext context, IProductRepository productRepository, IArticleRepository articleRepository, ICategoryRepository categoryRepository, IOrderRepository orderRepository,
-        IOffersRepository offersRepository,ICartRepository cartRepository, IQuestionsRepository questionsRepository, IQuestionTypeRepository questionTypeRepository)
+        IOffersRepository offersRepository, ICartRepository cartRepository, IQuestionsRepository questionsRepository, IQuestionTypeRepository questionTypeRepository, IActivityRepository activityRepository)
         {
             _context = context;
             _productRepository = productRepository;
@@ -33,6 +34,7 @@ namespace ProductCatalog_Repositories.UnitOfWork
             _cartRepository = cartRepository;
             _questionsRepository = questionsRepository;
             _questionTypeRepository = questionTypeRepository;
+            _activityRepository = activityRepository;
         }
 
         public IProductRepository ProductRepository => _productRepository;
@@ -46,9 +48,15 @@ namespace ProductCatalog_Repositories.UnitOfWork
 
         public IQuestionTypeRepository QuestionTypeRepository => _questionTypeRepository;
 
+        public IActivityRepository ActivityRepository => _activityRepository;
+
         public void Save()
         {
             _context.SaveChanges();
+        }
+        public async Task SaveAsync() 
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -10,6 +10,22 @@ namespace ProductCatalog_Repositories.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Activities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ActivityDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ActivityStatus = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Activities", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -295,7 +311,7 @@ namespace ProductCatalog_Repositories.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Question = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Question = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Answer = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     QuestionStatus = table.Column<int>(type: "int", nullable: false),
                     QuestionTypeId = table.Column<int>(type: "int", nullable: true),
@@ -386,16 +402,16 @@ namespace ProductCatalog_Repositories.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1", "bb3b97cc-84ce-41ee-963d-290c923287a4", "Admin", "ADMIN" },
-                    { "2", "51643e2b-d81f-43d4-a41e-347b5998a1d9", "Customer", "CUSTOMER" },
-                    { "3", "368fe532-47e9-4fc7-bca7-0adc04dfcab6", "ContentManager", "CONTENTMANAGER" },
-                    { "4", "f69f9564-ccec-404e-aa05-1ebf8c262777", "CustomerRelations", "CUSTOMERRELATIONS" }
+                    { "1", "28bc68ed-4062-4f00-bf64-1cda3be69e93", "Admin", "ADMIN" },
+                    { "2", "9ac08bad-3cd8-433c-9e0e-681f32ec01f1", "Customer", "CUSTOMER" },
+                    { "3", "90d726e3-25c7-414f-ae10-086af5a89cae", "ContentManager", "CONTENTMANAGER" },
+                    { "4", "ff5f3979-f2ed-49b4-a313-8401fa50b1cc", "CustomerRelations", "CUSTOMERRELATIONS" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Address", "City", "ConcurrencyStamp", "Country", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PostalCode", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 0, null, null, "341d0562-eafb-4a90-bd2a-79eda3f20cf0", null, "Customer", "admin@mail.com", true, "Admin1", "Admin1", false, null, "ADMIN@MAIL.COM", "ADMIN@MAIL.COM", "AQAAAAEAACcQAAAAEAfsTXNtWmXWYzFCahnFu3y/R7P4oI32bOKRlhdAERUaeQyuZpa7Uy76rK3UNTbGCg==", null, false, null, "f28ea346-58ce-4933-9670-60eaafda8683", false, "admin@mail.com" });
+                values: new object[] { "1", 0, null, null, "42e8280f-7943-46b9-bebe-579c22c29937", null, "Customer", "admin@mail.com", true, "Admin1", "Admin1", false, null, "ADMIN@MAIL.COM", "ADMIN@MAIL.COM", "AQAAAAEAACcQAAAAEB5uIuiZj4bFQEtiKFU8PuQC/xKfOV81fSTurtI5t0GGXn24Ukekr5wPebf2gOuNhQ==", null, false, null, "e19ec9d9-e81c-48da-a9bb-fd69bc75ff51", false, "admin@mail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -499,6 +515,9 @@ namespace ProductCatalog_Repositories.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Activities");
+
             migrationBuilder.DropTable(
                 name: "Articles");
 

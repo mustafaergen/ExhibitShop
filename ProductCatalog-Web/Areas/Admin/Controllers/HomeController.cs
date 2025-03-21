@@ -34,13 +34,6 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
             ViewBag.OrderCount = _serviceManager.OrderService.GettAllOrders().Count();
             ViewBag.ArticleCount = _serviceManager.ArticlesService.GetAllArticle().Count();
             ViewBag.OffersCount = _serviceManager.OffersService.GetOffers().Count();
-
-            ViewBag.CategoryList = _serviceManager.CategoryService.GetCategories();
-            ViewBag.OrderList = _serviceManager.OrderService.GettAllOrders();
-            ViewBag.ProductList = _serviceManager.ProductService.GetAllProducts();
-            ViewBag.ArticleList = _serviceManager.ArticlesService.GetAllArticle();
-            ViewBag.UserList = await _userManager.Users.ToListAsync();
-
             return View();
         }
 
@@ -143,9 +136,5 @@ namespace ProductCatalog_Web.Areas.Admin.Controllers
             return new SelectList(_serviceManager.ArticlesService.GetAllArticle(), "Id", "Name");
         }
         
-        public IActionResult Settings()
-        {
-            return View();
-        }
     }
 }

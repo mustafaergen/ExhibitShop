@@ -63,6 +63,9 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-home"></i> Customer Home Page</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Account" asp-action="MyAccount">
                                     <i class="fa-solid fa-user"></i> My Account (@User.Identity.Name)
                                 </a>

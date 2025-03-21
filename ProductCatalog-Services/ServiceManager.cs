@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using ProductCatalog_Services.Contracts;
 using ProductCatolog_Core.Models;
+using System.Runtime.CompilerServices;
 
 namespace ProductCatalog_Services
 {
@@ -16,8 +17,9 @@ namespace ProductCatalog_Services
         private readonly UserManager<Customer> _userManager;
         private readonly IQuestionsService _questionsService;
         private readonly IQuestionTypeService _questionTypeService;
+        private readonly IActivityService _activityService;
 
-        public ServiceManager(IProductService productService, IArticleService articleService, ICategoryService categoryService, IOrderService orderService,IOffersService offersService, UserManager<Customer> userManager, IEmailService emailService, ICartService cartService, IQuestionsService questionsService, IQuestionTypeService questionTypeService)
+        public ServiceManager(IProductService productService, IArticleService articleService, ICategoryService categoryService, IOrderService orderService, IOffersService offersService, UserManager<Customer> userManager, IEmailService emailService, ICartService cartService, IQuestionsService questionsService, IQuestionTypeService questionTypeService, IActivityService activityService)
         {
             _productService = productService;
             _articleService = articleService;
@@ -29,6 +31,7 @@ namespace ProductCatalog_Services
             _cartService = cartService;
             _questionsService = questionsService;
             _questionTypeService = questionTypeService;
+            _activityService = activityService;
         }
 
         public IProductService ProductService => _productService;
@@ -45,5 +48,7 @@ namespace ProductCatalog_Services
         public IQuestionsService QuestionsService => _questionsService;
 
         public IQuestionTypeService QuestionTypeService => _questionTypeService;
+
+        public IActivityService ActivityService => _activityService;
     }
 }

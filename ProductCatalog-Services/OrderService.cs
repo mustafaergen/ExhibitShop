@@ -2,7 +2,9 @@
 using ProductCatalog_Repositories.UnitOfWork;
 using ProductCatalog_Services.Contracts;
 using ProductCatolog_Core.DTOs;
+using ProductCatolog_Core.Enums;
 using ProductCatolog_Core.Models;
+using ProductCatolog_Core.VMs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,5 +84,21 @@ namespace ProductCatalog_Services
                 throw new Exception("Order is not found");
             }
         }
+        public async Task<double> CalculateTotalEarningsAsync()
+        {
+            var orders = await _manager.OrderRepository.GettAllOrdersAsync();
+            double totalEarnings = 0;
+
+            foreach (var order in orders)
+            {
+                foreach (var cartLine in order.Lines)
+                {
+                    totalEarnings += (double)(cartLine.Quantity * cartLine.Price);
+                }
+            }
+
+            return totalEarnings;
+        }
+
     }
 }

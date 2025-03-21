@@ -1,0 +1,75 @@
+﻿/* General card styles */
+.custom-card {
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.05));
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+
+    .custom-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+/* Icon styles */
+.card-icon {
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: inline-block;
+    padding: 15px;
+    color: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+    .card-icon i {
+        font-size: 40px;
+    }
+
+/* Primary card color */
+.custom-card-primary {
+    background: #1E3D58;
+}
+
+    .custom-card-primary .card-content h5 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .custom-card-primary .card-content h3 {
+        font-size: 32px;
+        font-weight: 700;
+    }
+
+/* Warning card color */
+.custom-card-warning {
+    background: #F79C42;
+}
+
+    .custom-card-warning .card-content h5 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .custom-card-warning .card-content h3 {
+        font-size: 32px;
+        font-weight: 700;
+    }
+
+/* Success card color */
+.custom-card-success {
+    background: #1E832C;
+}
+
+    .custom-card-success .card-content h5 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .custom-card-success .card-content h3 {
+        font-size: 32px;
+        font-weight: 700;
+    }

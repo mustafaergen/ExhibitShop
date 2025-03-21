@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductCatalog_Services.Contracts;
+using ProductCatolog_Core.Enums;
 using ProductCatolog_Core.Models;
 
 namespace ProductCatalog_Web.Controllers
@@ -41,6 +42,14 @@ namespace ProductCatalog_Web.Controllers
             if (ModelState.IsValid)
             {
                 _serviceManager.OrderService.SaveOrder(order);
+                var activity =  new Activities
+                {
+                    UserId = order.UserId,
+                    ActivityDescription = $"User {order.Name} placed a new order.",
+                    CreatedAt = DateTime.Now,
+                    ActivityStatus = ActivityStatus.OrderActivity
+                };
+                _serviceManager.ActivityService.AddActivity(activity);
                 var subject = "[ExhibitShop] - Your Order Has Been Successfully Placed!";
                 var body = $"Dear {user.FirstName+" "+user.LastName},\n\nThank you for your order! Your order number is {order.OrderNumber}\n\n\n\n&copy; {DateTime.Now.Year} ExhibitShop. All Rights Reserved.";
                 await _serviceManager.EmailService.SendEmailAsync(user.Email, subject, body);

@@ -21,5 +21,6 @@ namespace ProductCatalog_Repositories.Contracts
         void SaveOrder(Order order);
         int NumberOfInProcess { get; }
         string GenerateOrderNumber();
+        Task<IEnumerable<Order>> GettAllOrdersAsync();
     }
 }

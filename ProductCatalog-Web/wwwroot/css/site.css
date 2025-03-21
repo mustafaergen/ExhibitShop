@@ -1,15 +1,22 @@
-html {
-  font-size: 14px;
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+.container {
+    flex: 1;
 }
 
+footer {
+    background-color: #f8f9fa;
+    padding: 15px 0;
+    text-align: center;
+    width: 100%;
+}
