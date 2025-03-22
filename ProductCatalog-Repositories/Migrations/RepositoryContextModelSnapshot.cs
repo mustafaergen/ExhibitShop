@@ -52,28 +52,28 @@ namespace ProductCatalog_Repositories.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "28bc68ed-4062-4f00-bf64-1cda3be69e93",
+                            ConcurrencyStamp = "c01f08fb-9b0b-4d85-9ee2-c4f1efe65f84",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "9ac08bad-3cd8-433c-9e0e-681f32ec01f1",
+                            ConcurrencyStamp = "ba9f696a-ae78-4ff7-8c56-f1bffdd050f0",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
                             Id = "3",
-                            ConcurrencyStamp = "90d726e3-25c7-414f-ae10-086af5a89cae",
+                            ConcurrencyStamp = "01cfdd35-176e-4cb3-810b-218a2d35b7cf",
                             Name = "ContentManager",
                             NormalizedName = "CONTENTMANAGER"
                         },
                         new
                         {
                             Id = "4",
-                            ConcurrencyStamp = "ff5f3979-f2ed-49b4-a313-8401fa50b1cc",
+                            ConcurrencyStamp = "afba246b-afe4-47f0-8a56-de215e7a7c66",
                             Name = "CustomerRelations",
                             NormalizedName = "CUSTOMERRELATIONS"
                         });
@@ -630,15 +630,15 @@ namespace ProductCatalog_Repositories.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "42e8280f-7943-46b9-bebe-579c22c29937",
+                            ConcurrencyStamp = "ff3786cb-f735-49af-b28f-611648a184a9",
                             Email = "admin@mail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN@MAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEB5uIuiZj4bFQEtiKFU8PuQC/xKfOV81fSTurtI5t0GGXn24Ukekr5wPebf2gOuNhQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEE0zJUOE7dhUBv9/bsnQg42/i0e8J0UV7HrEtYoGvlNq7Hm6JPwMki9s7qsTq5bNAg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e19ec9d9-e81c-48da-a9bb-fd69bc75ff51",
+                            SecurityStamp = "653f498e-95fe-4d75-93cd-0966c80931d1",
                             TwoFactorEnabled = false,
                             UserName = "admin@mail.com",
                             FirstName = "Admin1",
@@ -778,7 +778,7 @@ namespace ProductCatalog_Repositories.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("QuestionType");
 

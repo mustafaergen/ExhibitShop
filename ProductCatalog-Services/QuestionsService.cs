@@ -38,7 +38,8 @@ namespace ProductCatalog_Services
 
         public IEnumerable<Questions> GetQuestions()
         {
-            return _manager.QuestionsRepository.FindAll().ToList();
+            
+            return _manager.QuestionsRepository.GetQuestions();
             
         }
 

@@ -8,6 +8,13 @@ public class QuestionsRepository : RepositoryBase<Questions>, IQuestionsReposito
 {
     public QuestionsRepository(RepositoryContext context) : base(context)
     {
+
     }
 
+    
+
+    List<Questions> IQuestionsRepository.GetQuestions()
+    {
+        return _context.Questions.Include(q => q.QuestionType).ToList();
+    }
 }

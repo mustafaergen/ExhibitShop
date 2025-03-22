@@ -326,7 +326,8 @@ namespace ProductCatalog_Repositories.Migrations
                         name: "FK_Questions_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Questions_QuestionTypes_QuestionTypeId",
                         column: x => x.QuestionTypeId,
@@ -402,16 +403,16 @@ namespace ProductCatalog_Repositories.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1", "28bc68ed-4062-4f00-bf64-1cda3be69e93", "Admin", "ADMIN" },
-                    { "2", "9ac08bad-3cd8-433c-9e0e-681f32ec01f1", "Customer", "CUSTOMER" },
-                    { "3", "90d726e3-25c7-414f-ae10-086af5a89cae", "ContentManager", "CONTENTMANAGER" },
-                    { "4", "ff5f3979-f2ed-49b4-a313-8401fa50b1cc", "CustomerRelations", "CUSTOMERRELATIONS" }
+                    { "1", "c01f08fb-9b0b-4d85-9ee2-c4f1efe65f84", "Admin", "ADMIN" },
+                    { "2", "ba9f696a-ae78-4ff7-8c56-f1bffdd050f0", "Customer", "CUSTOMER" },
+                    { "3", "01cfdd35-176e-4cb3-810b-218a2d35b7cf", "ContentManager", "CONTENTMANAGER" },
+                    { "4", "afba246b-afe4-47f0-8a56-de215e7a7c66", "CustomerRelations", "CUSTOMERRELATIONS" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Address", "City", "ConcurrencyStamp", "Country", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PostalCode", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 0, null, null, "42e8280f-7943-46b9-bebe-579c22c29937", null, "Customer", "admin@mail.com", true, "Admin1", "Admin1", false, null, "ADMIN@MAIL.COM", "ADMIN@MAIL.COM", "AQAAAAEAACcQAAAAEB5uIuiZj4bFQEtiKFU8PuQC/xKfOV81fSTurtI5t0GGXn24Ukekr5wPebf2gOuNhQ==", null, false, null, "e19ec9d9-e81c-48da-a9bb-fd69bc75ff51", false, "admin@mail.com" });
+                values: new object[] { "1", 0, null, null, "ff3786cb-f735-49af-b28f-611648a184a9", null, "Customer", "admin@mail.com", true, "Admin1", "Admin1", false, null, "ADMIN@MAIL.COM", "ADMIN@MAIL.COM", "AQAAAAEAACcQAAAAEE0zJUOE7dhUBv9/bsnQg42/i0e8J0UV7HrEtYoGvlNq7Hm6JPwMki9s7qsTq5bNAg==", null, false, null, "653f498e-95fe-4d75-93cd-0966c80931d1", false, "admin@mail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

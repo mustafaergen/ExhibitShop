@@ -11,5 +11,6 @@ namespace ProductCatalog_Repositories.Contracts
 {
     public interface IQuestionsRepository : IRepositoryBase<Questions>
     {
+        List<Questions> GetQuestions();
     }
 }

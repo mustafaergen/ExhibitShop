@@ -13,7 +13,8 @@ namespace ProductCatalog_Repositories.Config
     {
         public void Configure(EntityTypeBuilder<Questions> builder)
         {
-            builder.HasOne(o => o.User).WithMany().HasForeignKey(o => o.UserId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(o => o.User).WithMany().HasForeignKey(o => o.UserId).OnDelete(DeleteBehavior.SetNull);
+            builder.HasOne(t => t.QuestionType).WithMany(q => q.Questions).HasForeignKey(x => x.QuestionTypeId);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace ProductCatolog_Core.Models
         public string? Question { get; set; } 
         public string? Answer { get; set; }
         public QuestionStatus QuestionStatus { get; set; } = QuestionStatus.Customer;
-        public int? QuestionTypeId { get; set; }
+        public int? QuestionTypeId { get; set; } 
         public virtual QuestionType? QuestionType { get; set; }
         public string? UserId { get; set; }
         public virtual IdentityUser? User { get; set; }

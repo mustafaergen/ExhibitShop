@@ -1,0 +1,88 @@
+﻿/* Card Styling */
+.custom-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #ffffff;
+    min-height: 350px; /* Kartın minimum yüksekliğini arttırdım */
+}
+
+    .custom-card .card-header {
+        background-color: #f8f9fa;
+        font-weight: bold;
+        font-size: 1.4em; /* Başlık boyutunu büyüttüm */
+        padding: 20px;
+    }
+
+/* Table Styling */
+.custom-table th,
+.custom-table td {
+    vertical-align: middle;
+    padding: 12px; /* Hücrelere padding ekledim */
+    font-size: 1.1em; /* Tablo yazı boyutunu büyüttüm */
+}
+
+.custom-table th {
+    text-align: center;
+    background-color: #343a40;
+    color: #fff;
+}
+
+/* Badge Styling */
+.bg-success {
+    background-color: #28a745 !important;
+}
+
+.bg-warning {
+    background-color: #ffc107 !important;
+}
+
+.bg-danger {
+    background-color: #dc3545 !important;
+}
+
+/* Image Styling */
+.custom-table img {
+    width: 60px; /* Resim boyutunu büyüttüm */
+    height: 60px;
+    object-fit: cover;
+}
+
+/* Responsive Design Adjustments */
+@media (max-width: 1200px) {
+    .col-lg-3 {
+        flex: 0 0 48%; /* İki sütun yapalım */
+        max-width: 48%;
+    }
+
+    .custom-card {
+        min-height: 400px; /* Kartın minimum yüksekliğini arttırdım */
+    }
+}
+
+@media (max-width: 992px) {
+    .col-md-4 {
+        flex: 0 0 48%; /* Tabletlerde iki sütun yapalım */
+        max-width: 48%;
+    }
+
+    .custom-table {
+        font-size: 1em; /* Tabloyu daha rahat okunabilir hale getirmek için büyüttüm */
+    }
+}
+
+@media (max-width: 768px) {
+    .col-sm-6 {
+        flex: 0 0 100%; /* Mobilde tek sütun yapalım */
+        max-width: 100%;
+    }
+
+    .custom-table img {
+        width: 50px; /* Resim boyutunu mobilde biraz daha büyük yaptım */
+        height: 50px;
+    }
+
+    .custom-card {
+        margin-bottom: 20px; /* Kartlar arasında daha fazla boşluk */
+    }
+}

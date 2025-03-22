@@ -35,7 +35,15 @@ namespace ProductCatalog_Web.Controllers
             var userId = _serviceManager.UserManager.GetUserId(User);
             if (ModelState.IsValid)
             {
-                model.Status = Status.Active;
+                if (User.IsInRole("Customer"))
+                {
+                    model.QuestionStatus = QuestionStatus.CustomerRelations; 
+                }
+                else if (User.IsInRole("CustomerRelations"))
+                {
+                    model.QuestionStatus = QuestionStatus.CustomerRelations;
+                }
+
                 model.UserId = userId;
                 _serviceManager.QuestionsService.CreateQuestions(model);
                 return RedirectToAction("Index");
@@ -44,6 +52,7 @@ namespace ProductCatalog_Web.Controllers
             ViewBag.QuestionTypes = new SelectList(_serviceManager.QuestionTypeService.GetQuestionTypes(), "Id", "Name");
             return View(model);
         }
+
         [HttpGet]
         public IActionResult Edit(int id)
         {

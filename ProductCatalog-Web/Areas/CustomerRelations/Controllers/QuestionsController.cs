@@ -20,7 +20,8 @@ namespace ProductCatalog_Web.Areas.CustomerRelations.Controllers
 
         public IActionResult Index()
         {
-            return View(_serviceManager.QuestionsService.GetQuestions());
+            var question = _serviceManager.QuestionsService.GetQuestions();
+            return View(question);
         }
         [HttpGet]
         public IActionResult Create()
@@ -35,7 +36,15 @@ namespace ProductCatalog_Web.Areas.CustomerRelations.Controllers
             var userId = _serviceManager.UserManager.GetUserId(User);
             if (ModelState.IsValid)
             {
-                model.Status = Status.Active;
+                if (User.IsInRole("Customer"))
+                {
+                    model.QuestionStatus = QuestionStatus.Customer;
+                }
+                else if (User.IsInRole("CustomerRelations"))
+                {
+                    model.QuestionStatus = QuestionStatus.CustomerRelations;
+                }
+
                 model.UserId = userId;
                 _serviceManager.QuestionsService.CreateQuestions(model);
                 return RedirectToAction("Index");
@@ -44,6 +53,7 @@ namespace ProductCatalog_Web.Areas.CustomerRelations.Controllers
             ViewBag.QuestionTypes = new SelectList(_serviceManager.QuestionTypeService.GetQuestionTypes(), "Id", "Name");
             return View(model);
         }
+
         [HttpGet]
         public IActionResult Edit(int id)
         {
